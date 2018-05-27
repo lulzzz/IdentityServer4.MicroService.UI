@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>logout Redirect Callback</title>
+</head>
+<body>
+    <script src="/dist/vendor.min.js"></script>
+    <script>
+        var oidc = new Oidc.UserManager();
+        Oidc.Log.logger = console;
+        Oidc.Log.level = Oidc.Log.INFO;
+
+        oidc.clearStaleState().then(function () {
+            console.log("clearStateState success");
+        }).catch(function (e) {
+            console.log("clearStateState error", e.message);
+        });
+
+        oidc.signoutRedirectCallback().then(function (resp) {
+            console.log("signed out", resp);
+            location.href = '/login.html';
+        }).catch(function (err) {
+            console.log(err);
+        });
+    </script>
+</body>
+</html>

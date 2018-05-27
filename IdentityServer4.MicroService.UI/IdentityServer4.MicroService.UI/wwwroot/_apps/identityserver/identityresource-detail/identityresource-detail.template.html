@@ -1,0 +1,97 @@
+﻿<div class="container-fluid">
+    <loading ng-show="$ctrl.loading_getDetail"></loading>
+
+    <h1 ng-show="$ctrl.id>0">用户资源详情</h1>
+    <h1 ng-show="$ctrl.id==0">创建用户资源</h1>
+
+    <form ng-submit="$ctrl.createOrUpdate()">
+
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        基本信息
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>名称</label>
+                            <input class="form-control" type="text" ng-model="$ctrl.data.name" maxlength="200" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>显示名称</label>
+                            <input class="form-control" type="text" ng-model="$ctrl.data.displayName" maxlength="200" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>资源介绍</label>
+                            <input class="form-control" type="text" ng-model="$ctrl.data.description" maxlength="500" />
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="apiResourceEnabled"
+                                   ng-checked="$ctrl.data.enabled" ng-model="$ctrl.data.enabled">
+                            <label class="form-check-label" for="apiResourceEnabled">
+                                启用
+                            </label>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="apiResourceRequired"
+                                   ng-checked="$ctrl.data.required" ng-model="$ctrl.data.required">
+                            <label class="form-check-label" for="apiResourceRequired">
+                                必须
+                            </label>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="apiResourceEmphasize"
+                                   ng-checked="$ctrl.data.emphasize" ng-model="$ctrl.data.emphasize">
+                            <label class="form-check-label" for="apiResourceEmphasize">
+                                强调
+                            </label>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="apiResourceShowInDiscoveryDocument"
+                                   ng-checked="$ctrl.data.showInDiscoveryDocument" ng-model="$ctrl.data.showInDiscoveryDocument">
+                            <label class="form-check-label" for="apiResourceShowInDiscoveryDocument">
+                                可发现
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col">
+
+                <div class="card">
+                    <div class="card-header">
+                        UserClaims
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group form-row align-items-center" ng-repeat="x in $ctrl.data.userClaims">
+                            <div class="col-auto">
+                                <input class="form-control" type="text" ng-model="x.type" />
+                            </div>
+                            <div class="col-auto">
+                                <button type="button" class="btn btn-link" ng-click="$ctrl.delClaim($index)">删除</button>
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn btn-link" ng-click="$ctrl.addClaim()">添加 [+]</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <br />
+
+        <div class="row">
+            <div class="col">
+                <button type="submit" class="btn btn-primary">提交</button>
+            </div>
+        </div>
+    </form>
+</div>

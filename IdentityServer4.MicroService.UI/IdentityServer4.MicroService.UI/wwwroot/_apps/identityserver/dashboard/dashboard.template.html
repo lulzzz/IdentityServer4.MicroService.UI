@@ -1,0 +1,17 @@
+﻿<div class="container-fluid">
+    <loading ng-show="$ctrl.loading"></loading>
+    <div class="row">
+        <div class="col">
+            <h1>首页</h1>
+            
+        </div>
+        <div class="col-2">
+            <h1>
+                <select class="form-control">
+                    <option ng-repeat="x in $ctrl.versions" ng-class="{'bg-success text-white':$index==1}">{{x}}</option>
+                </select>
+            </h1>
+        </div>
+    </div>
+
+    </div>

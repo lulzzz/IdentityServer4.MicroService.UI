@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>signin Redirect Callback</title>
+</head>
+<body>
+    <script src="/dist/vendor.min.js"></script>
+    <script>
+        var oidc = new Oidc.UserManager();
+        Oidc.Log.logger = console;
+        Oidc.Log.level = Oidc.Log.INFO;
+
+        oidc.signinRedirectCallback().then(function (user) {
+            console.log("signin response success", user);
+            location.href = '/';
+        }).catch(function (err) {
+            console.error(err);
+        });
+    </script>
+</body>
+</html>

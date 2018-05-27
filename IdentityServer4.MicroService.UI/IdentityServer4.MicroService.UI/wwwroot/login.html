@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IdentityServer4.MicroService.UI</title>
+    <link rel="stylesheet" href="/dist/vendor.min.css" />
+</head>
+<body class="mdui-theme-primary-indigo mdui-theme-accent-indigo">
+    <div class="mdui-appbar">
+        <div class="mdui-toolbar mdui-color-theme">
+            <a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">menu</i></a>
+            <a href="javascript:;" class="mdui-typo-headline">Campaign</a>
+            <a href="javascript:;" class="mdui-typo-title"></a>
+            <div class="mdui-toolbar-spacer"></div>
+        </div>
+    </div>
+    <div class="mdui-container">
+        <div class="mdui-row">
+            <div class="mdui-col-md-3 mdui-col-offset-md-4">
+                <div style="display:flex; flex-direction:column; justify-content:center;align-items:center;height:80vh;">
+                    <button class="mdui-btn mdui-btn-raised mdui-btn-block mdui-color-theme-accent mdui-ripple" onclick="oidc.signinRedirect()">登录</button>
+                    <br />
+                    <a href="https://ids.jixiucloud.cn/Account/Register" class="mdui-btn mdui-btn-raised mdui-btn-block mdui-ripple">注册</a>
+                </div>
+            </div>
+        </div>
+    </div>
+        <script src="/dist/vendor.min.js"></script>
+</body>
+</html>

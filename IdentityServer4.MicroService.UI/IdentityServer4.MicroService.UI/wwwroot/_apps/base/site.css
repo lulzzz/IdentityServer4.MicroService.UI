@@ -1,0 +1,8 @@
+﻿iframe {
+    width: 1px;
+    min-width: 100%;
+}
+
+#leftDrawer {
+    border-right: 1px solid rgba(0, 0, 0, 0.12);
+}

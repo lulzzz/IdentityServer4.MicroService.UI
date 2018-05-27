@@ -1,0 +1,13 @@
+{
+  "name": "base",
+  "version": "1.0.0",
+  "private": true,
+  "description": "base",
+  "author": "wangzhen",
+  "dependencies": {
+    "jquery": "^3.3.1",
+    "mdui": "^0.4.1",
+    "oidc-client": "^1.4.1",
+    "iframe-resizer": "^3.6.0"
+  }
+}

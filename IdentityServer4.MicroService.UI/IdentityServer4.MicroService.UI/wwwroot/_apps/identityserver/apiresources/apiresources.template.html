@@ -1,0 +1,58 @@
+﻿<div class="container-fluid">
+    <loading ng-show="$ctrl.loading"></loading>
+
+    <div class="row">
+        <div class="col">
+            <h1>微服务</h1>
+        </div>
+    </div>
+
+    <p>
+        <a href="#!/apiresources/0" class="btn btn-primary">创建</a>
+        |
+        <button type="button" class="btn btn-primary" ng-click="$ctrl.IData_Get()">查询</button>
+    </p>
+
+    <div class="animated fadeIn table-responsive">
+        <table class="table" ng-show="!$ctrl.loading">
+            <thead class="thead-light">
+                <tr>
+                    <th width="50px">
+                        <input type="checkbox" ng-click="$ctrl.ICKAll()" ng-checked="$ctrl.ckAll==true" />
+                    </th>
+                    <th>#</th>
+                    <th ng-repeat="x in $ctrl.Theads">{{x.Title}}</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="x in $ctrl.data.data">
+                    <td>
+                        <input type="checkbox" value="{{x.id}}" class="EntityItem" ng-checked="$ctrl.ckAll==true" />
+                    </td>
+                    <td>
+                        {{$index+1}}
+                    </td>
+                    <td>
+                        {{x.name}}
+                    </td>
+                    <td>
+                        {{x.displayName}}
+                        <br />
+                        {{x.description}}
+                    </td>
+                    <td>
+                        {{x.enabled}}
+                    </td>
+                    <td>
+                        <a href="#!/apigateway/{{x.id}}">网关</a> | 
+                        <a href="#!/apiresources/{{x.id}}">编辑</a> | 
+                        <a href="javascript:void(0)" ng-click="$ctrl.IDelete(x.id)">删除</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <pager></pager>
+</div>

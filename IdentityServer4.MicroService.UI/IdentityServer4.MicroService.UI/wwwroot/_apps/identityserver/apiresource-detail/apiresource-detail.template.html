@@ -1,0 +1,182 @@
+﻿<div class="container-fluid">
+    <loading ng-show="$ctrl.loading_getDetail"></loading>
+
+    <h1 ng-show="$ctrl.id>0">微服务详情</h1>
+    <h1 ng-show="$ctrl.id==0">创建微服务</h1>
+
+    <form ng-submit="$ctrl.createOrUpdate()">
+
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        基本信息
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>名称</label>
+                            <input class="form-control" type="text" ng-model="$ctrl.data.name" maxlength="200" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>显示名称</label>
+                            <input class="form-control" type="text" ng-model="$ctrl.data.displayName" maxlength="200" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>服务介绍</label>
+                            <textarea rows="4" class="form-control" ng-model="$ctrl.data.description" maxlength="500"></textarea>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="apiResourceEnabled"
+                                   ng-checked="$ctrl.data.enabled" ng-model="$ctrl.data.enabled">
+                            <label class="form-check-label" for="apiResourceEnabled">
+                                启用
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col">
+
+                <div class="card">
+                    <div class="card-header">
+                        UserClaims
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group form-row align-items-center" ng-repeat="x in $ctrl.data.userClaims">
+                            <div class="col-auto">
+                                <input class="form-control" type="text" ng-model="x.type" />
+                            </div>
+                            <div class="col-auto">
+                                <button type="button" class="btn btn-link" ng-click="$ctrl.delClaim($index)">删除</button>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-10">
+                                <select class="form-control"
+                                        ng-model="$ctrl.selectedClaimSupport"
+                                        ng-options="item for item in $ctrl.claims_supported"></select>
+                            </div>
+                            <div class="col"><button type="button" ng-click="$ctrl.addClaim()">添加</button></div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <br />
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-8">
+                                开放能力
+                            </div>
+                            <div class="col">
+                                <input ng-model="$ctrl.scopeNameFilter" class="form-control form-control-sm pull-right" placeholder="查找..." />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body" style="max-height:600px;overflow-y:scroll">
+
+                        <table class="table">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>名称</th>
+                                    <th>显示名称</th>
+                                    <th>介绍</th>
+                                    <th>UserClaims</th>
+                                    <th>必须</th>
+                                    <th>强调</th>
+                                    <th>可发现</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="x in $ctrl.data.scopes | filter : {name : $ctrl.scopeNameFilter}" ng-init="outerIndex = $index">
+                                    <td><input class="form-control" type="text" ng-model="x.name" /></td>
+                                    <td><textarea class="form-control" type="text" ng-model="x.displayName" rows="2"></textarea></td>
+                                    <td><textarea class="form-control" type="text" ng-model="x.description" rows="2"></textarea></td>
+                                    <td>
+                                        <div ng-if="x.userClaims.length>0">
+                                            <div class="input-group mb-2" ng-repeat="xx in x.userClaims">
+                                                <input ng-model="xx.type" class="form-control" />
+                                                <div class="input-group-append">
+                                                    <button type="button" class="btn btn-secondary" ng-click="$ctrl.delScopeClaim(outerIndex,$index)">x</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col">
+                                                <select class="form-control"
+                                                        ng-model="$ctrl.selectedClaimSupport2"
+                                                        ng-options="item for item in $ctrl.claims_supported"></select>
+                                            </div>
+                                            <div class="col"> <button type="button" ng-click="$ctrl.addScopeClaim(x.userClaims)">添加</button></div>
+                                        </div>
+                                    </td>
+                                    <td><input type="checkbox" ng-model="x.required" /></td>
+                                    <td><input type="checkbox" ng-model="x.emphasize" /></td>
+                                    <td><input type="checkbox" ng-model="x.showInDiscoveryDocument" /></td>
+                                    <td><button type="button" class="btn btn-link" ng-click="$ctrl.delScope($index)">删除</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <button type="button" ng-click="$ctrl.addScope()">添加</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br />
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        密钥
+                    </div>
+                    <div class="card-body" style="max-height:600px;overflow-y:scroll">
+                        <table class="table">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>密钥</th>
+                                    <th>描述</th>
+                                    <th width="200px">类型</th>
+                                    <th width="200px">到期时间</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="x in $ctrl.data.secrets">
+                                    <td><input disabled type="text" class="form-control" ng-model="x.value" /></td>
+                                    <td><textarea rows="2" class="form-control" ng-model="x.description"></textarea></td>
+                                    <td><select disabled class="form-control" ng-options="s.value as s.label for s in $ctrl.secretTypes" ng-model="x.type"></select></td>
+                                    <td><input type="text" class="form-control" ng-model="x.expiration" /></td>
+                                    <td><button type="button" class="btn btn-link" ng-click="$ctrl.delSecret($index)">删除</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button type="button" ng-click="$ctrl.addSecret()">添加</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br />
+        <div class="row">
+            <div class="col">
+                <button type="submit" class="btn btn-primary">提交</button>
+            </div>
+        </div>
+    </form>
+    <br />  <br />
+</div>

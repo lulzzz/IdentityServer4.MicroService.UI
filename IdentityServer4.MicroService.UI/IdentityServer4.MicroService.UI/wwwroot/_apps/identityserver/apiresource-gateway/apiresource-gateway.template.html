@@ -1,0 +1,327 @@
+﻿<div class="container-fluid" id="apiresourceGateway">
+    <h1>Azure 网关</h1>
+
+    <div class="row">
+        <div class="col">
+            <br />
+            <ul class="nav nav-tabs" role="tablist" ng-init="tabIndex=0">
+                <li class="nav-item" ng-click="tabIndex=0">
+                    <a class="nav-link btn" ng-class="{active:tabIndex==0}">发布微服务</a>
+                </li>
+                <li class="nav-item" ng-class="{active:tabIndex==1}" ng-click="tabIndex=1">
+                    <a class="nav-link btn" ng-class="{active:tabIndex==1}">版本管理</a>
+                </li>
+                <li class="nav-item" ng-class="{active:tabIndex==2}" ng-click="tabIndex=2">
+                    <a class="nav-link btn" ng-class="{active:tabIndex==2}">更新说明</a>
+                </li>
+                <li class="nav-item" ng-class="{active:tabIndex==3}" ng-click="tabIndex=3">
+                    <a class="nav-link btn" ng-class="{active:tabIndex==3}">订阅列表</a>
+                </li>
+                <li class="nav-item" ng-class="{active:tabIndex==4}" ng-click="tabIndex=4">
+                    <a class="nav-link btn" ng-class="{active:tabIndex==4}">渠道分发配置</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane fade" ng-class="{'show active':tabIndex==0}" role="tabpanel">
+                    <loading ng-show="$ctrl.loading_getPublishConfiguration||$ctrl.loading_publish"></loading>
+
+                    <form ng-submit="$ctrl.publish()" ng-show="!$ctrl.loading_getPublishConfiguration&&!$ctrl.loading_publish">
+                        <div class="form-group">
+                            <label>网关路经</label>
+                            <input class="form-control" type="text" ng-model="$ctrl.data.suffix" maxlength="200" disabled="{{$ctrl.versions.length>0}}" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>微服务名称</label>
+                            <input class="form-control" ng-disabled="$ctrl.selectedVersion!='newVersion'&&$ctrl.selectedVersion!=$ctrl.currentReversion" type="text" ng-model="$ctrl.data.name" maxlength="20" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>功能介绍</label>
+                            <textarea class="form-control" ng-disabled="$ctrl.selectedVersion!='newVersion'&&$ctrl.selectedVersion!=$ctrl.currentReversion" type="text" ng-model="$ctrl.data.description" maxlength="500" rows="2"></textarea>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label>版本</label>
+                                    <select ng-model="$ctrl.selectedVersion" class="form-control">
+                                        <optgroup ng-repeat="i in $ctrl.versions" label="{{i.apiVersion||'默认'}}">
+                                            <option ng-repeat="x in i.revisions"
+                                                    value="{{x.apiId}}">
+                                                {{x.apiRevision=='1'?'默认':'Rev:'+x.apiRevision}}
+                                            </option>
+                                            <option value={{i.id+'.newRevision'}}>
+                                                新建修订版
+                                            </option>
+                                        </optgroup>
+                                        <option value="newVersion">发布新版本</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group" ng-if="$ctrl.selectedVersion=='newVersion'">
+                                    <label>新版本号</label>
+                                    <input class="form-control" type="text" ng-model="$ctrl.newVersionNumber" maxlength="20" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>SwaggerUrl</label>
+                            <input class="form-control" type="text" ng-model="$ctrl.data.swaggerUrl" maxlength="500" />
+                        </div>
+
+                        <div>
+                            <div class="form-group">
+                                <label>产品</label>
+                                <select id="apiProductIdsSelect"
+                                        ng-disabled="$ctrl.selectedVersion!='newVersion'&&$ctrl.selectedVersion!=$ctrl.currentReversion"
+                                        class="form-control" ng-model="$ctrl.data.productIds" multiple
+                                        ng-options="x.id as x.name for x in $ctrl.products.value"></select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>OAuth2.0服务</label>
+                                <select class="form-control"
+                                        ng-disabled="$ctrl.selectedVersion!='newVersion'&&$ctrl.selectedVersion!=$ctrl.currentReversion"
+                                        ng-model="$ctrl.data.authorizationServerId"
+                                        ng-options="x.id as x.name for x in $ctrl.oauths.value"></select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>访问策略 <small><a href="https://docs.microsoft.com/zh-cn/azure/api-management/api-management-policies" target="_blank">表达式</a></small></label>
+                                <textarea class="form-control"
+                                          ng-disabled="$ctrl.selectedVersion!='newVersion'&&$ctrl.selectedVersion!=$ctrl.currentReversion"
+                                          type="text" ng-model="$ctrl.data.policy" rows="5"></textarea>
+                            </div>
+                        </div>
+
+                        <input type="submit" value="发布" class="btn btn-primary">
+                    </form>
+                </div>
+                <div class="tab-pane fade" ng-class="{'show active':tabIndex==1}" role="tabpanel">
+                    <loading ng-show="$ctrl.loading_getVersions||$ctrl.loading_releasePackage"></loading>
+                    <table class="table" ng-show="!$ctrl.loading_getVersions&&!$ctrl.loading_releasePackage">
+                        <thead>
+                            <tr>
+                                <th nzWidth="15%">版本</th>
+                                <th nzWidth="30%">状态</th>
+                                <th>访问地址</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody ng-repeat="x in $ctrl.versions">
+                            <tr>
+                                <td>{{x.apiVersion||'默认'}}</td>
+                                <td>{{x.revisions[0].createdDateTime}}</td>
+                                <td>
+                                    <span class="label label-success" ng-click="openPage(data.id)">
+                                        <i class="anticon anticon-book"></i>
+                                        文档
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            发包
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" href="javascript:void(0)" ng-click="$ctrl.releasePackage(x.id,0)">NPM.Angular2</a>
+                                            <a class="dropdown-item" href="javascript:void(0)" ng-click="$ctrl.releasePackage(x.id,1)">NPM.jQuery</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr ng-repeat="item in x.revisions">
+                                <td style="padding-left:50px">
+                                    <span>
+                                        {{item.apiRevision=='1'?'默认':'修订版'+item.apiRevision}}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="label label-success" ng-if="item.isCurrent==true">上线</span>
+                                </td>
+                                <td>
+                                    <code>server{{item.privateUrl}}</code>
+                                </td>
+                                <td>
+                                    <a ng-if="item.isCurrent==false" ng-click="$ctrl.releaseRevision(item.apiId)">上线该版本</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab-pane fade" ng-class="{'show active':tabIndex==2}" role="tabpanel">
+                    <loading ng-show="$ctrl.loading_getReleases||$ctrl.loading_updateRelease"></loading>
+                    <table class="table" ng-show="!$ctrl.loading_getReleases&&!$ctrl.loading_updateRelease">
+                        <thead>
+                            <tr>
+                                <th nzWidth="15%">版本</th>
+                                <th>内容</th>
+                                <th nzWidth="10%"></th>
+                            </tr>
+                        </thead>
+                        <tbody ng-repeat="x in $ctrl.versions">
+                            <tr>
+                                <td>{{x.apiVersion||'默认'}}</td>
+                                <td>
+                                    <textarea ng-model="$ctrl.releasesItem[$index]" rows="2" class="form-control"></textarea>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-primary btn-sm" ng-click="$ctrl.createRelease(x.id,$index)">新增</button>
+</td>
+                            </tr>
+                            <tr ng-repeat="item in x.releases">
+                                <td style="padding-left:50px">
+                                    {{item.createdDateTime}}
+                                </td>
+                                <td>
+                                    <textarea ng-model="item.notes" rows="2" class="form-control"></textarea>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-primary btn-sm" ng-click="$ctrl.updateRelease(item)">更新</button>
+                                    |
+                                    <button type="button" class="btn btn-primary btn-sm" ng-click="$ctrl.removeRelease(item.id)">删除</button>
+</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab-pane fade" ng-class="{'show active':tabIndex==3}" role="tabpanel">
+                    <loading ng-show="$ctrl.loading_getSubscriptions"></loading>
+                    <table class="table" ng-show="!$ctrl.loading_getSubscriptions">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="x in $ctrl.subscriptions">
+                                <td>{{$index+1}}</td>
+                                <td>{{x.rowKey}}</td>
+                                <td>{{x.timestamp}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab-pane fade" ng-class="{'show active':tabIndex==4}" role="tabpanel">
+                    <div class="card">
+                        <div class="card-header">
+                            <ul class="nav nav-tabs card-header-tabs" ng-init="tab2Index=0">
+                                <li class="nav-item">
+                                    <a class="nav-link btn" ng-class="{active:tab2Index==0}" ng-click="tab2Index=0;$ctrl.getNPMOptions(0)">NPM - Angular2</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link btn" ng-class="{active:tab2Index==1}" ng-click="tab2Index=1;$ctrl.getNPMOptions(1)">NPM - JQuery</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link btn" ng-class="{active:tab2Index==2}" ng-click="tab2Index=2;$ctrl.getGithubOptions(2)">Github</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <loading ng-show="$ctrl.loading_getNPMOptions"></loading>
+                            <form ng-submit="$ctrl.setNPMOptions()" ng-show="tab2Index<2&&!$ctrl.loading_getNPMOptions">
+                                <div class="form-group">
+                                    <label>包名称（小写字母与数字组成）</label>
+                                    <input class="form-control" type="text" ng-model="$ctrl.npmOptions.name" maxlength="20" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label>SDK名称</label>
+                                    <input class="form-control" type="text" ng-model="$ctrl.npmOptions.sdkName" maxlength="20" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label>令牌（Token）</label>
+                                    <input class="form-control" type="text" ng-model="$ctrl.npmOptions.token" />
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label>版本（会自动更新）</label>
+                                            <input class="form-control" type="text" ng-model="$ctrl.npmOptions.version" maxlength="20" />
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label>作者</label>
+                                            <input class="form-control" type="text" ng-model="$ctrl.npmOptions.author" maxlength="20" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label>主页</label>
+                                            <input class="form-control" type="text" ng-model="$ctrl.npmOptions.homepage" />
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label>授权协议</label>
+                                            <input class="form-control" type="text" ng-model="$ctrl.npmOptions.license" maxlength="20" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>README.md</label>
+                                    <textarea class="form-control" rows="20" ng-model="$ctrl.npmOptions.readme"></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>介绍</label>
+                                    <textarea class="form-control" ng-model="$ctrl.npmOptions.description" rows="2"></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="submit" value="提交" class="btn btn-primary" />
+                                </div>
+                            </form>
+
+                            <form ng-submit="$ctrl.setGithubOptions()" ng-show="tab2Index==2&&!$ctrl.loading_getNPMOptions">
+                                <div class="alert alert-primary" role="alert">
+                                    项目不存在，将自动创建（如果配置了Token）；会生成接入文档，同步标签。
+                                </div>
+
+                                <div class="form-group">
+                                    <label>账号 <small>github.com/<code>{账号}</code>/xxx</small></label>
+                                    <input class="form-control" type="text" ng-model="$ctrl.githubOptions.owner" maxlength="20" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label>项目名称 <small>github.com/xxx/<code>{项目名称}</code></small></label>
+                                    <input class="form-control" type="text" ng-model="$ctrl.githubOptions.repo" maxlength="20" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label>SwaggerUrl</label>
+                                    <input class="form-control" type="text" ng-model="$ctrl.githubOptions.swaggerUrl" maxlength="20" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label>令牌（token）</label>
+                                    <input class="form-control" type="text" ng-model="$ctrl.githubOptions.token" maxlength="20" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label>用户代理</label>
+                                    <input class="form-control" type="text" ng-model="$ctrl.githubOptions.userAgent" maxlength="20" />
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" class="btn btn-primary" value="提交" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

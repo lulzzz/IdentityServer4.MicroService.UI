@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html ng-app="h5" ng-strict-di ng-controller="AppController as app">
+<head>
+    <meta charset="utf-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <meta content="telephone=no,email=no" name="format-detection">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <title></title>
+    <!-- build:css dist/vendor.min.css -->
+    <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="node_modules/mdui/dist/css/mdui.min.css" rel="stylesheet" />
+    <link href="node_modules/animate.css/animate.min.css" rel="stylesheet" />
+    <link href="node_modules/select2/dist/css/select2.min.css" rel="stylesheet" />
+    <!-- endbuild -->
+    <!-- build:css dist/app.min.css -->
+    <link href="app.css" rel="stylesheet" />
+    <!-- endbuild -->
+</head>
+<body ng-cloak class="mdui-drawer-body-left mdui-theme-accent-indigo">
+    <nav class="mdui-drawer" id="leftDrawer">
+        <ul class="mdui-list" mdui-collapse="{accordion: true}" style="max-width: 360px;">
+            <li class="mdui-list-item mdui-ripple">
+                <i class="mdui-list-item-icon mdui-icon material-icons">dashboard</i>
+                <a href="#!/dashboard" class="mdui-list-item-content">概况</a>
+            </li>
+            <li class="mdui-list-item mdui-ripple">
+                <i class="mdui-list-item-icon mdui-icon material-icons">account_box</i>
+                <a href="#!/users" class="mdui-list-item-content">用户</a>
+            </li>
+            <li class="mdui-list-item mdui-ripple">
+                <i class="mdui-list-item-icon mdui-icon material-icons">apps</i>
+                <a href="#!/clients" class="mdui-list-item-content">应用</a>
+            </li>
+            <li class="mdui-list-item mdui-ripple">
+                <i class="mdui-list-item-icon mdui-icon material-icons">all_inclusive</i>
+                <a href="#!/tenants" class="mdui-list-item-content">租户</a>
+            </li>
+
+            <li class="mdui-list-item mdui-ripple">
+                <i class="mdui-list-item-icon mdui-icon material-icons">fingerprint</i>
+                <a href="#!/identityresources" class="mdui-list-item-content">用户资源</a>
+            </li>
+
+            <li class="mdui-list-item mdui-ripple">
+                <i class="mdui-list-item-icon mdui-icon material-icons">widgets</i>
+                <a href="#!/apiresources" class="mdui-list-item-content">微服务</a>
+            </li>
+        </ul>
+    </nav>
+    <div ng-view>...loading...</div>
+    <!-- build:js dist/vendor.min.js -->
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="node_modules/mdui/dist/js/mdui.min.js"></script>
+    <script src="node_modules/iframe-resizer/js/iframeResizer.contentWindow.min.js"></script>
+    <script src="node_modules/angular/angular.min.js"></script>
+    <script src="node_modules/angular-sanitize/angular-sanitize.min.js"></script>
+    <script src="node_modules/angular-route/angular-route.min.js"></script>
+    <script src="node_modules/identityserver4.microservice.openapis/index.min.js"></script>
+    <script src="node_modules/identityserver4.microservice.jquery/index.min.js"></script>
+    <script src="node_modules/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="node_modules/select2/dist/js/select2.full.min.js"></script>
+    <script src="node_modules/identityserver4.microservice.appinit/identityserver4.microservice.appinit.min.js"></script>
+    <!-- endbuild -->
+    <!-- build:js dist/app.min.js -->
+    <script src="app.js"></script>
+    <script src="dashboard/dashboard.component.js"></script>
+    <script src="users/users.component.js"></script>
+    <script src="user-detail/user-detail.component.js"></script>
+
+    <script src="clients/clients.component.js"></script>
+    <script src="client-detail/client-detail.component.js"></script>
+
+    <script src="tenants/tenants.component.js"></script>
+    <script src="tenant-detail/tenant-detail.component.js"></script>
+
+    <script src="identityresources/identityresources.component.js"></script>
+    <script src="identityresource-detail/identityresource-detail.component.js"></script>
+
+    <script src="apiresources/apiresources.component.js"></script>
+    <script src="apiresource-detail/apiresource-detail.component.js"></script>
+    <script src="apiresource-gateway/apiresource-gateway.component.js"></script>
+
+    <script src="shared-directives/loading.directive.js"></script>
+    <script src="shared-directives/pager.directive.js"></script>
+    <!-- endbuild -->
+</body>
+</html>
