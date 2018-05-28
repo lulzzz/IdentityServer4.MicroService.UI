@@ -2,8 +2,8 @@
 
 
 
+[![npm](https://img.shields.io/npm/v/identityserver4.microservice.ui.svg)](https://www.npmjs.com/package/identityserver4.microservice.ui)
 
-[![npm](https://img.shields.io/npm/v/npm.svg)](https://www.npmjs.com/package/identityserver4.microservice.ui)
 
 
 
