@@ -1,19 +1,25 @@
 # IdentityServer4.MicroService.UI
 
 
-½ØÍ¼
+
+
+[![npm](https://img.shields.io/npm/v/npm.svg)](https://www.npmjs.com/package/identityserver4.microservice.ui)
+
+
+
+æˆªå›¾
 --
 
-#### µ¥µãµÇÂ½µ½±¾µØµÄIdentityServer4.MicroserviceÏîÄ¿£¨https://localhost:44309£©
+#### å•ç‚¹ç™»é™†åˆ°æœ¬åœ°çš„IdentityServer4.Microserviceé¡¹ç›®ï¼ˆhttps://localhost:44309ï¼‰
 ![1](1.png)
 
 
 ![2](2.png)
 
-#### µÇÂ¼ºóÌø×ª»ØÀ´
+#### ç™»å½•åè·³è½¬å›æ¥
 ![3](3.png)
 
-#### Î¢·şÎñ¡¢Ó¦ÓÃÏà¹ØÅäÖÃ¹ÜÀí
+#### å¾®æœåŠ¡ã€åº”ç”¨ç›¸å…³é…ç½®ç®¡ç†
 ![4](4.png)
 
 ![5](5_2.png)
