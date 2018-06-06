@@ -3,16 +3,16 @@
 
     angular
         .module('h5')
-        .component('clients',
+        .component('users',
         {
-            templateUrl: 'clients/clients.template.html',
-            controller: ['$scope', '$timeout', function ClientController($scope, $timeout) {
+            templateUrl: 'users/users.template.html',
+            controller: ['$scope', '$timeout', function UserController($scope, $timeout) {
                 var vm = this;
                 vm.Theads = [
                     { ID: 'userId', Title: '标识' },
-                    { ID: 'userName', Title: '应用' },
-                    { ID: 'createDate', Title: '授权类型' },
-                ];
+                    { ID: 'userName', Title: '用户' },
+                    { ID: 'createDate', Title: '创建时间' },
+                ]
 
                 vm.loading = true;
                 vm.filter = { take: 10 };
@@ -28,7 +28,7 @@
                 function IData_Get() {
                     vm.loading = true;
 
-                    openapis.IdentityServer4MicroServiceClient.ClientGet().then(r => {
+                    openapis.IdentityServer4MicroServiceClient.UserGet().then(r => {
                         $timeout(() => {
                             vm.loading = false;
 
@@ -52,7 +52,7 @@
 
                             if (willDelete) {
 
-                                openapis.IdentityServer4MicroServiceClient.ClientDelete(id).then(r => {
+                                openapis.IdentityServer4MicroServiceClient.UserDelete(id).then(r => {
 
                                     if (r.code == 200) {
                                         swal({ title: '成功', icon: 'success' });
@@ -65,6 +65,9 @@
                                     vm.IData_Get();
                                 });
                             }
+                        }).catch(r => {
+                            $timeout(() => vm.loading = false);
+                            swal({ title: r.status + ":" + r.statusText, icon: 'error' });
                         });
                 }
 

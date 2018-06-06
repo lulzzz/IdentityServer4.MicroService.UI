@@ -1,0 +1,338 @@
+﻿<div class="container-fluid">
+    <loading ng-show="$ctrl.loading_getDetail"></loading>
+
+    <h1 ng-show="$ctrl.id>0">用户详情</h1>
+    <h1 ng-show="$ctrl.id==0">创建用户</h1>
+
+    <form ng-submit="$ctrl.createOrUpdate()">
+
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        基本信息
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>userKey</label>
+                            <input class="form-control" type="text" ng-model="$ctrl.data.userKey" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>parentUserID</label>
+                            <input class="form-control" type="number" ng-model="$ctrl.data.parentUserID" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>lineage</label>
+                            <input class="form-control" type="text" ng-model="$ctrl.data.lineage" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>lineageIDs</label>
+                            <input class="form-control" type="text" ng-model="$ctrl.data.lineageIDs" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Roles</label>
+                            <select id="UserRolesInput" class="form-control" ng-model="$ctrl.selectedRoles" multiple ng-options="x.id as x.normalizedName for x in $ctrl.roles" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>头像</label>
+                            <br />
+
+                            <div class="form-row">
+                                <div class="col-auto">
+                                    <img ng-src="{{$ctrl.data.avatar}}" class="img-thumbnail" width="64px" />
+                                </div>
+                                <div class="col-auto">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="customFileLang" lang="es" />
+                                        <label class="custom-file-label" for="customFileLang">上传图片</label>
+                                    </div>
+                                </div>
+                                <div class="col-8"></div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="userIsDeleted"
+                                       ng-checked="$ctrl.data.isDeleted" ng-model="$ctrl.data.isDeleted">
+                                <label class="form-check-label" for="userIsDeleted">
+                                    isDeleted
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>typeIDs</label>
+                            <input class="form-control" type="text" ng-model="$ctrl.data.typeIDs" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>nickName</label>
+                            <input class="form-control" type="text" ng-model="$ctrl.data.nickName" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>gender</label>
+                            <input class="form-control" type="text" ng-model="$ctrl.data.gender" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>address</label>
+                            <input class="form-control" type="text" ng-model="$ctrl.data.address" />
+                        </div>
+                        <div class="form-group">
+                            <label>birthday</label>
+                            <input class="form-control" type="text" ng-model="$ctrl.data.birthday" />
+                        </div>
+                        <div class="form-group">
+                            <label>stature</label>
+                            <input class="form-control" type="text" ng-model="$ctrl.data.stature" />
+                        </div>
+                        <div class="form-group">
+                            <label>weight</label>
+                            <input class="form-control" type="text" ng-model="$ctrl.data.weight" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>description</label>
+                            <textarea class="form-control" rows="2" ng-model="$ctrl.data.description"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>remark</label>
+                            <textarea class="form-control" rows="2" ng-model="$ctrl.data.remark"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>createDate</label>
+                            <input class="form-control" type="text" ng-model="$ctrl.data.createDate" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>lastUpdateTime</label>
+                            <input class="form-control" type="text" ng-model="$ctrl.data.lastUpdateTime" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>userName</label>
+                            <input class="form-control" type="text" ng-model="$ctrl.data.userName" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>normalizedUserName</label>
+                            <input class="form-control" type="text" ng-model="$ctrl.data.normalizedUserName" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>email</label>
+                            <input class="form-control" type="email" ng-model="$ctrl.data.email" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>normalizedEmail</label>
+                            <input class="form-control" type="email" ng-model="$ctrl.data.normalizedEmail" />
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="userEmailConfirmed"
+                                       ng-checked="$ctrl.data.emailConfirmed" ng-model="$ctrl.data.emailConfirmed">
+                                <label class="form-check-label" for="userEmailConfirmed">
+                                    emailConfirmed
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>passwordHash</label>
+                            <input class="form-control" type="password" ng-model="$ctrl.data.passwordHash" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>securityStamp</label>
+                            <input class="form-control" type="text" ng-model="$ctrl.data.securityStamp" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>concurrencyStamp</label>
+                            <input class="form-control" type="text" ng-model="$ctrl.data.concurrencyStamp" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>phoneNumber</label>
+                            <input class="form-control" type="text" ng-model="$ctrl.data.phoneNumber" />
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="userPhoneNumberConfirmed"
+                                       ng-checked="$ctrl.data.phoneNumberConfirmed" ng-model="$ctrl.data.phoneNumberConfirmed">
+                                <label class="form-check-label" for="userPhoneNumberConfirmed">
+                                    phoneNumberConfirmed
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="userTwoFactorEnabled"
+                                       ng-checked="$ctrl.data.twoFactorEnabled" ng-model="$ctrl.data.twoFactorEnabled">
+                                <label class="form-check-label" for="userTwoFactorEnabled">
+                                    userTwoFactorEnabled
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>lockoutEnd</label>
+                            <input class="form-control" type="text" ng-model="$ctrl.data.lockoutEnd" />
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="userLockoutEnabled"
+                                       ng-checked="$ctrl.data.lockoutEnabled" ng-model="$ctrl.data.lockoutEnabled">
+                                <label class="form-check-label" for="userLockoutEnabled">
+                                    userLockoutEnabled
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>accessFailedCount</label>
+                            <input class="form-control" type="number" ng-model="$ctrl.data.accessFailedCount" />
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        distributors
+                    </div>
+                    <div class="card-body">
+                        <p ng-repeat="x in $ctrl.data.distributors">
+                            {{x}}
+                        </p>
+                    </div>
+                </div>
+
+                <br />
+
+                <div class="card">
+                    <div class="card-header">
+                        files
+                    </div>
+                    <div class="card-body">
+                        <p ng-repeat="x in $ctrl.data.files">
+                            {{x.fileType}}:{{x.files}}
+                        </p>
+                    </div>
+                </div>
+
+                <br />
+
+                <div class="card">
+                    <div class="card-header">
+                        tokens
+                    </div>
+                    <div class="card-body">
+                        <p ng-repeat=" x in $ctrl.data.tokens">
+                            {{x.loginProvider}}:{{x.name}}:{{x.value}}
+                        </p>
+                    </div>
+                </div>
+
+                <br />
+
+                <div class="card">
+                    <div class="card-header">
+                        logins
+                    </div>
+                    <div class="card-body">
+                        <p ng-repeat=" x in $ctrl.data.logins">
+                            {{x.providerDisplayName}}:{{x.providerKey}}
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
+        
+
+        <br />  <br />
+
+        <div class="row">
+            <div class="col">
+
+                <div class="card">
+                    <div class="card-header">
+                        Claims
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group form-row align-items-center" ng-repeat="x in $ctrl.data.claims">
+                            <div class="col-3">
+                                <input ng-disabled="$ctrl.defaultClaims.indexOf(x.claimType)>-1" class="form-control" type="text" ng-model="x.claimType" placeholder="类型:" />
+                            </div>
+                            <div class="col-8">
+                                <textarea class="form-control" 
+                                          rows="2" 
+                                          ng-model="x.claimValue" 
+                                          placeholder="值:"></textarea>
+                            </div>
+                            <div class="col-auto">
+                                <button type="button" ng-click="$ctrl.delClaim($index)">删除</button>
+                            </div>
+                        </div>
+
+                        <button type="button" ng-click="$ctrl.addClaim()">添加</button>
+                    </div>
+                </div>
+                <br />
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-8">
+                                扩展属性
+                            </div>
+                            <div class="col">
+                                <input ng-model="$ctrl.propertyNameFilter" class="form-control form-control-sm pull-right" placeholder="查找..." />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body" style="max-height: 600px;overflow-y: scroll;">
+                        <div class="form-group form-row align-items-center" ng-repeat="x in $ctrl.data.properties | filter : {key : $ctrl.propertyNameFilter}">
+                            <div class="col">
+                                <input class="form-control" type="text" ng-model="x.key" placeholder="属性名称" />
+                            </div>
+                            <div class="col">
+                                <textarea class="form-control" ng-model="x.value" placeholder="属性值" rows="2"></textarea>
+                            </div>
+                            <div class="col-auto">
+                                <button type="button" class="btn btn-link" ng-click="$ctrl.delProperty($index)">删除</button>
+                            </div>
+                        </div>
+
+                        <button type="button" ng-click="$ctrl.addProperty()">添加</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br />
+        <div class="row">
+            <div class="col">
+                <button type="submit" class="btn btn-primary">提交</button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -287,32 +287,52 @@
 
                             <form ng-submit="$ctrl.setGithubOptions()" ng-show="tab2Index==2&&!$ctrl.loading_getNPMOptions">
                                 <div class="alert alert-primary" role="alert">
-                                    项目不存在，将自动创建（如果配置了Token）；会生成接入文档，同步标签。
+                                    启用同步后，如果项目不存在，将自动创建
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="syncLabelsEnabled"
+                                               ng-checked="$ctrl.githubOptions.syncLabels" ng-model="$ctrl.githubOptions.syncLabels">
+                                        <label class="form-check-label" for="syncLabelsEnabled">
+                                            启用 - 自动同步Label
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="syncDocsEnabled"
+                                               ng-checked="$ctrl.githubOptions.syncDocs" ng-model="$ctrl.githubOptions.syncDocs">
+                                        <label class="form-check-label" for="syncDocsEnabled">
+                                            启用 - 自动生成产品文档
+                                        </label>
+                                    </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label>账号 <small>github.com/<code>{账号}</code>/xxx</small></label>
-                                    <input class="form-control" type="text" ng-model="$ctrl.githubOptions.owner" maxlength="20" />
+                                    <input class="form-control" type="text" ng-model="$ctrl.githubOptions.owner" />
                                 </div>
 
                                 <div class="form-group">
                                     <label>项目名称 <small>github.com/xxx/<code>{项目名称}</code></small></label>
-                                    <input class="form-control" type="text" ng-model="$ctrl.githubOptions.repo" maxlength="20" />
+                                    <input class="form-control" type="text" ng-model="$ctrl.githubOptions.repo" />
                                 </div>
 
                                 <div class="form-group">
                                     <label>SwaggerUrl</label>
-                                    <input class="form-control" type="text" ng-model="$ctrl.githubOptions.swaggerUrl" maxlength="20" />
+                                    <input class="form-control" type="text" ng-model="$ctrl.githubOptions.swaggerUrl" />
                                 </div>
 
                                 <div class="form-group">
                                     <label>令牌（token）</label>
-                                    <input class="form-control" type="text" ng-model="$ctrl.githubOptions.token" maxlength="20" />
+                                    <input class="form-control" type="text" ng-model="$ctrl.githubOptions.token" />
                                 </div>
 
                                 <div class="form-group">
                                     <label>用户代理</label>
-                                    <input class="form-control" type="text" ng-model="$ctrl.githubOptions.userAgent" maxlength="20" />
+                                    <input class="form-control" type="text" ng-model="$ctrl.githubOptions.userAgent" />
                                 </div>
                                 <div class="form-group">
                                     <input type="submit" class="btn btn-primary" value="提交" />

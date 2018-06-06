@@ -1,0 +1,545 @@
+﻿<div class="container-fluid">
+    <loading ng-show="$ctrl.loading_getDetail"></loading>
+
+    <h1 ng-show="$ctrl.id>0">租户详情</h1>
+    <h1 ng-show="$ctrl.id==0">创建租户</h1>
+
+    <form ng-submit="$ctrl.createOrUpdate()">
+
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        基本信息
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>名称</label>
+                            <input class="form-control" type="text" ng-model="$ctrl.data.name" maxlength="200" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>主题色</label>
+                            <input class="form-control" type="text" ng-model="$ctrl.data.theme" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>状态</label>
+                            <select class="form-control" ng-model="$ctrl.data.status" ng-options="x.value as x.name for x in $ctrl.status " />
+                        </div>
+
+                        <div class="form-group">
+                            <div> <label>令牌授权者</label> </div>
+                            <div> <input class="form-control" type="text" ng-model="$ctrl.data.identityServerIssuerUri" /> </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>创建日期</label>
+                            <input class="form-control" type="text" ng-model="$ctrl.data.createDate" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>最后更新</label>
+                            <input class="form-control" type="text" ng-model="$ctrl.data.lastUpdateTime" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>缓存时间</label>
+                            <input class="form-control" type="number" ng-model="$ctrl.data.cacheDuration" />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col">
+
+                <div class="card">
+                    <div class="card-header">
+                        绑定域名
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group form-row align-items-center" ng-repeat="x in $ctrl.data.hosts track by $index">
+                            <div class="col-auto"><label>域名{{$index+1}}</label></div>
+                            <div class="col-auto">
+                                <input class="form-control" type="text" ng-model="x.hostName" />
+                            </div>
+                            <div class="col-auto">
+                                <button type="button" class="btn btn-link" ng-click="$ctrl.delHost($index)">删除</button>
+                            </div>
+                        </div>
+
+                        <button type="button" ng-click="$ctrl.addHost()">添加</button>
+                    </div>
+                </div>
+                <br />
+                <div class="card">
+                    <div class="card-header">
+                        Claims
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group form-row align-items-center" ng-repeat="x in $ctrl.data.claims">
+                            <div class="col-auto">
+                                <input class="form-control" type="text" ng-model="x.claimType" placeholder="类型:" />
+                            </div>
+                            <div class="col-auto">
+                                <input class="form-control" type="text" ng-model="x.claimValue" placeholder="值:" />
+                            </div>
+                            <div class="col-auto">
+                                <button type="button" ng-click="$ctrl.delClaim($index)">删除</button>
+                            </div>
+                        </div>
+
+                        <button type="button" ng-click="$ctrl.addClaim()">添加</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <br />  <br />
+        <div class="card">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs" ng-init="areaIndex=0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="javascript:void(0)" ng-class="{active:areaIndex==0}" ng-click="areaIndex=0;">联合登录</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="javascript:void(0)" ng-class="{active:areaIndex==1}" ng-click="areaIndex=1;">网关配置</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="javascript:void(0)" ng-class="{active:areaIndex==2}" ng-click="areaIndex=2;">站点属性</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="javascript:void(0)" ng-class="{active:areaIndex==3}" ng-click="areaIndex=3;">扩展属性</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-body">
+                <div ng-show="areaIndex==0">
+                   
+                    <div class="container-fluid">
+                        <div class="alert alert-primary">
+                            当平台配置了ClientId和ClientSecret后，将自动启用。
+                        </div>
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Amazon</h5>
+                                        <div class="form-group">
+                                            <label>ClientId</label>
+                                            <input class="form-control" type="text" ng-model="$ctrl.OAuthLogins.AmazonClientId.value" />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>ClientSecret</label>
+                                            <input class="form-control" type="text" ng-model="$ctrl.OAuthLogins.AmazonClientSecret.value" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Facebook</h5>
+                                        <div class="form-group">
+                                            <label>ClientId</label>
+                                            <input class="form-control" type="text" ng-model="$ctrl.OAuthLogins.FacebookClientId.value" />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>ClientSecret</label>
+                                            <input class="form-control" type="text" ng-model="$ctrl.OAuthLogins.FacebookClientSecret.value" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">GitHub</h5>
+                                        <div class="form-group">
+                                            <label>ClientId</label>
+                                            <input class="form-control" type="text" ng-model="$ctrl.OAuthLogins.GitHubClientId.value" />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>ClientSecret</label>
+                                            <input class="form-control" type="text" ng-model="$ctrl.OAuthLogins.GitHubClientSecret.value" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Gitter</h5>
+                                        <div class="form-group">
+                                            <label>ClientId</label>
+                                            <input class="form-control" type="text" ng-model="$ctrl.OAuthLogins.GitterClientId.value" />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>ClientSecret</label>
+                                            <input class="form-control" type="text" ng-model="$ctrl.OAuthLogins.GitterClientSecret.value" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <br />
+                        <div class="row">
+
+                            <div class="col-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Google</h5>
+                                        <div class="form-group">
+                                            <label>ClientId</label>
+                                            <input class="form-control" type="text" ng-model="$ctrl.OAuthLogins.GoogleClientId.value" />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>ClientSecret</label>
+                                            <input class="form-control" type="text" ng-model="$ctrl.OAuthLogins.GoogleClientSecret.value" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Instagram</h5>
+                                        <div class="form-group">
+                                            <label>ClientId</label>
+                                            <input class="form-control" type="text" ng-model="$ctrl.OAuthLogins.InstagramClientId.value" />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>ClientSecret</label>
+                                            <input class="form-control" type="text" ng-model="$ctrl.OAuthLogins.InstagramClientSecret.value" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">LinkedIn</h5>
+                                        <div class="form-group">
+                                            <label>ClientId</label>
+                                            <input class="form-control" type="text" ng-model="$ctrl.OAuthLogins.LinkedInClientId.value" />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>ClientSecret</label>
+                                            <input class="form-control" type="text" ng-model="$ctrl.OAuthLogins.LinkedInClientSecret.value" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Microsoft</h5>
+                                        <div class="form-group">
+                                            <label>ClientId</label>
+                                            <input class="form-control" type="text" ng-model="$ctrl.OAuthLogins.MicrosoftClientId.value" />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>ClientSecret</label>
+                                            <input class="form-control" type="text" ng-model="$ctrl.OAuthLogins.MicrosoftClientSecret.value" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Paypal</h5>
+                                        <div class="form-group">
+                                            <label>ClientId</label>
+                                            <input class="form-control" type="text" ng-model="$ctrl.OAuthLogins.PaypalClientId.value" />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>ClientSecret</label>
+                                            <input class="form-control" type="text" ng-model="$ctrl.OAuthLogins.PaypalClientSecret.value" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">QQ</h5>
+                                        <div class="form-group">
+                                            <label>ClientId</label>
+                                            <input class="form-control" type="text" ng-model="$ctrl.OAuthLogins.QQClientId.value" />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>ClientSecret</label>
+                                            <input class="form-control" type="text" ng-model="$ctrl.OAuthLogins.QQClientSecret.value" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Reddit</h5>
+                                        <div class="form-group">
+                                            <label>ClientId</label>
+                                            <input class="form-control" type="text" ng-model="$ctrl.OAuthLogins.RedditClientId.value" />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>ClientSecret</label>
+                                            <input class="form-control" type="text" ng-model="$ctrl.OAuthLogins.RedditClientSecret.value" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Salesforce</h5>
+                                        <div class="form-group">
+                                            <label>ClientId</label>
+                                            <input class="form-control" type="text" ng-model="$ctrl.OAuthLogins.SalesforceClientId.value" />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>ClientSecret</label>
+                                            <input class="form-control" type="text" ng-model="$ctrl.OAuthLogins.SalesforceClientSecret.value" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Twitter</h5>
+                                        <div class="form-group">
+                                            <label>ClientId</label>
+                                            <input class="form-control" type="text" ng-model="$ctrl.OAuthLogins.TwitterClientId.value" />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>ClientSecret</label>
+                                            <input class="form-control" type="text" ng-model="$ctrl.OAuthLogins.TwitterClientSecret.value" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Visual Studio Online</h5>
+                                        <div class="form-group">
+                                            <label>ClientId</label>
+                                            <input class="form-control" type="text" ng-model="$ctrl.OAuthLogins.VisualStudioOnlineClientId.value" />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>ClientSecret</label>
+                                            <input class="form-control" type="text" ng-model="$ctrl.OAuthLogins.VisualStudioOnlineClientSecret.value" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Weibo</h5>
+                                        <div class="form-group">
+                                            <label>ClientId</label>
+                                            <input class="form-control" type="text" ng-model="$ctrl.OAuthLogins.WeiboClientId.value" />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>ClientSecret</label>
+                                            <input class="form-control" type="text" ng-model="$ctrl.OAuthLogins.WeiboClientSecret.value" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Weixin</h5>
+                                        <div class="form-group">
+                                            <label>ClientId</label>
+                                            <input class="form-control" type="text" ng-model="$ctrl.OAuthLogins.WeixinClientId.value" />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>ClientSecret</label>
+                                            <input class="form-control" type="text" ng-model="$ctrl.OAuthLogins.WeixinClientSecret.value" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">WordPress</h5>
+                                        <div class="form-group">
+                                            <label>ClientId</label>
+                                            <input class="form-control" type="text" ng-model="$ctrl.OAuthLogins.WordPressClientId.value" />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>ClientSecret</label>
+                                            <input class="form-control" type="text" ng-model="$ctrl.OAuthLogins.WordPressClientSecret.value" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-show="areaIndex==1">
+                    <div class="alert alert-primary">
+                        Azure ApiManagement配置正确后，才能使用微服务的发布功能。
+                    </div>
+
+                    <div class="form-group">
+                        <label>网关地址</label>
+                        <input class="form-control" type="text" ng-model="$ctrl.AzureApim.Host.value" />
+                    </div>
+                    <div class="form-group">
+                        <label>ApiId</label>
+                        <input class="form-control" type="text" ng-model="$ctrl.AzureApim.ApiId.value" />
+                    </div>
+                    <div class="form-group">
+                        <label>ApiKey</label>
+                        <input class="form-control" type="text" ng-model="$ctrl.AzureApim.ApiKey.value" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>开发者中心网址 <small>(多个网址用英文逗号链接)</small></label>
+                        <textarea rows="4" class="form-control" ng-model="$ctrl.AzureApim.PortalUris.value"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>网关集成的委托密钥</label>
+                        <input class="form-control" type="text" ng-model="$ctrl.AzureApim.DelegationKey.value" />
+                    </div>
+                    <div class="form-group">
+                        <label>AuthorizationServerId <small>发布微服务默认的OAuth</small></label>
+                        <input class="form-control" type="text" ng-model="$ctrl.AzureApim.AuthorizationServerId.value" />
+                    </div>
+                    <div class="form-group">
+                        <label>ProductId <small>发布微服务默认的所属产品</small></label>
+                        <input class="form-control" type="text" ng-model="$ctrl.AzureApim.ProductId.value" />
+                    </div>
+                </div>
+                <div ng-show="areaIndex==2">
+                    <div class="form-group">
+                        <label>站点图标(ico)</label>
+                        <input class="form-control" type="text" ng-model="$ctrl.CommonConfig.Favicon.value" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>授权中心网址</label>
+                        <input class="form-control" type="text" ng-model="$ctrl.CommonConfig.WebSite.value" />
+                    </div>
+                    <div class="form-group">
+                        <label>开发者中心网址</label>
+                        <input class="form-control" type="text" ng-model="$ctrl.CommonConfig.PortalSite.value" />
+                    </div>
+                    <div class="form-group">
+                        <label>运营中心网址</label>
+                        <input class="form-control" type="text" ng-model="$ctrl.CommonConfig.AdminSite.value" />
+                    </div>
+                    <div class="form-group">
+                        <label>平台关键字</label>
+                        <input class="form-control" type="text" ng-model="$ctrl.CommonConfig.Keywords.value" />
+                    </div>
+                    <div class="form-group">
+                        <label>平台描述</label>
+                        <textarea class="form-control" rows="4" ng-model="$ctrl.CommonConfig.Summary.value"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>平台介绍</label>
+                        <textarea class="form-control" rows="4" ng-model="$ctrl.CommonConfig.Description.value"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>企业邮箱网址</label>
+                        <input class="form-control" type="text" ng-model="$ctrl.CommonConfig.EnterpriseEmail.value" />
+                    </div>
+                    <div class="form-group">
+                        <label>访问统计脚本</label>
+                        <textarea class="form-control" rows="4" ng-model="$ctrl.CommonConfig.Tracking.value"></textarea>
+                    </div>
+                </div>
+                <div ng-show="areaIndex==3">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-8">
+                                    扩展属性
+                                </div>
+                                <div class="col">
+                                    <input ng-model="$ctrl.propertyNameFilter" class="form-control form-control-sm pull-right" placeholder="查找..." />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body" style="max-height: 600px;overflow-y: scroll;">
+                            <div class="form-group form-row align-items-center" ng-if="$ctrl.defaultProperties.indexOf(x.key)<0"
+                                 ng-repeat="x in $ctrl.data.properties | filter : {key : $ctrl.propertyNameFilter}">
+                                <div class="col">
+                                    <input class="form-control" type="text" ng-model="x.key" placeholder="属性名称" />
+                                </div>
+                                <div class="col">
+                                    <textarea class="form-control" ng-model="x.value" placeholder="属性值" rows="2"></textarea>
+                                </div>
+                                <div class="col-auto">
+                                    <button type="button" class="btn btn-link" ng-click="$ctrl.delProperty($index)">删除</button>
+                                </div>
+                            </div>
+
+                            <button type="button" ng-click="$ctrl.addProperty()">添加</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <br />
+        <div class="row">
+            <div class="col">
+                <button type="submit" class="btn btn-primary">提交</button>
+            </div>
+        </div>
+        <br />
+        <br />
+    </form>
+</div>

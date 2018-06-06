@@ -1,6 +1,6 @@
 ﻿module.exports = function (gulp, concat, templateCache, useref, bom, uglify, clean, sequence, jeditor)
 {
-    var directoryName = 'identityserver';
+    var directoryName = 'identityserver4.microservice.ui';
 
     // 任务key
     var taskKey = '__' + directoryName;

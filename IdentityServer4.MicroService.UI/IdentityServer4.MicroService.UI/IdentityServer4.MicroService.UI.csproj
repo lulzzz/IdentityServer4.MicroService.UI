@@ -15,14 +15,20 @@
   <ItemGroup>
     <None Include="wwwroot\_apps\demo\phone-detail\phone-detail.component.js" />
     <None Include="wwwroot\_apps\demo\phone-list\phone-list.component.js" />
-    <None Include="wwwroot\_apps\identityserver\apiresource-detail\apiresource-detail.component.js" />
-    <None Include="wwwroot\_apps\identityserver\apiresource-gateway\apiresource-gateway.component.js" />
-    <None Include="wwwroot\_apps\identityserver\apiresources\apiresources.component.js" />
-    <None Include="wwwroot\_apps\identityserver\client-detail\client-detail.component.js" />
-    <None Include="wwwroot\_apps\identityserver\clients\clients.component.js" />
-    <None Include="wwwroot\_apps\identityserver\dashboard\dashboard.component.js" />
-    <None Include="wwwroot\_apps\identityserver\identityresource-detail\identityresource-detail.component.js" />
-    <None Include="wwwroot\_apps\identityserver\identityresources\identityresources.component.js" />
+    <None Include="wwwroot\_apps\identityserver4.microservice.ui\apiresource-detail\apiresource-detail.component.js" />
+    <None Include="wwwroot\_apps\identityserver4.microservice.ui\apiresource-gateway\apiresource-gateway.component.js" />
+    <None Include="wwwroot\_apps\identityserver4.microservice.ui\apiresources\apiresources.component.js" />
+    <None Include="wwwroot\_apps\identityserver4.microservice.ui\client-detail\client-detail.component.js" />
+    <None Include="wwwroot\_apps\identityserver4.microservice.ui\clients\clients.component.js" />
+    <None Include="wwwroot\_apps\identityserver4.microservice.ui\dashboard\dashboard.component.js" />
+    <None Include="wwwroot\_apps\identityserver4.microservice.ui\identityresource-detail\identityresource-detail.component.js" />
+    <None Include="wwwroot\_apps\identityserver4.microservice.ui\identityresources\identityresources.component.js" />
+    <None Include="wwwroot\_apps\identityserver4.microservice.ui\shared-directives\loading.directive.js" />
+    <None Include="wwwroot\_apps\identityserver4.microservice.ui\shared-directives\pager.directive.js" />
+    <None Include="wwwroot\_apps\identityserver4.microservice.ui\tenant-detail\tenant-detail.component.js" />
+    <None Include="wwwroot\_apps\identityserver4.microservice.ui\tenants\tenants.component.js" />
+    <None Include="wwwroot\_apps\identityserver4.microservice.ui\user-detail\user-detail.component.js" />
+    <None Include="wwwroot\_apps\identityserver4.microservice.ui\users\users.component.js" />
   </ItemGroup>
 
 </Project>

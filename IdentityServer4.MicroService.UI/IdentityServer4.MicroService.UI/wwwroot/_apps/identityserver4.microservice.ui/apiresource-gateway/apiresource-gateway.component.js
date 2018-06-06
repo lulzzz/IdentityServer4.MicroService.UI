@@ -340,7 +340,7 @@
                         // 首次发布
                         if (vm.versions.length < 1)
                         {
-                            alert('首次发布');
+                            //alert('首次发布');
                             vm.loading_publish = true;
                             openapis.IdentityServer4MicroServiceClient.ApiresourcePublish(vm.id,
                                 {
@@ -387,7 +387,7 @@
 
                                 // 发新修订版
                                 if (vm.selectedVersion.indexOf('.newRevision') > -1) {
-                                    alert('发布新修订版');
+                                    //alert('发布新修订版');
                                     var apiId = vm.selectedVersion.split('.newRevision')[0].replace('/apis/', '');
                                     vm.loading_publish = true;
                                     openapis.IdentityServer4MicroServiceClient.ApiresourcePublishrevision(vm.id,
@@ -401,7 +401,7 @@
                                 // 更新指定版本
                                 else {
 
-                                    alert('更新指定版本');
+                                    //alert('更新指定版本');
                                     vm.loading_publish = true;
                                     
                                     openapis.IdentityServer4MicroServiceClient.ApiresourcePublish(vm.id,

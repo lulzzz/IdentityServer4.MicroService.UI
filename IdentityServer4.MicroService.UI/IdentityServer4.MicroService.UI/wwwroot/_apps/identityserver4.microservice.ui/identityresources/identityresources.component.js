@@ -39,6 +39,9 @@
                             vm.data = r;
 
                         }, 1);
+                    }).catch(r => {
+                        $timeout(() => vm.loading = false);
+                        swal({ title: r.status + ":" + r.statusText, icon: 'error' });
                     })
                 };
 
