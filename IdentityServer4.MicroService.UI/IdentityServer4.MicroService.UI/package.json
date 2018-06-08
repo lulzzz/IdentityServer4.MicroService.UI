@@ -3,7 +3,8 @@
   "name": "asp.net",
   "private": true,
   "scripts": {
-    "build:crowdfunding": "gulp crowdfunding.build"
+    "app.build": "gulp app.build",
+    "identityserver.build": "gulp identityserver.build"
   },
   "devDependencies": {
     "gulp": "^3.9.1",

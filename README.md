@@ -5,25 +5,27 @@
 [![npm](https://img.shields.io/npm/v/identityserver4.microservice.ui.svg)](https://www.npmjs.com/package/identityserver4.microservice.ui)
 
 
+## Quick start
+
+- Run IdentityServer4.Microservice (get the server url https://localhost:44309)
+- Run IdentityServer4.MicroService.UI (server will be https://localhost:44386)
 
 
 截图
---
 
-#### 单点登陆到本地的IdentityServer4.Microservice项目（https://localhost:44309）
 ![1](1.png)
-
 
 ![2](2.png)
 
-#### 登录后跳转回来
 ![3](3.png)
 
-#### 微服务、应用相关配置管理
 ![4](4.png)
 
-![5](5_2.png)
 
-![6](6.png)
+```javascript
+# rebuild base configuration normally you changed the identityserver url
+- npm run app.build
 
-![7](7.png)
+# rebuild identityserver ui if you need custom UI
+- npm run identityserver.build
+```

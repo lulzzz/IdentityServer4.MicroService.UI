@@ -54,6 +54,27 @@
     <Content Include="wwwroot\icons\material-icons\MaterialIcons-Regular.woff2" />
     <Content Include="wwwroot\login.html" />
     <Content Include="wwwroot\logout.html" />
+    <Content Include="wwwroot\node_modules\identityserver4.microservice.ui\dist\app.min.css" />
+    <Content Include="wwwroot\node_modules\identityserver4.microservice.ui\dist\vendor.min.css" />
+    <Content Include="wwwroot\node_modules\identityserver4.microservice.ui\fonts\roboto\LICENSE.txt" />
+    <Content Include="wwwroot\node_modules\identityserver4.microservice.ui\fonts\roboto\Roboto-Black.woff" />
+    <Content Include="wwwroot\node_modules\identityserver4.microservice.ui\fonts\roboto\Roboto-BlackItalic.woff" />
+    <Content Include="wwwroot\node_modules\identityserver4.microservice.ui\fonts\roboto\Roboto-Bold.woff" />
+    <Content Include="wwwroot\node_modules\identityserver4.microservice.ui\fonts\roboto\Roboto-BoldItalic.woff" />
+    <Content Include="wwwroot\node_modules\identityserver4.microservice.ui\fonts\roboto\Roboto-Light.woff" />
+    <Content Include="wwwroot\node_modules\identityserver4.microservice.ui\fonts\roboto\Roboto-LightItalic.woff" />
+    <Content Include="wwwroot\node_modules\identityserver4.microservice.ui\fonts\roboto\Roboto-Medium.woff" />
+    <Content Include="wwwroot\node_modules\identityserver4.microservice.ui\fonts\roboto\Roboto-MediumItalic.woff" />
+    <Content Include="wwwroot\node_modules\identityserver4.microservice.ui\fonts\roboto\Roboto-Regular.woff" />
+    <Content Include="wwwroot\node_modules\identityserver4.microservice.ui\fonts\roboto\Roboto-RegularItalic.woff" />
+    <Content Include="wwwroot\node_modules\identityserver4.microservice.ui\fonts\roboto\Roboto-Thin.woff" />
+    <Content Include="wwwroot\node_modules\identityserver4.microservice.ui\fonts\roboto\Roboto-ThinItalic.woff" />
+    <Content Include="wwwroot\node_modules\identityserver4.microservice.ui\icons\material-icons\LICENSE.txt" />
+    <Content Include="wwwroot\node_modules\identityserver4.microservice.ui\icons\material-icons\MaterialIcons-Regular.woff" />
+    <Content Include="wwwroot\node_modules\identityserver4.microservice.ui\images\null.png" />
+    <Content Include="wwwroot\node_modules\identityserver4.microservice.ui\index.html" />
+    <Content Include="wwwroot\node_modules\identityserver4.microservice.ui\package.json" />
+    <Content Include="wwwroot\package.json" />
     <Content Include="wwwroot\silent_callback.html" />
     <Content Include="wwwroot\_apps\base\gulpfile.config.js" />
     <Content Include="wwwroot\_apps\base\oidc.init.js" />
@@ -86,6 +107,22 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\node_modules\identityserver4.microservice.ui\dist\app.min.js" />
+    <None Include="wwwroot\node_modules\identityserver4.microservice.ui\dist\vendor.min.js" />
+    <None Include="wwwroot\node_modules\identityserver4.microservice.ui\fonts\roboto\Roboto-Black.woff2" />
+    <None Include="wwwroot\node_modules\identityserver4.microservice.ui\fonts\roboto\Roboto-BlackItalic.woff2" />
+    <None Include="wwwroot\node_modules\identityserver4.microservice.ui\fonts\roboto\Roboto-Bold.woff2" />
+    <None Include="wwwroot\node_modules\identityserver4.microservice.ui\fonts\roboto\Roboto-BoldItalic.woff2" />
+    <None Include="wwwroot\node_modules\identityserver4.microservice.ui\fonts\roboto\Roboto-Light.woff2" />
+    <None Include="wwwroot\node_modules\identityserver4.microservice.ui\fonts\roboto\Roboto-LightItalic.woff2" />
+    <None Include="wwwroot\node_modules\identityserver4.microservice.ui\fonts\roboto\Roboto-Medium.woff2" />
+    <None Include="wwwroot\node_modules\identityserver4.microservice.ui\fonts\roboto\Roboto-MediumItalic.woff2" />
+    <None Include="wwwroot\node_modules\identityserver4.microservice.ui\fonts\roboto\Roboto-Regular.woff2" />
+    <None Include="wwwroot\node_modules\identityserver4.microservice.ui\fonts\roboto\Roboto-RegularItalic.woff2" />
+    <None Include="wwwroot\node_modules\identityserver4.microservice.ui\fonts\roboto\Roboto-Thin.woff2" />
+    <None Include="wwwroot\node_modules\identityserver4.microservice.ui\fonts\roboto\Roboto-ThinItalic.woff2" />
+    <None Include="wwwroot\node_modules\identityserver4.microservice.ui\icons\material-icons\MaterialIcons-Regular.ijmap" />
+    <None Include="wwwroot\node_modules\identityserver4.microservice.ui\icons\material-icons\MaterialIcons-Regular.woff2" />
     <None Include="wwwroot\_apps\demo\phone-detail\phone-detail.component.js" />
     <None Include="wwwroot\_apps\demo\phone-list\phone-list.component.js" />
     <None Include="wwwroot\_apps\identityserver4.microservice.ui\apiresource-detail\apiresource-detail.component.js" />

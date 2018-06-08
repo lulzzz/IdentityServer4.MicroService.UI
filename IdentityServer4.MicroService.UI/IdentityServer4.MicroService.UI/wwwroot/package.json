@@ -1,0 +1,10 @@
+{
+  "name": "wwwroot",
+  "version": "1.0.0",
+  "description": "",
+  "author": "seven1986",
+  "license": "ISC",
+  "dependencies": {
+    "identityserver4.microservice.ui": "^1.0.15"
+  }
+}
