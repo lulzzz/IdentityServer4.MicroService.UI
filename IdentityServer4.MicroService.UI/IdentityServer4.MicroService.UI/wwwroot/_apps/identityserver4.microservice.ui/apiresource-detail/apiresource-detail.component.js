@@ -30,7 +30,7 @@
 
                         vm.loading_getDetail = true;
 
-                        openapis.IdentityServer4MicroServiceClient.ApiresourceDetail(vm.id).then(r =>
+                        openapis.IdentityServer4MicroServiceClient.ApiResourceDetail(vm.id).then(r =>
                         {
                             $timeout(function ()
                             {
@@ -159,7 +159,7 @@
                     function createOrUpdate() {
                         if (vm.id > 0)
                         {
-                            openapis.IdentityServer4MicroServiceClient.ApiresourcePut(vm.data).then(r => {
+                            openapis.IdentityServer4MicroServiceClient.ApiResourcePut(vm.data).then(r => {
                                 if (r.code == 200) {
                                     swal({ title: '成功', icon: 'success' });
                                 }
@@ -170,7 +170,7 @@
                         }
                         else
                         {
-                            openapis.IdentityServer4MicroServiceClient.ApiresourcePost(vm.data).then(r => {
+                            openapis.IdentityServer4MicroServiceClient.ApiResourcePost(vm.data).then(r => {
                                 if (r.code == 200)
                                 {
                                     swal({ title: '成功', icon: 'success', closeOnClickOutside: false }).then(() =>

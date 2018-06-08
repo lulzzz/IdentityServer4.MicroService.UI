@@ -2,7 +2,7 @@
 Oidc.Log.level = Oidc.Log.WARN;
 var siteurl = location.protocol + "//" + location.host;
 var settings = {
-    authority: 'https://localhost:44309',
+    authority: 'https://ids.jixiucloud.cn',//'https://localhost:44309',
     client_id: 'adminportal',
     redirect_uri: siteurl + '/callback.html',
     post_logout_redirect_uri: siteurl + '/logout.html',

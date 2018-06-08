@@ -28,7 +28,7 @@
                 function IData_Get() {
                     vm.loading = true;
 
-                    openapis.IdentityServer4MicroServiceClient.IdentityresourceGet().then(r => {
+                    openapis.IdentityServer4MicroServiceClient.IdentityResourceGet().then(r => {
                         $timeout(() => {
                             vm.loading = false;
 
@@ -54,7 +54,7 @@
                         .then(willDelete => {
                             
                             if (willDelete) {
-                                openapis.IdentityServer4MicroServiceClient.IdentityresourceDelete(id).then(r => {
+                                openapis.IdentityServer4MicroServiceClient.IdentityResourceDelete(id).then(r => {
                                     if (r.code == 200) {
                                         swal({ title: '成功', icon: 'success' });
                                     }

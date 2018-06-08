@@ -2,7 +2,80 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TypeScriptToolsVersion>2.8</TypeScriptToolsVersion>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="wwwroot\_apps\base\node_modules\**" />
+    <Content Remove="wwwroot\_apps\base\node_modules\**" />
+    <EmbeddedResource Remove="wwwroot\_apps\base\node_modules\**" />
+    <None Remove="wwwroot\_apps\base\node_modules\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\%2a%2a" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="wwwroot\callback.html" />
+    <Content Include="wwwroot\dist\app.min.css" />
+    <Content Include="wwwroot\dist\app.min.js" />
+    <Content Include="wwwroot\dist\vendor.min.css" />
+    <Content Include="wwwroot\dist\vendor.min.js" />
+    <Content Include="wwwroot\favicon.ico" />
+    <Content Include="wwwroot\fonts\roboto\LICENSE.txt" />
+    <Content Include="wwwroot\fonts\roboto\Roboto-Black.woff" />
+    <Content Include="wwwroot\fonts\roboto\Roboto-Black.woff2" />
+    <Content Include="wwwroot\fonts\roboto\Roboto-BlackItalic.woff" />
+    <Content Include="wwwroot\fonts\roboto\Roboto-BlackItalic.woff2" />
+    <Content Include="wwwroot\fonts\roboto\Roboto-Bold.woff" />
+    <Content Include="wwwroot\fonts\roboto\Roboto-Bold.woff2" />
+    <Content Include="wwwroot\fonts\roboto\Roboto-BoldItalic.woff" />
+    <Content Include="wwwroot\fonts\roboto\Roboto-BoldItalic.woff2" />
+    <Content Include="wwwroot\fonts\roboto\Roboto-Light.woff" />
+    <Content Include="wwwroot\fonts\roboto\Roboto-Light.woff2" />
+    <Content Include="wwwroot\fonts\roboto\Roboto-LightItalic.woff" />
+    <Content Include="wwwroot\fonts\roboto\Roboto-LightItalic.woff2" />
+    <Content Include="wwwroot\fonts\roboto\Roboto-Medium.woff" />
+    <Content Include="wwwroot\fonts\roboto\Roboto-Medium.woff2" />
+    <Content Include="wwwroot\fonts\roboto\Roboto-MediumItalic.woff" />
+    <Content Include="wwwroot\fonts\roboto\Roboto-MediumItalic.woff2" />
+    <Content Include="wwwroot\fonts\roboto\Roboto-Regular.woff" />
+    <Content Include="wwwroot\fonts\roboto\Roboto-Regular.woff2" />
+    <Content Include="wwwroot\fonts\roboto\Roboto-RegularItalic.woff" />
+    <Content Include="wwwroot\fonts\roboto\Roboto-RegularItalic.woff2" />
+    <Content Include="wwwroot\fonts\roboto\Roboto-Thin.woff" />
+    <Content Include="wwwroot\fonts\roboto\Roboto-Thin.woff2" />
+    <Content Include="wwwroot\fonts\roboto\Roboto-ThinItalic.woff" />
+    <Content Include="wwwroot\fonts\roboto\Roboto-ThinItalic.woff2" />
+    <Content Include="wwwroot\icons\material-icons\LICENSE.txt" />
+    <Content Include="wwwroot\icons\material-icons\MaterialIcons-Regular.ijmap" />
+    <Content Include="wwwroot\icons\material-icons\MaterialIcons-Regular.woff" />
+    <Content Include="wwwroot\icons\material-icons\MaterialIcons-Regular.woff2" />
+    <Content Include="wwwroot\login.html" />
+    <Content Include="wwwroot\logout.html" />
+    <Content Include="wwwroot\silent_callback.html" />
+    <Content Include="wwwroot\_apps\base\gulpfile.config.js" />
+    <Content Include="wwwroot\_apps\base\oidc.init.js" />
+    <Content Include="wwwroot\_apps\base\package-lock.json" />
+    <Content Include="wwwroot\_apps\base\package.json" />
+    <Content Include="wwwroot\_apps\base\site.css" />
+    <Content Include="wwwroot\_apps\base\site.js" />
+    <Content Include="wwwroot\_apps\demo\app.css" />
+    <Content Include="wwwroot\_apps\demo\app.js" />
+    <Content Include="wwwroot\_apps\demo\gulpfile.config.js" />
+    <Content Include="wwwroot\_apps\demo\index.html" />
+    <Content Include="wwwroot\_apps\demo\package.json" />
+    <Content Include="wwwroot\_apps\demo\README.md" />
+    <Content Include="wwwroot\_apps\identityserver4.microservice.ui\app.css" />
+    <Content Include="wwwroot\_apps\identityserver4.microservice.ui\app.js" />
+    <Content Include="wwwroot\_apps\identityserver4.microservice.ui\gulpfile.config.js" />
+    <Content Include="wwwroot\_apps\identityserver4.microservice.ui\images\null.png" />
+    <Content Include="wwwroot\_apps\identityserver4.microservice.ui\index.html" />
+    <Content Include="wwwroot\_apps\identityserver4.microservice.ui\package-lock.json" />
+    <Content Include="wwwroot\_apps\identityserver4.microservice.ui\package.json" />
+    <Content Include="wwwroot\_apps\identityserver4.microservice.ui\README.md" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.8" />

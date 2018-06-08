@@ -47,7 +47,7 @@
 
                         vm.loading_getApiresourceProducts = true;
 
-                        openapis.IdentityServer4MicroServiceClient.ApiresourceProducts().then(r => {
+                        openapis.IdentityServer4MicroServiceClient.ApiResourceProducts().then(r => {
                             $timeout(function () {
                                 vm.loading_getApiresourceProducts = false;
                                 if (r.data) {
@@ -72,7 +72,7 @@
 
                         vm.loading_getPublishConfiguration = true;
                         
-                        openapis.IdentityServer4MicroServiceClient.ApiresourcePublishconfiguration(vm.id).then(r =>
+                        openapis.IdentityServer4MicroServiceClient.ApiResourcePublishconfiguration(vm.id).then(r =>
                         {
                             $timeout(function ()
                             {
@@ -123,7 +123,7 @@
 
                         vm.loading_getApiresourceAuthservers = true;
 
-                        openapis.IdentityServer4MicroServiceClient.ApiresourceAuthservers().then(r => {
+                        openapis.IdentityServer4MicroServiceClient.ApiResourceAuthservers().then(r => {
                             $timeout(function () {
                                 vm.loading_getApiresourceAuthservers = false;
                                 if (r.data) {
@@ -144,7 +144,7 @@
 
                         vm.loading_getVersions = true;
 
-                        openapis.IdentityServer4MicroServiceClient.ApiresourceVersions(vm.id).then(r =>
+                        openapis.IdentityServer4MicroServiceClient.ApiResourceVersions(vm.id).then(r =>
                         {
                             $timeout(function ()
                             {
@@ -185,7 +185,7 @@
 
                         vm.versions.forEach((v, index) =>
                         {
-                            openapis.IdentityServer4MicroServiceClient.ApiresourceReleases(vm.id, v.id.replace('/apis/', '')).then(x =>
+                            openapis.IdentityServer4MicroServiceClient.ApiResourceReleases(vm.id, v.id.replace('/apis/', '')).then(x =>
                             {
                                 $timeout(function ()
                                 {
@@ -210,7 +210,7 @@
 
                         vm.loading_getSubscriptions = true;
 
-                        openapis.IdentityServer4MicroServiceClient.ApiresourceSubscriptions(vm.id).then(r =>
+                        openapis.IdentityServer4MicroServiceClient.ApiResourceSubscriptions(vm.id).then(r =>
                         {
                             $timeout(function ()
                             {
@@ -233,7 +233,7 @@
 
                         vm.loading_getNPMOptions = true;
 
-                        openapis.IdentityServer4MicroServiceClient.CodegenNpmoptions(vm.id, languageKey).then(r =>
+                        openapis.IdentityServer4MicroServiceClient.CodeGenNpmoptions(vm.id, languageKey).then(r =>
                         {
                             $timeout(function ()
                             {
@@ -259,7 +259,7 @@
 
                         vm.loading_getNPMOptions = true;
 
-                        openapis.IdentityServer4MicroServiceClient.CodegenPutnpmoptions(vm.id, $scope.tab2Index, vm.npmOptions).then(r => {
+                        openapis.IdentityServer4MicroServiceClient.CodeGenPutnpmoptions(vm.id, $scope.tab2Index, vm.npmOptions).then(r => {
                             $timeout(function () {
                                 vm.loading_getNPMOptions = false;
                             }, 1);
@@ -342,7 +342,7 @@
                         {
                             //alert('首次发布');
                             vm.loading_publish = true;
-                            openapis.IdentityServer4MicroServiceClient.ApiresourcePublish(vm.id,
+                            openapis.IdentityServer4MicroServiceClient.ApiResourcePublish(vm.id,
                                 {
                                     name: vm.data.name,
                                     description: vm.data.description,
@@ -376,7 +376,7 @@
 
                                 vm.loading_publish = true;
                                 openapis.IdentityServer4MicroServiceClient.
-                                    ApiresourcePublishversion(vm.id, model).then(onOk);
+                                    ApiResourcePublishversion(vm.id, model).then(onOk);
                             }
 
                             else {
@@ -390,7 +390,7 @@
                                     //alert('发布新修订版');
                                     var apiId = vm.selectedVersion.split('.newRevision')[0].replace('/apis/', '');
                                     vm.loading_publish = true;
-                                    openapis.IdentityServer4MicroServiceClient.ApiresourcePublishrevision(vm.id,
+                                    openapis.IdentityServer4MicroServiceClient.ApiResourcePublishrevision(vm.id,
                                         {
                                             apiId: apiId,
                                             swaggerUrl: vm.data.swaggerUrl,
@@ -404,7 +404,7 @@
                                     //alert('更新指定版本');
                                     vm.loading_publish = true;
                                     
-                                    openapis.IdentityServer4MicroServiceClient.ApiresourcePublish(vm.id,
+                                    openapis.IdentityServer4MicroServiceClient.ApiResourcePublish(vm.id,
                                         {
                                             name: vm.data.name,
                                             description: vm.data.description,
@@ -433,7 +433,7 @@
                         if (vm.loading_releasePackage == true) { return; }
 
                         vm.loading_releasePackage = true;
-                        openapis.IdentityServer4MicroServiceClient.CodegenReleasesdk(
+                        openapis.IdentityServer4MicroServiceClient.CodeGenReleasesdk(
                             {
                                 platform: 0,
                                 language: language,
@@ -463,7 +463,7 @@
 
                         vm.loading_releasePackage = true;
 
-                        openapis.IdentityServer4MicroServiceClient.ApiresourceSetonlineversion(vm.id, aid.replace('/apis/', '')).then(x =>
+                        openapis.IdentityServer4MicroServiceClient.ApiResourceSetOnlineVersion(vm.id, aid.replace('/apis/', '')).then(x =>
                         {
                             $timeout(function () {
                                 vm.loading_releasePackage = false;
@@ -495,7 +495,7 @@
 
                         var notes = vm.releasesItem[itemIndex];
 
-                        openapis.IdentityServer4MicroServiceClient.ApiresourcePostrelease(vm.id, { aid: aid.replace('/apis/', ''), notes: notes }).then(x =>
+                        openapis.IdentityServer4MicroServiceClient.ApiResourcePostRelease(vm.id, { aid: aid.replace('/apis/', ''), notes: notes }).then(x =>
                         {
                             $timeout(function () {
                                 vm.loading_updateRelease = false;
@@ -520,7 +520,7 @@
 
                         var ids = item.id.split('/');
 
-                        openapis.IdentityServer4MicroServiceClient.ApiresourcePutrelease(vm.id, ids[ids.length - 1], { notes: item.notes }).then(x =>
+                        openapis.IdentityServer4MicroServiceClient.ApiResourcePutRelease(vm.id, ids[ids.length - 1], { notes: item.notes }).then(x =>
                         {
                             $timeout(function () {
                                 vm.loading_updateRelease = false;
@@ -543,7 +543,7 @@
 
                         var ids = releaseId.split('/');
 
-                        openapis.IdentityServer4MicroServiceClient.ApiresourceDeleterelease(vm.id, ids[ids.length - 1]).then(x =>
+                        openapis.IdentityServer4MicroServiceClient.ApiResourceDeleteRelease(vm.id, ids[ids.length - 1]).then(x =>
                         {
                             $timeout(function () {
                                 vm.loading_updateRelease = false;

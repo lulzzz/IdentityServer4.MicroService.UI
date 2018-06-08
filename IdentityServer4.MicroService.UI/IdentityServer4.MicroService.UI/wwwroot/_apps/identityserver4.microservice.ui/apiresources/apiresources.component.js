@@ -31,7 +31,7 @@
                     {
                         vm.loading = true;
 
-                        openapis.IdentityServer4MicroServiceClient.ApiresourceGet().then(r =>
+                        openapis.IdentityServer4MicroServiceClient.ApiResourceGet().then(r =>
                         {
                             $timeout(() => {
                                 vm.loading = false;
@@ -58,7 +58,7 @@
                             .then(willDelete => {
                                 
                                 if (willDelete) {
-                                    openapis.IdentityServer4MicroServiceClient.ApiresourceDelete(id).then(r => {
+                                    openapis.IdentityServer4MicroServiceClient.ApiResourceDelete(id).then(r => {
                                         if (r.code == 200) {
                                             swal({ title: '成功', icon: 'success' });
                                         }

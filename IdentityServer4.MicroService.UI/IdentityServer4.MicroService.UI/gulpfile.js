@@ -42,7 +42,7 @@ gulp.task("app.build", app(
 ));
 
 // identityserver APP
-var identityserver = require('./wwwroot/_apps/identityserver/gulpfile.config.js');
+var identityserver = require('./wwwroot/_apps/identityserver4.microservice.ui/gulpfile.config.js');
 
 gulp.task("identityserver.build", identityserver(
     gulp,

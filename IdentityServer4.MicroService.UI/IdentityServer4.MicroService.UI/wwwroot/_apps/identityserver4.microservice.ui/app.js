@@ -16,12 +16,17 @@
 
     function config()
     {
-        openapis.init({
-            server_endpoint: 'https://localhost:44309',
+        openapis.init({     
+            // 应用ID
             clientId: 'adminportal',
+            // 应用密钥
             client_secret: '1',
-            token_endpoint: 'https://localhost:44309/connect/token',
-            subscription_key: ''
+            // 网关订阅Key
+            subscription_key: '',
+            // Azure网关地址
+            server_endpoint: 'https://localhost:44309',
+            // IdentityServer地址
+            token_endpoint: window.parent.oidc.settings._authority + '/connect/token',
         });
     }
 

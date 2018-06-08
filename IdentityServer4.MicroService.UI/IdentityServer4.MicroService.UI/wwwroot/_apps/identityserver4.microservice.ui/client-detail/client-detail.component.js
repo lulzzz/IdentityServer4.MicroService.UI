@@ -414,7 +414,7 @@
                                 vm.scopes = r.data;
                             }, 1);
 
-                            openapis.IdentityServer4MicroServiceClient.IdentityresourceGet().then(x => {
+                            openapis.IdentityServer4MicroServiceClient.IdentityResourceGet().then(x => {
 
                                 if (r.code == 200)
                                 {
