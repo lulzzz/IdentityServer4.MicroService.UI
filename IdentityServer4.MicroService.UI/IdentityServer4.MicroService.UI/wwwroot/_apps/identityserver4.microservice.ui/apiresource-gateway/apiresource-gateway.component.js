@@ -72,7 +72,7 @@
 
                         vm.loading_getPublishConfiguration = true;
                         
-                        openapis.IdentityServer4MicroServiceClient.ApiResourcePublishconfiguration(vm.id).then(r =>
+                        openapis.IdentityServer4MicroServiceClient.ApiResourcePublishConfiguration(vm.id).then(r =>
                         {
                             $timeout(function ()
                             {
@@ -123,7 +123,7 @@
 
                         vm.loading_getApiresourceAuthservers = true;
 
-                        openapis.IdentityServer4MicroServiceClient.ApiResourceAuthservers().then(r => {
+                        openapis.IdentityServer4MicroServiceClient.ApiResourceAuthServers().then(r => {
                             $timeout(function () {
                                 vm.loading_getApiresourceAuthservers = false;
                                 if (r.data) {
@@ -233,7 +233,7 @@
 
                         vm.loading_getNPMOptions = true;
 
-                        openapis.IdentityServer4MicroServiceClient.CodeGenNpmoptions(vm.id, languageKey).then(r =>
+                        openapis.IdentityServer4MicroServiceClient.CodeGenNpmOptions(vm.id, languageKey).then(r =>
                         {
                             $timeout(function ()
                             {
@@ -259,7 +259,7 @@
 
                         vm.loading_getNPMOptions = true;
 
-                        openapis.IdentityServer4MicroServiceClient.CodeGenPutnpmoptions(vm.id, $scope.tab2Index, vm.npmOptions).then(r => {
+                        openapis.IdentityServer4MicroServiceClient.CodeGenPutNpmOptions(vm.id, $scope.tab2Index, vm.npmOptions).then(r => {
                             $timeout(function () {
                                 vm.loading_getNPMOptions = false;
                             }, 1);
@@ -278,6 +278,12 @@
                     /**
                      * 获取发包渠道Github配置
                      * */
+                    vm.githubOptions = {
+                        syncLabels: true,
+                        syncDocs: true,
+                        userAgent:'Awosome IdentityServer4 MicroService'
+                    };
+
                     function getGithubOptions() {
                         if (vm.loading_getNPMOptions == true) { return; }
                         vm.loading_getNPMOptions = true;
@@ -314,6 +320,40 @@
                         });
                     }
                     vm.setGithubOptions = setGithubOptions;
+
+                    function getGithubToken()
+                    {
+                        window.open('https://github.com/login/oauth/authorize?client_id=Iv1.03f5f066b1789e5e&redirect_uri=https://app.getpostman.com/oauth2/callback&scope=administration issues pull requests code metadata public_repo repo');
+
+                        swal({
+                            title: '请将授权成功后的Code粘贴进来',
+                            content: "input",
+                        }).then(codetext => {
+
+                            if (codetext == undefined || codetext == '') return;
+
+                            swal("生成中，获取中...",
+                                {
+                                    buttons: false
+                                });
+
+                            $.ajax({
+                                url: '/Home/GithubToken?code=' + codetext,
+                            }).then(r => {
+
+                                swal.close();
+
+                                $timeout(function () {
+                                    try {
+                                        vm.githubOptions.token = r.split('&')[0].split('=')[1];
+                                    }
+                                    catch (err) { }
+                                }, 1);
+                            });
+
+                        });
+                    }
+                    vm.getGithubToken = getGithubToken;
 
                     /**
                      * 发布版本
@@ -428,19 +468,16 @@
                     * 发布SDK包
                     * */
                     vm.loading_releasePackage = false;
-                    function releasePackage(aid,language)
+                    function releasePackage2(aid, language,portalHost)
                     {
-                        if (vm.loading_releasePackage == true) { return; }
-
                         vm.loading_releasePackage = true;
-                        openapis.IdentityServer4MicroServiceClient.CodeGenReleasesdk(
+                        openapis.IdentityServer4MicroServiceClient.CodeGenReleaseSDK(
                             {
                                 platform: 0,
                                 language: language,
                                 apiId: vm.id,
-                                swaggerUrl: 'https://portal.ixingban.com/docs/services/' + aid.replace('/apis/', '') + '/export?DocumentFormat=Swagger'
-                            }).then(r =>
-                            {
+                                swaggerUrl: portalHost + '/docs/services/' + aid.replace('/apis/', '') + '/export?DocumentFormat=Swagger'
+                            }).then(r => {
                                 $timeout(function () {
                                     vm.loading_releasePackage = false;
                                 }, 1);
@@ -452,6 +489,32 @@
                                     alert(r.message);
                                 }
                             });
+                    }
+                    //https://portal.ixingban.com
+                    function releasePackage(aid,language)
+                    {
+                        if (vm.loading_releasePackage == true) { return; }
+
+                        var portalHost = localStorage.getItem('portalHost');
+
+                        if (portalHost == null) {
+                            swal({
+                                title: '请先输入网关地址(格式：https://portal.abcd.com)',
+                                content: "input",
+                            }).then(codetext => {
+
+                                if (codetext == undefined || codetext == '') return;
+
+                                localStorage.setItem('portalHost', codetext);
+
+                                releasePackage2(aid, language, codetext);
+
+                            });
+                        }
+
+                        else {
+                            releasePackage2(aid, language, portalHost);
+                        }
                     }
                     vm.releasePackage = releasePackage;
                     /**

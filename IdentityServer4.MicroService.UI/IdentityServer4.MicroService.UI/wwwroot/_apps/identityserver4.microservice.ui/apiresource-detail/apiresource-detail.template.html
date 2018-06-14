@@ -46,7 +46,7 @@
                         UserClaims
                     </div>
                     <div class="card-body">
-                        <div class="form-group form-row align-items-center" ng-repeat="x in $ctrl.data.userClaims">
+                        <div class="form-group form-row align-items-center" ng-repeat="x in $ctrl.data.userClaims track by $index">
                             <div class="col-auto">
                                 <input class="form-control" type="text" ng-model="x.type" />
                             </div>
@@ -106,7 +106,7 @@
                                     <td><textarea class="form-control" type="text" ng-model="x.description" rows="2"></textarea></td>
                                     <td>
                                         <div ng-if="x.userClaims.length>0">
-                                            <div class="input-group mb-2" ng-repeat="xx in x.userClaims">
+                                            <div class="input-group mb-2" ng-repeat="xx in x.userClaims track by $index">
                                                 <input ng-model="xx.type" class="form-control" />
                                                 <div class="input-group-append">
                                                     <button type="button" class="btn btn-secondary" ng-click="$ctrl.delScopeClaim(outerIndex,$index)">x</button>
@@ -156,7 +156,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="x in $ctrl.data.secrets">
+                                <tr ng-repeat="x in $ctrl.data.secrets track by $index">
                                     <td><input disabled type="text" class="form-control" ng-model="x.value" /></td>
                                     <td><textarea rows="2" class="form-control" ng-model="x.description"></textarea></td>
                                     <td><select disabled class="form-control" ng-options="s.value as s.label for s in $ctrl.secretTypes" ng-model="x.type"></select></td>

@@ -328,3 +328,4 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+/IdentityServer4.MicroService.UI/IdentityServer4.MicroService.UI/wwwroot/apps/identityserver4.microservice.ui

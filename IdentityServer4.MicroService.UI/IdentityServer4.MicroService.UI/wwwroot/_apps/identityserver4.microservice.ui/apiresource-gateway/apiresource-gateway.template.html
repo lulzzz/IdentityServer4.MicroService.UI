@@ -127,8 +127,8 @@
                                             发包
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" href="javascript:void(0)" ng-click="$ctrl.releasePackage(x.id,0)">NPM.Angular2</a>
-                                            <a class="dropdown-item" href="javascript:void(0)" ng-click="$ctrl.releasePackage(x.id,1)">NPM.jQuery</a>
+                                            <a class="dropdown-item" ng-click="$ctrl.releasePackage(x.id,0)">NPM.Angular2</a>
+                                            <a class="dropdown-item" ng-click="$ctrl.releasePackage(x.id,1)">NPM.jQuery</a>
                                         </div>
                                     </div>
                                 </td>
@@ -326,7 +326,12 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label>令牌（token）</label>
+                                    <label>
+                                        令牌（token）
+                                        <a href="https://github.com/apps/identityserver4-microservice" target="_blank" title="需要配置有所有repo权限" class="btn btn-primary btn-sm">1，安装GithubApp</a> 
+                                        <button type="button" ng-click="$ctrl.getGithubToken()" class="btn btn-primary btn-sm">
+                                        2，获取Token</button>
+                                    </label>
                                     <input class="form-control" type="text" ng-model="$ctrl.githubOptions.token" />
                                 </div>
 
