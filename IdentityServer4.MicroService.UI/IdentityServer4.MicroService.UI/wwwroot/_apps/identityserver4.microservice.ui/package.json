@@ -4,19 +4,22 @@
   "version": "0.0.0",
   "dependencies": {
     "angular": "1.7.0",
+    "angular-moment": "^1.2.0",
     "angular-route": "1.7.0",
     "angular-sanitize": "1.7.0",
     "animate.css": "^3.6.1",
     "bootstrap": "^4.1.1",
     "identityserver4.microservice.appinit": "^1.0.10",
-    "identityserver4.microservice.jquery": "^1.0.10",
+    "identityserver4.microservice.jquery": "^1.0.12",
     "identityserver4.microservice.openapis": "^1.0.11",
     "iframe-resizer": "3.6.1",
     "jixiu.openapis.jquery_oidc": "^0.0.1",
     "jquery": "^3.3.1",
     "mdui": "^0.4.1",
+    "moment": "^2.22.2",
     "oidc-client": "1.5.0-beta.2",
     "select2": "^4.0.6-rc.1",
-    "sweetalert": "^2.1.0"
+    "sweetalert": "^2.1.0",
+    "toastr": "^2.1.4"
   }
 }

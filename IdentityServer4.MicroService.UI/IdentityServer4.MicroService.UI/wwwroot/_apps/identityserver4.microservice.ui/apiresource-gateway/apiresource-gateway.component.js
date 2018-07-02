@@ -37,6 +37,10 @@
                             case 4:
                                 vm.getNPMOptions(0);
                                 break;
+
+                            case 5:
+                                vm.getApiResourcePackages();
+                                break;
                         }
                     })
 
@@ -243,7 +247,7 @@
                                     vm.npmOptions = r.data;
                                 }
                                 else{
-                                    alert(r.message);
+                                    toastr.error(r.message);
                                 }
                             }, 1);
                         });
@@ -268,7 +272,7 @@
                                 alert('更新成功');
                             }
                             else {
-                                alert(r.message);
+                                toastr.error(r.message);
                             }
 
                         });
@@ -292,12 +296,12 @@
                             $timeout(function () {
                                 vm.loading_getNPMOptions = false;
                             }, 1);
-
+                            
                                 if (r.code == 200) {
                                     vm.githubOptions = r.data;
                                 }
                                 else {
-                                    alert(r.message);
+                                    toastr.error(r.message);
                                 }
                            
                         });
@@ -315,7 +319,7 @@
                                 alert('更新成功');
                             }
                             else {
-                                alert(r.message);
+                                toastr.error(r.message);
                             }
                         });
                     }
@@ -370,10 +374,11 @@
 
                             if (r.code == 200) {
                                 alert('发布成功');
+                                vm.syncGithub();
                             }
                             else
                             {
-                                alert(r.code + ':' + r.message);
+                                toastr.error(r.code + ':' + r.message);
                             }
                         };
 
@@ -401,7 +406,7 @@
                             // 发布新版本
                             if (vm.selectedVersion == 'newVersion') {
                                 if (vm.newVersionNumber == undefined) {
-                                    alert('请填写新的版本号');
+                                    toastr.error('请填写新的版本号');
                                     return;
                                 }
 
@@ -421,7 +426,7 @@
 
                             else {
                                 if (vm.selectedVersion == undefined) {
-                                    alert('请选择版本');
+                                    toastr.error('请选择版本');
                                     return;
                                 }
 
@@ -486,7 +491,7 @@
                                     alert('发布成功');
                                 }
                                 else {
-                                    alert(r.message);
+                                    toastr.error(r.message);
                                 }
                             });
                     }
@@ -539,7 +544,7 @@
                             }
                             else
                             {
-                                alert(x.message);
+                                toastr.error(x.message);
                             }
                         });
                     }
@@ -571,7 +576,7 @@
                                 vm.getReleases();
                             }
                             else {
-                                alert(x.message);
+                                toastr.error(x.message);
                             }
                         });
                     }
@@ -594,7 +599,7 @@
                                 vm.getReleases();
                             }
                             else {
-                                alert(x.message);
+                                toastr.error(x.message);
                             }
                         });
                     }
@@ -618,7 +623,7 @@
                                 vm.getReleases();
                             }
                             else {
-                                alert(x.message);
+                                toastr.error(x.message);
                             }
                         });
                     }
@@ -626,6 +631,118 @@
                     vm.updateRelease = updateRelease;
                     vm.removeRelease = removeRelease;
 
+                    /**
+                     * 同步github 标签、接口文档
+                     * */
+                    vm.loading_syncGithub = false;
+                    function syncGithub() {
+                        if (vm.loading_syncGithub == true) { return; }
+
+                        vm.loading_syncGithub = true;
+
+                        openapis.IdentityServer4MicroServiceClient.CodeGenSyncGithub(
+                            vm.id).then(x => {
+                                $timeout(function () {
+                                    vm.loading_syncGithub = false;
+                                }, 1);
+                                if (x.code == 200) {
+                                    alert('提交同步任务成功');
+                                }
+                                else {
+                                    toastr.error(x.message);
+                                }
+                            });
+                    }
+                    vm.syncGithub = syncGithub;
+
+
+                    /**
+                     * 包市常列表
+                     * */
+                    vm.loading_packages = false;
+                    vm.packagePlatforms = ['npm', 'nuget', 'gradle', 'spm', 'postman'];
+                    vm.package = {
+                        showIndex: 0,
+                        packagePlatform: 'npm',
+                        publisher: 'unkonw'
+                    };
+                    function getApiResourcePackages() {
+                        if (vm.loading_packages == true) { return; }
+
+                        vm.loading_packages = true;
+
+                        openapis.IdentityServer4MicroServiceClient.ApiResourcePackages(
+                            vm.id).then(x => {
+                                if (x.code != 200) {
+                                    toastr.error(x.message);
+                                }
+                                $timeout(function () {
+                                    vm.loading_packages = false;
+                                    vm.packages = x.data;
+                                }, 1);
+                            });
+                    }
+                    function postApiResourcePackage() {
+                        if (vm.loading_packages == true) { return; }
+
+                        vm.loading_packages = true;
+
+                        openapis.IdentityServer4MicroServiceClient.ApiResourcePostPackage(
+                            vm.id, vm.package).then(x => {
+
+                                $timeout(function () {
+                                    vm.loading_packages = false;
+                                }, 1);
+
+                                if (x.code != 200) {
+                                    toastr.error(x.message);
+                                }
+
+                                vm.getApiResourcePackages();
+                            });
+                    }
+                    function delApiResourcePackage(rowKey) {
+                        if (vm.loading_packages == true) { return; }
+
+                        vm.loading_packages = true;
+
+                        openapis.IdentityServer4MicroServiceClient.ApiResourceDeletePackage(
+                            vm.id, rowKey).then(x => {
+
+                                $timeout(function () {
+                                    vm.loading_packages = false;
+                                }, 1);
+
+                                if (x.code != 200) {
+                                    toastr.error(x.message);
+                                }
+
+                                vm.getApiResourcePackages();
+                            });
+                    }
+                    function putApiResourcePackage(entity) {
+                        if (vm.loading_packages == true) { return; }
+
+                        vm.loading_packages = true;
+
+                        openapis.IdentityServer4MicroServiceClient.ApiResourcePutPackage(
+                            vm.id, entity.rowKey, entity).then(x => {
+
+                                $timeout(function () {
+                                    vm.loading_packages = false;
+                                }, 1);
+
+                                if (x.code != 200) {
+                                    toastr.error(x.message);
+                                }
+
+                                vm.getApiResourcePackages();
+                            });
+                    }
+                    vm.getApiResourcePackages = getApiResourcePackages;
+                    vm.postApiResourcePackage = postApiResourcePackage;
+                    vm.delApiResourcePackage = delApiResourcePackage;
+                    vm.putApiResourcePackage = putApiResourcePackage;
                     $(function () { 
                         vm.getApiresourceProducts();
                         vm.getApiresourceAuthservers();
