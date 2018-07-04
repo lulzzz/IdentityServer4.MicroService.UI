@@ -21,7 +21,9 @@
                 <div style="display:flex; flex-direction:column; justify-content:center;align-items:center;height:80vh;">
                     <button class="mdui-btn mdui-btn-raised mdui-btn-block mdui-color-theme-accent mdui-ripple" onclick="oidc.signinRedirect()">登录</button>
                     <br />
-                    <a href="https://localhost:44309/Account/Register" class="mdui-btn mdui-btn-raised mdui-btn-block mdui-ripple">注册</a>
+                    <button type="button" class="mdui-btn" onclick="location.href = oidc.settings.authority + '/Account/Register'">注册</button>
+                    <br />
+                     <a href="/start.html" class="mdui-btn">配置 IdentityServer</a>
                 </div>
             </div>
         </div>

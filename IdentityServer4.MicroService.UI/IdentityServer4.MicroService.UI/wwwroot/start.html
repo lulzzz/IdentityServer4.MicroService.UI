@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>初始化</title>
+    <link rel="stylesheet" href="/dist/vendor.min.css" />
+</head>
+<body class="mdui-theme-primary-grey mdui-theme-accent-blue">
+    <div class="mdui-container">
+        <br /><br /><br />
+        <div class="mdui-row">
+            <div class="mdui-col-md-3 mdui-col-offset-md-4">
+                <h3>配置 IdentityServer</h3>
+
+                <div class="mdui-textfield mdui-textfield-floating-label">
+                    <i class="mdui-icon material-icons">textsms</i>
+                    <label class="mdui-textfield-label">服务器地址。如：https://localhost:44309</label>
+                    <input id="oidc_authority" type="text" class="mdui-textfield-input" />
+                </div>
+
+                <div class="mdui-textfield mdui-textfield-floating-label">
+                    <i class="mdui-icon material-icons">textsms</i>
+                    <label class="mdui-textfield-label">client_id。默认：adminportal</label>
+                    <input id="oidc_client_id" type="text" class="mdui-textfield-input" />
+                </div>
+                <br />
+                <br />
+                <div class="mdui-col">
+                    <button class="mdui-btn mdui-btn-block mdui-color-theme-accent mdui-ripple" onclick="setOidcConfig()">更新</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="dist/vendor.min.js"></script>
+    <script type="text/javascript">
+        function getOidcConfig() {
+            var _authority = localStorage.getItem("oidc_authority");
+            var _client_id = localStorage.getItem("oidc_client_id")||'adminportal';
+
+            $("#oidc_authority").val(_authority).focus();
+            $("#oidc_client_id").val(_client_id).focus();
+        }
+
+        function setOidcConfig() {
+            var _authority = $("#oidc_authority").val();
+            var _client_id = $("#oidc_client_id").val();
+
+            localStorage.setItem("oidc_authority", _authority);
+            localStorage.setItem("oidc_client_id", _client_id);
+
+            location.href = '/login.html';
+        }
+
+        $(function () {
+
+            getOidcConfig();
+        });
+    </script>
+</body>
+</html>

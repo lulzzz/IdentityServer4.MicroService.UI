@@ -112,6 +112,7 @@
     <Content Include="wwwroot\node_modules\identityserver4.microservice.ui\package.json" />
     <Content Include="wwwroot\package.json" />
     <Content Include="wwwroot\silent_callback.html" />
+    <Content Include="wwwroot\start.html" />
     <Content Include="wwwroot\_apps\base\gulpfile.config.js" />
     <Content Include="wwwroot\_apps\base\oidc.init.js" />
     <Content Include="wwwroot\_apps\base\package-lock.json" />
