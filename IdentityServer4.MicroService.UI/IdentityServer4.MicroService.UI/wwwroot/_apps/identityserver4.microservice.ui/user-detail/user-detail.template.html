@@ -219,7 +219,7 @@
                         distributors
                     </div>
                     <div class="card-body">
-                        <p ng-repeat="x in $ctrl.data.distributors">
+                        <p ng-repeat="x in $ctrl.data.distributors track by $index">
                             {{x}}
                         </p>
                     </div>
@@ -232,7 +232,7 @@
                         files
                     </div>
                     <div class="card-body">
-                        <p ng-repeat="x in $ctrl.data.files">
+                        <p ng-repeat="x in $ctrl.data.files track by $index">
                             {{x.fileType}}:{{x.files}}
                         </p>
                     </div>
@@ -245,7 +245,7 @@
                         tokens
                     </div>
                     <div class="card-body">
-                        <p ng-repeat=" x in $ctrl.data.tokens">
+                        <p ng-repeat=" x in $ctrl.data.tokens track by $index">
                             {{x.loginProvider}}:{{x.name}}:{{x.value}}
                         </p>
                     </div>
@@ -258,7 +258,7 @@
                         logins
                     </div>
                     <div class="card-body">
-                        <p ng-repeat=" x in $ctrl.data.logins">
+                        <p ng-repeat=" x in $ctrl.data.logins track by $index">
                             {{x.providerDisplayName}}:{{x.providerKey}}
                         </p>
                     </div>

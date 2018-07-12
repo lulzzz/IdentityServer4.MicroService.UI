@@ -114,7 +114,7 @@
                                 <th>发布SDK / <button type="button" class="btn btn-link" ng-click="tabIndex=4">配置</button></th>
                             </tr>
                         </thead>
-                        <tbody ng-repeat="x in $ctrl.versions">
+                        <tbody ng-repeat="x in $ctrl.versions track by $index">
                             <tr>
                                 <td>{{x.apiVersion||'默认'}}</td>
                                 <td><span am-time-ago="x.revisions[0].createdDateTime"></span></td>

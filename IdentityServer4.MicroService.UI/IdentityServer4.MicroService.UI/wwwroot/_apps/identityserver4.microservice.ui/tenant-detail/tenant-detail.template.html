@@ -77,7 +77,7 @@
                         Claims
                     </div>
                     <div class="card-body">
-                        <div class="form-group form-row align-items-center" ng-repeat="x in $ctrl.data.claims">
+                        <div class="form-group form-row align-items-center" ng-repeat="x in $ctrl.data.claims track by $index">
                             <div class="col-auto">
                                 <input class="form-control" type="text" ng-model="x.claimType" placeholder="类型:" />
                             </div>

@@ -56,7 +56,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="x in $ctrl.data.clientSecrets">
+                                    <tr ng-repeat="x in $ctrl.data.clientSecrets track by $index">
                                         <td><input disabled type="text" class="form-control" ng-model="x.value" /></td>
                                         <td><textarea rows="2" class="form-control" ng-model="x.description"></textarea></td>
                                         <td>
@@ -136,7 +136,7 @@
                         </div>
                         <div class="card-body">
                             <div ng-show="basicTabIndex==0">
-                                <div class="form-group form-row align-items-center" ng-repeat="x in $ctrl.data.redirectUris">
+                                <div class="form-group form-row align-items-center" ng-repeat="x in $ctrl.data.redirectUris track by $index">
                                     <div class="col-10">
                                         <input class="form-control" type="text" ng-model="x.redirectUri" />
                                     </div>
@@ -148,7 +148,7 @@
                                 <button type="button" ng-click="$ctrl.addRedirectUri()">添加</button>
                             </div>
                             <div ng-show="basicTabIndex==1">
-                                <div class="form-group form-row align-items-center" ng-repeat="x in $ctrl.data.allowedScopes">
+                                <div class="form-group form-row align-items-center" ng-repeat="x in $ctrl.data.allowedScopes track by $index">
                                     <div class="col-10">
                                         <input class="form-control" type="text" ng-model="x.scope" />
                                     </div>
@@ -173,7 +173,7 @@
                                 </div>
                             </div>
                             <div ng-show="basicTabIndex==2">
-                                <div class="form-group form-row align-items-center" ng-repeat="x in $ctrl.data.properties">
+                                <div class="form-group form-row align-items-center" ng-repeat="x in $ctrl.data.properties track by $index">
                                     <div class="col">
                                         <input class="form-control" type="text" ng-model="x.key" placeholder="类型:" />
                                     </div>
@@ -240,7 +240,7 @@
                         </div>
                         <div class="card-body">
                             <div ng-show="authTabIndex==0">
-                                <div class="form-group form-row align-items-center" ng-repeat="x in $ctrl.data.postLogoutRedirectUris">
+                                <div class="form-group form-row align-items-center" ng-repeat="x in $ctrl.data.postLogoutRedirectUris track by $index">
                                     <div class="col-10">
                                         <input class="form-control" type="text" ng-model="x.postLogoutRedirectUri" />
                                     </div>
@@ -258,7 +258,7 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <div class="form-group form-row align-items-center" ng-repeat="x in $ctrl.data.identityProviderRestrictions">
+                                <div class="form-group form-row align-items-center" ng-repeat="x in $ctrl.data.identityProviderRestrictions track by $index">
                                     <div class="col-10">
                                         <input class="form-control" type="text" ng-model="x.provider" />
                                     </div>
@@ -364,7 +364,7 @@
                         </div>
                         <div class="card-body">
                             <div ng-show="tokenTabIndex==0">
-                                <div class="form-group form-row align-items-center" ng-repeat="x in $ctrl.data.claims">
+                                <div class="form-group form-row align-items-center" ng-repeat="x in $ctrl.data.claims track by $index">
                                     <div class="col-auto">
                                         <input class="form-control" type="text" ng-model="x.type" />
                                     </div>
@@ -378,7 +378,7 @@
                                 <button type="button" ng-click="$ctrl.addClaim()">添加</button>
                             </div>
                             <div ng-show="tokenTabIndex==1">
-                                <div class="form-group form-row align-items-center" ng-repeat="x in $ctrl.data.allowedCorsOrigins">
+                                <div class="form-group form-row align-items-center" ng-repeat="x in $ctrl.data.allowedCorsOrigins track by $index">
                                     <div class="col-10">
                                         <input class="form-control" type="text" ng-model="x.origin" />
                                     </div>

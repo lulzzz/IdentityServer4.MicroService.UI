@@ -70,7 +70,7 @@
                         UserClaims
                     </div>
                     <div class="card-body">
-                        <div class="form-group form-row align-items-center" ng-repeat="x in $ctrl.data.userClaims">
+                        <div class="form-group form-row align-items-center" ng-repeat="x in $ctrl.data.userClaims track by $index">
                             <div class="col-auto">
                                 <input class="form-control" type="text" ng-model="x.type" />
                             </div>
