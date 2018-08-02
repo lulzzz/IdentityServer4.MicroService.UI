@@ -39,15 +39,12 @@ namespace IdentityServer4.MicroService.UI
             }
 
             app.UseDefaultFiles();
+
             app.UseStaticFiles();
+
             app.UseResponseCaching();
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
+            app.UseMvcWithDefaultRoute();
         }
     }
 }

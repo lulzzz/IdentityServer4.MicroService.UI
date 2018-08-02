@@ -11,13 +11,13 @@
         <div class="col-7">
             <ul class="pagination" style="margin:0; float:right">
                 <li class="page-item disabled" ng-if="$ctrl.data.PageIndex <= 0"><a class="page-link" href="javascript:(0)">«</a></li>
-                <li class="page-item" ng-if="$ctrl.data.PageIndex > 0"><a class="page-link" href="javascript:(0)" ng-click="$ctrl.data.PageIndex = 0;IData_Get()">«</a></li>
+                <li class="page-item" ng-if="$ctrl.data.PageIndex > 0"><a class="page-link" href="javascript:(0)" ng-click="$ctrl.data.PageIndex = 0;$ctrl.IData_Get()">«</a></li>
                 <li class="page-item" ng-repeat="d in $ctrl.data.PageCount | range" ng-if="$index < $ctrl.data.PageIndex+3 && $index > $ctrl.data.PageIndex-3" ng-class="{active:$index == $ctrl.data.PageIndex}">
                     <a class="page-link" ng-if="$index == $ctrl.data.PageIndex" href="javascript:void(0)"><span>{{$index+1}}</span></a>
-                    <a class="page-link" ng-if="$index != $ctrl.data.PageIndex" href="javascript:void(0)" ng-click="$ctrl.data.PageIndex = $index;IData_Get()">{{$index+1}}</a>
+                    <a class="page-link" ng-if="$index != $ctrl.data.PageIndex" href="javascript:void(0)" ng-click="$ctrl.data.PageIndex = $index;$ctrl.IData_Get()">{{$index+1}}</a>
                 </li>
                 <li class="page-item disabled" ng-if="$ctrl.data.PageCount==null||$ctrl.data.PageIndex+1 >= $ctrl.data.PageCount"><a class="page-link" href="javascript:(0)">»</a></li>
-                <li class="page-item" ng-if="$ctrl.data.PageIndex+1 < $ctrl.data.PageCount"><a class="page-link" href="javascript:(0)" ng-click="$ctrl.data.PageIndex = $ctrl.data.PageCount-1;IData_Get()">»</a></li>
+                <li class="page-item" ng-if="$ctrl.data.PageIndex+1 < $ctrl.data.PageCount"><a class="page-link" href="javascript:(0)" ng-click="$ctrl.data.PageIndex = $ctrl.data.PageCount-1;$ctrl.IData_Get()">»</a></li>
             </ul>
             <ul style="display: inline-block;float: right;list-style: none;margin: 4px 15px 0px 0px;letter-spacing: 0px;">
                 <li>

@@ -58,6 +58,9 @@
                         绑定域名
                     </div>
                     <div class="card-body">
+                        <div class="alert alert-primary">
+                            请先将绑定的域名 CNAME 到 <b>{{$ctrl.oidc_authority}}</b>
+                        </div>
                         <div class="form-group form-row align-items-center" ng-repeat="x in $ctrl.data.hosts track by $index">
                             <div class="col-auto"><label>域名{{$index+1}}</label></div>
                             <div class="col-auto">

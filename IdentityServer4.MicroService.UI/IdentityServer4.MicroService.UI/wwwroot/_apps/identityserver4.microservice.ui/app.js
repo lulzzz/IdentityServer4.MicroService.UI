@@ -16,23 +16,10 @@
 
     function config()
     {
-        openapis.init({     
-            // 应用ID
-            clientId: 'adminportal',
-            // 应用密钥
-            client_secret: '1',
-            // 网关订阅Key
-            subscription_key: '',
-            // Azure网关地址
-            server_endpoint: 'https://localhost:44309',
-            // IdentityServer地址
-            token_endpoint: window.parent.oidc.settings._authority + '/connect/token',
-        });
     }
 
     function run()
     {
-
     }
 
 })();
@@ -99,6 +86,9 @@
                 }).
                 when('/apiresources/:id', {
                     template: '<apiresource-detail></apiresource-detail>'
+                }).
+                when('/sdkgen/:id', {
+                    template: '<apiresource-sdkgen></apiresource-sdkgen>'
                 }).
                 when('/apigateway/:id', {
                     template: '<apiresource-gateway></apiresource-gateway>'

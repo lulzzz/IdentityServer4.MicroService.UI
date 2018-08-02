@@ -16,6 +16,7 @@
 
                 vm.loading = true;
                 vm.filter = { take: 10 };
+                vm.data = { PageIndex: 0 };
 
                 vm.IData_Get = IData_Get;
                 vm.IDelete = IDelete;
@@ -28,14 +29,20 @@
                 function IData_Get() {
                     vm.loading = true;
 
-                    openapis.IdentityServer4MicroServiceClient.UserGet().then(r => {
+                    openapis.IdentityServer4MicroServiceClient.UserGet(
+                        vm.filter.roles,
+                        vm.filter.phoneNumber,
+                        vm.filter.name,
+                        vm.filter.email,
+                        vm.filter.orderby,
+                        vm.filter.asc,
+                        vm.data.PageIndex * vm.filter.take,
+                        vm.filter.take
+                    ).then(r => {
                         $timeout(() => {
                             vm.loading = false;
-
                             r.PageIndex = r.skip <= 0 ? 0 : r.skip % r.take == 0 ? r.skip / r.take : (r.skip / r.take) + 1;
-
-                            r.PageCount = r.skip == 0 || r.total % r.skip == 0 ? 1 : r.total / r.skip;
-
+                            r.PageCount = parseInt(r.total / r.take) + 1;
                             vm.data = r;
 
                         }, 1);

@@ -10,6 +10,11 @@
                 function UserDetailController($routeParams, $timeout, $location)
                 {
                     var vm = this;
+                    vm.uploadFileType = 0;
+                    vm.FileTypes = [
+                        { id: 0, name: '图片' },
+                        { id: 1, name: '视频' },
+                        { id: 2, name: '文档' }];
 
                     vm.id = parseInt($routeParams.id);
                     vm.data = {
@@ -190,6 +195,49 @@
                                     }
                                 });
                         });
+
+                        $('#uploadUserFile').change(function ()
+                        {
+                            if (this.files.length < 1) { return; }
+                            var file = this.files[0];
+                            var formdata = new FormData();
+                            formdata.append("value", file);
+
+                            swal({
+                                title: "是否确认上传?",
+                                buttons: true,
+                            })
+                                .then(confirmUpload =>
+                                {
+                                    if (confirmUpload)
+                                    {
+                                        var action = vm.uploadFileType == 0 ? openapis.IdentityServer4MicroServiceClient.FileImage(formdata)
+                                            : openapis.IdentityServer4MicroServiceClient.FilePost(formdata);
+
+                                        action.then(r => {
+
+                                            if (r.code == 200) {
+                                                $timeout(() => {
+
+                                                    vm.data.files.push({
+                                                        id:0,
+                                                        fileType: vm.uploadFileType,
+                                                        files: r.data
+                                                    });
+
+                                                }, 1);
+                                            }
+                                            else {
+                                                swal({ title: r.message, icon: 'error' });
+                                            }
+                                        });
+                                    }
+                                    else {
+                                        $('#customFileLang').val('');
+                                    }
+                                });
+                        });
+                        
                     });
                 }]
         });

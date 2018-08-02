@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="signalr.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <button id="sendMessage">发消息</button>
+        <ul id="messagesList"></ul>
+    </div>
+
+    <script>
+        const connection = new signalR.HubConnectionBuilder()
+             // 这里配置hub地址
+             // 猜拳 https://campaigncore-gameresourcev5.chinacloudsites.cn/cqhub
+             // 你画我猜 https://campaigncore-gameresourcev5.chinacloudsites.cn/drawingHub
+            .withUrl('https://campaigncore-gameresourcev5.chinacloudsites.cn/cqhub')
+            .build();
+
+        // 接受信息，统一的名字"ReceiveMessage"
+        connection.on("ReceiveMessage", (userName, message) =>
+        {
+            const msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            const encodedMsg = userName + " says " + msg;
+            const li = document.createElement("li");
+            li.textContent = encodedMsg;
+            document.getElementById("messagesList").appendChild(li);
+        });
+
+        connection.start().catch(err => console.error(err.toString()));
+
+        // 加入聊天室
+        //connection.invoke('AddToGroup','main','wangzhen')
+
+        document.getElementById('sendMessage').onclick = function (ev)
+        {
+            // 发送消息
+            connection.invoke("SendMessageToGroup", 'main', 'wangzhen', '123456789').catch(err => console.error(err.toString()));
+        };
+   
+    </script>
+</body>
+</html>

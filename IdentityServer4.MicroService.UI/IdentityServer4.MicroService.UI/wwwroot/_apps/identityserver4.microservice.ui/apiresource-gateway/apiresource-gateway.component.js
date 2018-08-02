@@ -6,8 +6,8 @@
         .component('apiresourceGateway',
         {
             templateUrl: 'apiresource-gateway/apiresource-gateway.template.html',
-            controller: ['$routeParams', '$timeout', '$scope','$q',
-                function ApiresourceGatewayController($routeParams, $timeout, $scope, $q)
+            controller: ['$routeParams', '$timeout', '$scope',
+                function ApiresourceGatewayController($routeParams, $timeout, $scope)
                 {
                     var vm = this;
                     vm.id = $routeParams.id;
@@ -32,14 +32,6 @@
 
                             case 3:
                                 vm.getSubscriptions();
-                                break;
-
-                            case 4:
-                                vm.getNPMOptions(0);
-                                break;
-
-                            case 5:
-                                vm.getApiResourcePackages();
                                 break;
                         }
                     })
@@ -228,138 +220,6 @@
                     vm.getSubscriptions = getSubscriptions;
 
                     /**
-                     * 获取发包渠道NPM配置
-                     * */
-                    vm.loading_getNPMOptions = false;
-                    function getNPMOptions(languageKey)
-                    {
-                        if (vm.loading_getNPMOptions == true) { return; }
-
-                        vm.loading_getNPMOptions = true;
-
-                        openapis.IdentityServer4MicroServiceClient.CodeGenNpmOptions(vm.id, languageKey).then(r =>
-                        {
-                            $timeout(function ()
-                            {
-                                vm.loading_getNPMOptions = false;
-
-                                if (r.code == 200){
-                                    vm.npmOptions = r.data;
-                                }
-                                else{
-                                    toastr.error(r.message);
-                                }
-                            }, 1);
-                        });
-                    }
-                    vm.getNPMOptions = getNPMOptions;
-
-                    /**
-                     * 更新发包渠道配置
-                     * */
-                    function setNPMOptions()
-                    {
-                        if (vm.loading_getNPMOptions == true) { return; }
-
-                        vm.loading_getNPMOptions = true;
-
-                        openapis.IdentityServer4MicroServiceClient.CodeGenPutNpmOptions(vm.id, $scope.tab2Index, vm.npmOptions).then(r => {
-                            $timeout(function () {
-                                vm.loading_getNPMOptions = false;
-                            }, 1);
-
-                            if (r.code == 200) {
-                                alert('更新成功');
-                            }
-                            else {
-                                toastr.error(r.message);
-                            }
-
-                        });
-                    }
-                    vm.setNPMOptions = setNPMOptions;
-
-                    /**
-                     * 获取发包渠道Github配置
-                     * */
-                    vm.githubOptions = {
-                        syncLabels: true,
-                        syncDocs: true,
-                        userAgent:'Awosome IdentityServer4 MicroService'
-                    };
-
-                    function getGithubOptions() {
-                        if (vm.loading_getNPMOptions == true) { return; }
-                        vm.loading_getNPMOptions = true;
-
-                        openapis.IdentityServer4MicroServiceClient.CodeGenGithubOptions(vm.id).then(r => {
-                            $timeout(function () {
-                                vm.loading_getNPMOptions = false;
-                            }, 1);
-                            
-                                if (r.code == 200) {
-                                    vm.githubOptions = r.data;
-                                }
-                                else {
-                                    toastr.error(r.message);
-                                }
-                           
-                        });
-                    }
-                    vm.getGithubOptions = getGithubOptions;
-                    function setGithubOptions() {
-                        if (vm.loading_getNPMOptions == true) { return; }
-                        vm.loading_getNPMOptions = true;
-                        openapis.IdentityServer4MicroServiceClient.CodeGenPutGithubOptions(vm.id, vm.githubOptions).then(r => {
-                            $timeout(function () {
-                                vm.loading_getNPMOptions = false;
-                            }, 1);
-
-                            if (r.code == 200) {
-                                alert('更新成功');
-                            }
-                            else {
-                                toastr.error(r.message);
-                            }
-                        });
-                    }
-                    vm.setGithubOptions = setGithubOptions;
-
-                    function getGithubToken()
-                    {
-                        window.open('https://github.com/login/oauth/authorize?client_id=Iv1.03f5f066b1789e5e&redirect_uri=https://app.getpostman.com/oauth2/callback&scope=administration issues pull requests code metadata public_repo repo');
-
-                        swal({
-                            title: '请将授权成功后的Code粘贴进来',
-                            content: "input",
-                        }).then(codetext => {
-
-                            if (codetext == undefined || codetext == '') return;
-
-                            swal("生成中，获取中...",
-                                {
-                                    buttons: false
-                                });
-
-                            $.ajax({
-                                url: '/Home/GithubToken?code=' + codetext,
-                            }).then(r => {
-
-                                swal.close();
-
-                                $timeout(function () {
-                                    try {
-                                        vm.githubOptions.token = r.split('&')[0].split('=')[1];
-                                    }
-                                    catch (err) { }
-                                }, 1);
-                            });
-
-                        });
-                    }
-                    vm.getGithubToken = getGithubToken;
-
-                    /**
                      * 发布版本
                      * */
                     vm.loading_publish = false;
@@ -467,61 +327,7 @@
                         }
                     }
                     vm.publish = publish;
-
-                   
-                    /**
-                    * 发布SDK包
-                    * */
-                    vm.loading_releasePackage = false;
-                    function releasePackage2(aid, language,portalHost)
-                    {
-                        vm.loading_releasePackage = true;
-                        openapis.IdentityServer4MicroServiceClient.CodeGenReleaseSDK(
-                            {
-                                platform: 0,
-                                language: language,
-                                apiId: vm.id,
-                                swaggerUrl: portalHost + '/docs/services/' + aid.replace('/apis/', '') + '/export?DocumentFormat=Swagger'
-                            }).then(r => {
-                                $timeout(function () {
-                                    vm.loading_releasePackage = false;
-                                }, 1);
-
-                                if (r.code == 200) {
-                                    alert('发布成功');
-                                }
-                                else {
-                                    toastr.error(r.message);
-                                }
-                            });
-                    }
-                    //https://portal.ixingban.com
-                    function releasePackage(aid,language)
-                    {
-                        if (vm.loading_releasePackage == true) { return; }
-
-                        var portalHost = localStorage.getItem('portalHost');
-
-                        if (portalHost == null) {
-                            swal({
-                                title: '请先输入网关地址(格式：https://portal.abcd.com)',
-                                content: "input",
-                            }).then(codetext => {
-
-                                if (codetext == undefined || codetext == '') return;
-
-                                localStorage.setItem('portalHost', codetext);
-
-                                releasePackage2(aid, language, codetext);
-
-                            });
-                        }
-
-                        else {
-                            releasePackage2(aid, language, portalHost);
-                        }
-                    }
-                    vm.releasePackage = releasePackage;
+               
                     /**
                      * 上线
                      * */
@@ -631,118 +437,6 @@
                     vm.updateRelease = updateRelease;
                     vm.removeRelease = removeRelease;
 
-                    /**
-                     * 同步github 标签、接口文档
-                     * */
-                    vm.loading_syncGithub = false;
-                    function syncGithub() {
-                        if (vm.loading_syncGithub == true) { return; }
-
-                        vm.loading_syncGithub = true;
-
-                        openapis.IdentityServer4MicroServiceClient.CodeGenSyncGithub(
-                            vm.id).then(x => {
-                                $timeout(function () {
-                                    vm.loading_syncGithub = false;
-                                }, 1);
-                                if (x.code == 200) {
-                                    alert('提交同步任务成功');
-                                }
-                                else {
-                                    toastr.error(x.message);
-                                }
-                            });
-                    }
-                    vm.syncGithub = syncGithub;
-
-
-                    /**
-                     * 包市常列表
-                     * */
-                    vm.loading_packages = false;
-                    vm.packagePlatforms = ['npm', 'nuget', 'gradle', 'spm', 'postman'];
-                    vm.package = {
-                        showIndex: 0,
-                        packagePlatform: 'npm',
-                        publisher: 'unkonw'
-                    };
-                    function getApiResourcePackages() {
-                        if (vm.loading_packages == true) { return; }
-
-                        vm.loading_packages = true;
-
-                        openapis.IdentityServer4MicroServiceClient.ApiResourcePackages(
-                            vm.id).then(x => {
-                                if (x.code != 200) {
-                                    toastr.error(x.message);
-                                }
-                                $timeout(function () {
-                                    vm.loading_packages = false;
-                                    vm.packages = x.data;
-                                }, 1);
-                            });
-                    }
-                    function postApiResourcePackage() {
-                        if (vm.loading_packages == true) { return; }
-
-                        vm.loading_packages = true;
-
-                        openapis.IdentityServer4MicroServiceClient.ApiResourcePostPackage(
-                            vm.id, vm.package).then(x => {
-
-                                $timeout(function () {
-                                    vm.loading_packages = false;
-                                }, 1);
-
-                                if (x.code != 200) {
-                                    toastr.error(x.message);
-                                }
-
-                                vm.getApiResourcePackages();
-                            });
-                    }
-                    function delApiResourcePackage(rowKey) {
-                        if (vm.loading_packages == true) { return; }
-
-                        vm.loading_packages = true;
-
-                        openapis.IdentityServer4MicroServiceClient.ApiResourceDeletePackage(
-                            vm.id, rowKey).then(x => {
-
-                                $timeout(function () {
-                                    vm.loading_packages = false;
-                                }, 1);
-
-                                if (x.code != 200) {
-                                    toastr.error(x.message);
-                                }
-
-                                vm.getApiResourcePackages();
-                            });
-                    }
-                    function putApiResourcePackage(entity) {
-                        if (vm.loading_packages == true) { return; }
-
-                        vm.loading_packages = true;
-
-                        openapis.IdentityServer4MicroServiceClient.ApiResourcePutPackage(
-                            vm.id, entity.rowKey, entity).then(x => {
-
-                                $timeout(function () {
-                                    vm.loading_packages = false;
-                                }, 1);
-
-                                if (x.code != 200) {
-                                    toastr.error(x.message);
-                                }
-
-                                vm.getApiResourcePackages();
-                            });
-                    }
-                    vm.getApiResourcePackages = getApiResourcePackages;
-                    vm.postApiResourcePackage = postApiResourcePackage;
-                    vm.delApiResourcePackage = delApiResourcePackage;
-                    vm.putApiResourcePackage = putApiResourcePackage;
                     $(function () { 
                         vm.getApiresourceProducts();
                         vm.getApiresourceAuthservers();

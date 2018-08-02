@@ -13,30 +13,6 @@
                         基本信息
                     </div>
                     <div class="card-body">
-                        <div class="form-group">
-                            <label>userKey</label>
-                            <input class="form-control" type="text" ng-model="$ctrl.data.userKey" />
-                        </div>
-
-                        <div class="form-group">
-                            <label>parentUserID</label>
-                            <input class="form-control" type="number" ng-model="$ctrl.data.parentUserID" />
-                        </div>
-
-                        <div class="form-group">
-                            <label>lineage</label>
-                            <input class="form-control" type="text" ng-model="$ctrl.data.lineage" />
-                        </div>
-
-                        <div class="form-group">
-                            <label>lineageIDs</label>
-                            <input class="form-control" type="text" ng-model="$ctrl.data.lineageIDs" />
-                        </div>
-
-                        <div class="form-group">
-                            <label>Roles</label>
-                            <select id="UserRolesInput" class="form-control" ng-model="$ctrl.selectedRoles" multiple ng-options="x.id as x.normalizedName for x in $ctrl.roles" />
-                        </div>
 
                         <div class="form-group">
                             <label>头像</label>
@@ -44,7 +20,7 @@
 
                             <div class="form-row">
                                 <div class="col-auto">
-                                    <img ng-src="{{$ctrl.data.avatar}}" class="img-thumbnail" width="64px" />
+                                    <img ng-src="{{$ctrl.data.avatar||'data:image/png;base64,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'}}" class="img-thumbnail" width="64px" />
                                 </div>
                                 <div class="col-auto">
                                     <div class="custom-file">
@@ -56,85 +32,37 @@
                             </div>
                         </div>
 
-
                         <div class="form-group">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="userIsDeleted"
-                                       ng-checked="$ctrl.data.isDeleted" ng-model="$ctrl.data.isDeleted">
-                                <label class="form-check-label" for="userIsDeleted">
-                                    isDeleted
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label>typeIDs</label>
-                            <input class="form-control" type="text" ng-model="$ctrl.data.typeIDs" />
-                        </div>
-
-                        <div class="form-group">
-                            <label>nickName</label>
-                            <input class="form-control" type="text" ng-model="$ctrl.data.nickName" />
-                        </div>
-
-                        <div class="form-group">
-                            <label>gender</label>
-                            <input class="form-control" type="text" ng-model="$ctrl.data.gender" />
-                        </div>
-
-                        <div class="form-group">
-                            <label>address</label>
-                            <input class="form-control" type="text" ng-model="$ctrl.data.address" />
-                        </div>
-                        <div class="form-group">
-                            <label>birthday</label>
-                            <input class="form-control" type="text" ng-model="$ctrl.data.birthday" />
-                        </div>
-                        <div class="form-group">
-                            <label>stature</label>
-                            <input class="form-control" type="text" ng-model="$ctrl.data.stature" />
-                        </div>
-                        <div class="form-group">
-                            <label>weight</label>
-                            <input class="form-control" type="text" ng-model="$ctrl.data.weight" />
-                        </div>
-
-                        <div class="form-group">
-                            <label>description</label>
-                            <textarea class="form-control" rows="2" ng-model="$ctrl.data.description"></textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <label>remark</label>
-                            <textarea class="form-control" rows="2" ng-model="$ctrl.data.remark"></textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <label>createDate</label>
-                            <input class="form-control" type="text" ng-model="$ctrl.data.createDate" />
-                        </div>
-
-                        <div class="form-group">
-                            <label>lastUpdateTime</label>
-                            <input class="form-control" type="text" ng-model="$ctrl.data.lastUpdateTime" />
-                        </div>
-
-                        <div class="form-group">
-                            <label>userName</label>
+                            <label>登录账号</label>
                             <input class="form-control" type="text" ng-model="$ctrl.data.userName" />
                         </div>
 
                         <div class="form-group">
+                            <label>登录密码</label>
+                            <input class="form-control" type="password" ng-model="$ctrl.data.passwordHash" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Roles</label>
+                            <select id="UserRolesInput" class="form-control" ng-model="$ctrl.selectedRoles" multiple ng-options="x.id as x.normalizedName for x in $ctrl.roles" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>昵称</label>
+                            <input class="form-control" type="text" ng-model="$ctrl.data.nickName" />
+                        </div>
+
+                        <div class="form-group" ng-show="false">
                             <label>normalizedUserName</label>
                             <input class="form-control" type="text" ng-model="$ctrl.data.normalizedUserName" />
                         </div>
 
                         <div class="form-group">
-                            <label>email</label>
+                            <label>邮箱</label>
                             <input class="form-control" type="email" ng-model="$ctrl.data.email" />
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group" ng-show="false">
                             <label>normalizedEmail</label>
                             <input class="form-control" type="email" ng-model="$ctrl.data.normalizedEmail" />
                         </div>
@@ -144,14 +72,66 @@
                                 <input class="form-check-input" type="checkbox" id="userEmailConfirmed"
                                        ng-checked="$ctrl.data.emailConfirmed" ng-model="$ctrl.data.emailConfirmed">
                                 <label class="form-check-label" for="userEmailConfirmed">
-                                    emailConfirmed
+                                    邮箱已验证
                                 </label>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label>passwordHash</label>
-                            <input class="form-control" type="password" ng-model="$ctrl.data.passwordHash" />
+                            <label>手机</label>
+                            <input class="form-control" type="text" ng-model="$ctrl.data.phoneNumber" />
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="userPhoneNumberConfirmed"
+                                       ng-checked="$ctrl.data.phoneNumberConfirmed" ng-model="$ctrl.data.phoneNumberConfirmed">
+                                <label class="form-check-label" for="userPhoneNumberConfirmed">
+                                    手机已验证
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>性别</label>
+                            <input class="form-control" type="text" ng-model="$ctrl.data.gender" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>地址</label>
+                            <input class="form-control" type="text" ng-model="$ctrl.data.address" />
+                        </div>
+                        <div class="form-group">
+                            <label>生日</label>
+                            <input class="form-control" type="text" ng-model="$ctrl.data.birthday" />
+                        </div>
+                        <div class="form-group">
+                            <label>身高</label>
+                            <input class="form-control" type="text" ng-model="$ctrl.data.stature" />
+                        </div>
+                        <div class="form-group">
+                            <label>体重</label>
+                            <input class="form-control" type="text" ng-model="$ctrl.data.weight" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>描述</label>
+                            <textarea class="form-control" rows="2" ng-model="$ctrl.data.description"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>备注</label>
+                            <textarea class="form-control" rows="2" ng-model="$ctrl.data.remark"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>创建时间</label>
+                            <input class="form-control" type="text" ng-model="$ctrl.data.createDate" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>最后更新</label>
+                            <input class="form-control" type="text" ng-model="$ctrl.data.lastUpdateTime" />
                         </div>
 
                         <div class="form-group">
@@ -162,21 +142,6 @@
                         <div class="form-group">
                             <label>concurrencyStamp</label>
                             <input class="form-control" type="text" ng-model="$ctrl.data.concurrencyStamp" />
-                        </div>
-
-                        <div class="form-group">
-                            <label>phoneNumber</label>
-                            <input class="form-control" type="text" ng-model="$ctrl.data.phoneNumber" />
-                        </div>
-
-                        <div class="form-group">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="userPhoneNumberConfirmed"
-                                       ng-checked="$ctrl.data.phoneNumberConfirmed" ng-model="$ctrl.data.phoneNumberConfirmed">
-                                <label class="form-check-label" for="userPhoneNumberConfirmed">
-                                    phoneNumberConfirmed
-                                </label>
-                            </div>
                         </div>
 
                         <div class="form-group">
@@ -209,6 +174,16 @@
                             <input class="form-control" type="number" ng-model="$ctrl.data.accessFailedCount" />
                         </div>
 
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="userIsDeleted"
+                                       ng-checked="$ctrl.data.isDeleted" ng-model="$ctrl.data.isDeleted">
+                                <label class="form-check-label" for="userIsDeleted">
+                                    已删除
+                                </label>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
@@ -232,8 +207,25 @@
                         files
                     </div>
                     <div class="card-body">
+                        <div class="form-row">
+                            <div class="col-4">
+                                <select class="form-control" ng-model="$ctrl.uploadFileType" 
+                                        ng-options="x.id as x.name for x in $ctrl.FileTypes">
+                                </select>
+                            </div>
+                            <div class="col-8">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="uploadUserFile" lang="es" />
+                                    <label class="custom-file-label" for="uploadUserFile">
+                                        选择 {{$ctrl.uploadFileType==0?".jpg/.png/.jpeg":$ctrl.uploadFileType==1?".mp4/.mpg/.mpeg":$ctrl.uploadFileType==2?".txt/.doc/.xlsx/.xls/.ppt/.pdf":""}}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
                         <p ng-repeat="x in $ctrl.data.files track by $index">
-                            {{x.fileType}}:{{x.files}}
+                         <span ng-repeat="f in $ctrl.FileTypes" ng-if="f.id==x.fileType">{{f.name}}</span>
+                            ：{{x.files}}
                         </p>
                     </div>
                 </div>
@@ -246,7 +238,7 @@
                     </div>
                     <div class="card-body">
                         <p ng-repeat=" x in $ctrl.data.tokens track by $index">
-                            {{x.loginProvider}}:{{x.name}}:{{x.value}}
+                            {{x.loginProvider}}：{{x.name}}:{{x.value}}
                         </p>
                     </div>
                 </div>
@@ -259,15 +251,50 @@
                     </div>
                     <div class="card-body">
                         <p ng-repeat=" x in $ctrl.data.logins track by $index">
-                            {{x.providerDisplayName}}:{{x.providerKey}}
+                            {{x.providerDisplayName}}：{{x.providerKey}}
                         </p>
                     </div>
                 </div>
 
+                <br />
+
+                <div class="card">
+                    <div class="card-header">
+                        Others
+                    </div>
+                    <div class="card-body">
+                        <div>
+                            <div class="form-group">
+                                <label>userID：</label>
+                                {{$ctrl.data.id}}
+                            </div>
+                            <div class="form-group">
+                                <label>userKey：</label>
+                                {{$ctrl.data.userKey}}
+                            </div>
+                            <div class="form-group">
+                                <label>parentUserID：</label>
+                                {{$ctrl.data.parentUserID}}
+                            </div>
+                            <div class="form-group">
+                                <label>lineage：</label>
+                                {{$ctrl.data.lineage}}
+                            </div>
+                            <div class="form-group">
+                                <label>lineageIDs：</label>
+                                {{$ctrl.data.lineageIDs}}
+                            </div>
+                            <div class="form-group">
+                                <label>typeIDs：</label>
+                                {{$ctrl.data.typeIDs}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        
-        
+
+
 
         <br />  <br />
 
@@ -284,9 +311,9 @@
                                 <input ng-disabled="$ctrl.defaultClaims.indexOf(x.claimType)>-1" class="form-control" type="text" ng-model="x.claimType" placeholder="类型:" />
                             </div>
                             <div class="col-8">
-                                <textarea class="form-control" 
-                                          rows="2" 
-                                          ng-model="x.claimValue" 
+                                <textarea class="form-control"
+                                          rows="2"
+                                          ng-model="x.claimValue"
                                           placeholder="值:"></textarea>
                             </div>
                             <div class="col-auto">
@@ -332,7 +359,9 @@
         <div class="row">
             <div class="col">
                 <button type="submit" class="btn btn-primary">提交</button>
+
             </div>
         </div>
+        <br /><br />
     </form>
 </div>

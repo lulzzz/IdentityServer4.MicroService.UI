@@ -11,7 +11,7 @@
                 {
                     var vm = this;
                     vm.id = parseInt($routeParams.id);
-
+                    vm.oidc_authority = localStorage.getItem('oidc_authority');
                     vm.OAuthLogins = {};
                     vm.CommonConfig = {};
                     vm.AzureApim = {};
