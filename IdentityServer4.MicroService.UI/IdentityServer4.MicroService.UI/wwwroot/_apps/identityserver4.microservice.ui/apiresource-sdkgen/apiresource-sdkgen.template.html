@@ -1,7 +1,7 @@
 ﻿<div class="container-fluid">
     <loading ng-show="$ctrl.loading_getVersions"></loading>
-    <!--<h1>SDK GEN - {{$ctrl.versions[0].name}}</h1>
-    <p class="alert alert-primary">{{$ctrl.versions[0].description}}</p>-->
+    <h1>SDK GEN - {{$ctrl.versions[0].name}}</h1>
+    <p class="alert alert-primary">{{$ctrl.versions[0].description}}</p>
         <div class="row">
             <div class="col">
                 <ul class="nav nav-tabs" role="tablist" ng-init="tabIndex=0">
@@ -228,7 +228,7 @@
                                             </div>
                                             <div class="col card pt-4">
                                                 <div class="alert alert-warning" role="alert">
-                                                    功能说明：启用后，如果项目不存在，将自动创建。
+                                                    功能说明：启用后，如果Github项目不存在，将自动创建。
                                                 </div>
 
                                                 <div class="form-group">
@@ -236,7 +236,7 @@
                                                         <input class="form-check-input" type="checkbox" id="syncLabelsEnabled"
                                                                ng-checked="$ctrl.githubOptions.syncLabels" ng-model="$ctrl.githubOptions.syncLabels">
                                                         <label class="form-check-label" for="syncLabelsEnabled">
-                                                            为每个接口生成Issues标签
+                                                            为每个接口生成issue标签
                                                         </label>
                                                     </div>
                                                 </div>

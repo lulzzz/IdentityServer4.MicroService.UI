@@ -147,29 +147,40 @@
                     vm.loading_releasePackage = false;
                     function releasePackage(aid, language) {
                         if (vm.loading_releasePackage == true) { return; }
-
-                        var portalHost = localStorage.getItem('portalHost');
-
-                        if (portalHost == null) {
-                            swal({
-                                title: '请先输入网关地址(格式：https://portal.abcd.com)',
-                                content: "input",
-                            }).then(codetext => {
-
-                                if (codetext == undefined || codetext == '') return;
-
-                                localStorage.setItem('portalHost', codetext);
-
-                                releasePackage2(aid, language, codetext);
-
-                            });
+                        if (!vm.commonOptions.swaggerUrl) {
+                            swal('请先设置微服务的swaggerUrl', '操作提示', 'error');
+                            $scope.tabIndex = 1;
+                            $scope.tab2Index = 3;
+                            return;
                         }
-
-                        else {
-                            releasePackage2(aid, language, portalHost);
-                        }
+                        releasePackage2(aid, language, vm.commonOptions.swaggerUrl);
                     }
                     vm.releasePackage = releasePackage;
+                    /**
+                   * 发布SDK包
+                   * */
+                    vm.loading_releasePackage = false;
+                    function releasePackage2(aid, language, swaggerUrl) {
+                        vm.loading_releasePackage = true;
+                        openapis.IdentityServer4MicroServiceClient.CodeGenReleaseSDK(
+                            {
+                                platform: 0,
+                                language: language,
+                                apiId: vm.id,
+                                swaggerUrl: swaggerUrl
+                            }).then(r => {
+                                $timeout(function () {
+                                    vm.loading_releasePackage = false;
+                                }, 1);
+
+                                if (r.code == 200) {
+                                    alert('发布成功');
+                                }
+                                else {
+                                    toastr.error(r.message);
+                                }
+                            });
+                    }
 
                     /**
                      * 获取发包渠道Github配置
