@@ -85,7 +85,6 @@
     <Content Include="wwwroot\fonts\roboto\Roboto-Thin.woff2" />
     <Content Include="wwwroot\fonts\roboto\Roboto-ThinItalic.woff" />
     <Content Include="wwwroot\fonts\roboto\Roboto-ThinItalic.woff2" />
-    <Content Include="wwwroot\htmlpage.html" />
     <Content Include="wwwroot\icons\material-icons\LICENSE.txt" />
     <Content Include="wwwroot\icons\material-icons\MaterialIcons-Regular.ijmap" />
     <Content Include="wwwroot\icons\material-icons\MaterialIcons-Regular.woff" />
@@ -113,8 +112,6 @@
     <Content Include="wwwroot\node_modules\identityserver4.microservice.ui\index.html" />
     <Content Include="wwwroot\node_modules\identityserver4.microservice.ui\package.json" />
     <Content Include="wwwroot\package.json" />
-    <Content Include="wwwroot\signalr.min.js" />
-    <Content Include="wwwroot\signalr.min.js.map" />
     <Content Include="wwwroot\silent_callback.html" />
     <Content Include="wwwroot\start.html" />
     <Content Include="wwwroot\_apps\base\gulpfile.config.js" />

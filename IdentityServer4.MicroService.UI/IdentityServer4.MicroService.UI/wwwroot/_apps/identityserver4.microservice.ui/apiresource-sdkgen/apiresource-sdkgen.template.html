@@ -31,7 +31,7 @@
                                     </td>
                                     <td>
                                         <div class="btn-group">
-                                            <button type="button" class="btn btn-primary btn-sm" ng-click="$ctrl.releasePackage(x.id,0)">发布jQuery</button>
+                                            <button type="button" class="btn btn-primary btn-sm" ng-click="$ctrl.releasePackage(x.id,0)">发布Angular2</button>
                                             <button type="button" class="btn btn-primary btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <span class="sr-only">Toggle Dropdown</span>
                                             </button>
@@ -42,7 +42,7 @@
                                     </td>
                                     <td>
                                         <div class="btn-group">
-                                            <button type="button" class="btn btn-primary btn-sm" ng-click="$ctrl.releasePackage(x.id,1)">发布Angular2</button>
+                                            <button type="button" class="btn btn-primary btn-sm" ng-click="$ctrl.releasePackage(x.id,1)">发布jQuery</button>
                                             <button type="button" class="btn btn-primary btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <span class="sr-only">Toggle Dropdown</span>
                                             </button>
@@ -78,7 +78,7 @@
                                     </td>
                                     <td>
                                         <ul>
-                                            <li ng-repeat="x in $ctrl.histories" ng-if="x.language=='Angular2'">
+                                            <li ng-repeat="x in $ctrl.histories" ng-if="x.language=='angular2'">
                                                 <p class="font-weight-bold mb-0">
                                                     <span class="text-secondary font-weight-normal">{{x.releaseDate}}</span>
                                                     {{x.rowKey.split('@')[0]}}@<font class="text-primary">{{x.version}}</font>
