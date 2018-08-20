@@ -7,6 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer4.MicroServic
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9A9F8C26-C84B-4A0C-8EEA-D204A34CB5FA}"
 	ProjectSection(SolutionItems) = preProject
+		..\0.png = ..\0.png
 		..\1.png = ..\1.png
 		..\2.png = ..\2.png
 		..\3.png = ..\3.png
