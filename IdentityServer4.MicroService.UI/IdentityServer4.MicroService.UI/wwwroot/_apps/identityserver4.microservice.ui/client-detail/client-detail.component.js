@@ -45,7 +45,10 @@
                         allowedScopes: [{ id: 0, scope: 'openid' }, { id: 0, scope: 'profile' }],
                         identityProviderRestrictions: [],
                         postLogoutRedirectUris: [],
-                        redirectUris: [],
+                        redirectUris: [{
+                            id: 0,
+                            redirectUri: localStorage.getItem('oidc_authority') + '/tool'
+                        }],
                         properties: [],
                     };
 

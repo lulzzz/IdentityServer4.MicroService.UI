@@ -1,0 +1,80 @@
+﻿<div class="container-fluid">
+    <loading ng-show="$ctrl.loading"></loading>
+    <div class="py-4 mx-3">
+        <div class="row">
+            <div class="col">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link" ng-click="tabIndex=1" ng-class="{active:tabIndex==1}">开发应用</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" ng-click="tabIndex=2" ng-class="{active:tabIndex==2}">发布应用</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" ng-click="tabIndex=3" ng-class="{active:tabIndex==3}">已发布</a>
+                    </li>
+                </ul>
+                <div class="tab-content py-3">
+                    <div class="tab-pane" ng-class="{'show active':tabIndex==1}">
+                    </div>
+                    <div class="tab-pane" ng-class="{'show active':tabIndex==2}">
+                        <div class="form-row align-items-center my-3">
+                            <div class="col-8">
+                                <label class="sr-only" for="inlineFormInputGroupUsername">Username</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">https://npmjs.com/</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="inputPackageName" placeholder="包名称">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>应用Icon</label>
+                            <input type="text" id="inputAppIcon" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label>应用名称</label>
+                            <input type="text" id="inputAppName" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label>应用介绍</label>
+                            <textarea row="3" id="inputAppDescription" class="form-control"></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="col">
+                                <button type="submit" class="btn btn-primary" ng-click="$ctrl.registerApp()">发布</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" ng-class="{'show active':tabIndex==3}">
+                        <div class="row">
+                            <div class="col-4" ng-repeat="x in $ctrl.apps">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{x.Name}} <span ng-if="x.DefaultApp" class="badge badge-warning font-weight-normal">默认</span></h5>
+                                        <h6 class="card-subtitle mb-2 text-muted">
+                                            {{x.PackageName}}
+                                            <p class="pt-2">
+                                                <a href="https://www.npmjs.com/package/{{x.PackageName}}" target="_blank" class="mt-1">
+                                                    <img src="https://img.shields.io/npm/v/{{x.PackageName}}.svg">
+                                                </a>
+                                                <img src="https://img.shields.io/npm/dw/{{x.PackageName}}.svg" class="ml-1">
+                                            </p>
+                                        </h6>
+                                        <hr />
+                                        <p class="card-text">
+                                            {{x.Description}}
+                                        </p>
+                                        <button type="button" class="btn btn-primary" ng-click="$ctrl.openApp(x.PackageName)">进入控制台</button>
+                                        <button type="button" class="btn btn-danger ml-1" ng-click="$ctrl.removeApp(x.PackageName)" ng-if="!x.DefaultApp">删除</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

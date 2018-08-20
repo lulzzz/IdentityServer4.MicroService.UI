@@ -1,0 +1,14 @@
+﻿{
+  "identityserver4.microservice.start": {
+    "Name": "应用管理",
+    "Icon": "home",
+    "DefaultApp": true,
+    "Description": "平台的应用管理工具，用于创建、发布、更新或删除应用。"
+  },
+  "identityserver4.microservice.ui": {
+    "Name": "开放平台",
+    "Icon": "device_hub",
+    "DefaultApp": true,
+    "Description": "身份授权中心、微服务管理控制台。"
+  }
+}

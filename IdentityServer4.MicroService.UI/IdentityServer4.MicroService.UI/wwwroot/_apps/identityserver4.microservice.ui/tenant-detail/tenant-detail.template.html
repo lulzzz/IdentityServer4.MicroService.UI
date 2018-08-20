@@ -30,7 +30,12 @@
 
                         <div class="form-group">
                             <div> <label>令牌授权者</label> </div>
-                            <div> <input class="form-control" type="text" ng-model="$ctrl.data.identityServerIssuerUri" /> </div>
+                            <div>
+                                <select id="apiProductIdsSelect"
+                                        class="form-control" 
+                                        ng-model="$ctrl.data.identityServerIssuerUri" 
+                                        ng-options="x.hostName as x.hostName for x in $ctrl.data.hosts"></select>
+                            </div>
                         </div>
 
                         <div class="form-group">
@@ -62,9 +67,9 @@
                             请先将绑定的域名 CNAME 到 <b>{{$ctrl.oidc_authority}}</b>
                         </div>
                         <div class="form-group form-row align-items-center" ng-repeat="x in $ctrl.data.hosts track by $index">
-                            <div class="col-auto"><label>域名{{$index+1}}</label></div>
-                            <div class="col-auto">
-                                <input class="form-control" type="text" ng-model="x.hostName" />
+                            <div class="col-auto"><label>域名{{$index+1}}：http(s)://</label></div>
+                            <div class="col-8">
+                                <input class="form-control" type="text" ng-model="x.hostName" placeholder="结尾无需带'/'" />
                             </div>
                             <div class="col-auto">
                                 <button type="button" class="btn btn-link" ng-click="$ctrl.delHost($index)">删除</button>
@@ -81,10 +86,10 @@
                     </div>
                     <div class="card-body">
                         <div class="form-group form-row align-items-center" ng-repeat="x in $ctrl.data.claims track by $index">
-                            <div class="col-auto">
+                            <div class="col-4">
                                 <input class="form-control" type="text" ng-model="x.claimType" placeholder="类型:" />
                             </div>
-                            <div class="col-auto">
+                            <div class="col-6">
                                 <input class="form-control" type="text" ng-model="x.claimValue" placeholder="值:" />
                             </div>
                             <div class="col-auto">
@@ -146,7 +151,9 @@
                             <div class="col-3">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="card-title">Facebook</h5>
+                                        <h5 class="card-title">Facebook 
+                                        <a href="https://docs.microsoft.com/zh-cn/aspnet/core/security/authentication/social/facebook-logins?view=aspnetcore-2.1&tabs=aspnetcore2x" class="btn btn-sm" target="_blank">?</a>
+                                        </h5>
                                         <div class="form-group">
                                             <label>ClientId</label>
                                             <input class="form-control" type="text" ng-model="$ctrl.OAuthLogins.FacebookClientId.value" />
@@ -163,7 +170,9 @@
                             <div class="col-3">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="card-title">GitHub</h5>
+                                        <h5 class="card-title">GitHub
+                                            <a href="https://github.com/login?return_to=https%3A%2F%2Fgithub.com%2Fsettings%2Fapplications%2Fnew" class="btn btn-sm" target="_blank">?</a>
+                                        </h5>
                                         <div class="form-group">
                                             <label>ClientId</label>
                                             <input class="form-control" type="text" ng-model="$ctrl.OAuthLogins.GitHubClientId.value" />
@@ -202,7 +211,9 @@
                             <div class="col-3">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="card-title">Google</h5>
+                                        <h5 class="card-title">Google
+                                            <a href="https://docs.microsoft.com/zh-cn/aspnet/core/security/authentication/social/google-logins?view=aspnetcore-2.1&tabs=aspnetcore2x" class="btn btn-sm" target="_blank">?</a>
+                                        </h5>
                                         <div class="form-group">
                                             <label>ClientId</label>
                                             <input class="form-control" type="text" ng-model="$ctrl.OAuthLogins.GoogleClientId.value" />
@@ -219,7 +230,9 @@
                             <div class="col-3">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="card-title">Instagram</h5>
+                                        <h5 class="card-title">Instagram
+                                            <a href="https://www.instagram.com/developer/register/" class="btn btn-sm" target="_blank">?</a>
+                                        </h5>
                                         <div class="form-group">
                                             <label>ClientId</label>
                                             <input class="form-control" type="text" ng-model="$ctrl.OAuthLogins.InstagramClientId.value" />
@@ -236,7 +249,10 @@
                             <div class="col-3">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="card-title">LinkedIn</h5>
+                                        <h5 class="card-title">
+                                            LinkedIn
+                                            <a href="https://www.linkedin.com/developer/apps" class="btn btn-sm" target="_blank">?</a>
+                                        </h5>
                                         <div class="form-group">
                                             <label>ClientId</label>
                                             <input class="form-control" type="text" ng-model="$ctrl.OAuthLogins.LinkedInClientId.value" />
@@ -253,7 +269,9 @@
                             <div class="col-3">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="card-title">Microsoft</h5>
+                                        <h5 class="card-title">Microsoft
+                                            <a href="https://docs.microsoft.com/zh-cn/aspnet/core/security/authentication/social/microsoft-logins?view=aspnetcore-2.1&tabs=aspnetcore2x" class="btn btn-sm" target="_blank">?</a>
+                                        </h5>
                                         <div class="form-group">
                                             <label>ClientId</label>
                                             <input class="form-control" type="text" ng-model="$ctrl.OAuthLogins.MicrosoftClientId.value" />
@@ -272,7 +290,10 @@
                             <div class="col-3">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="card-title">Paypal</h5>
+                                        <h5 class="card-title">
+                                            Paypal
+                                            <a href="https://developer.paypal.com/" class="btn btn-sm" target="_blank">?</a>
+                                        </h5>
                                         <div class="form-group">
                                             <label>ClientId</label>
                                             <input class="form-control" type="text" ng-model="$ctrl.OAuthLogins.PaypalClientId.value" />
@@ -289,7 +310,9 @@
                             <div class="col-3">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="card-title">QQ</h5>
+                                        <h5 class="card-title">QQ
+                                            <a href="http://wiki.open.qq.com/wiki/mobile/OAuth2.0%E7%AE%80%E4%BB%8B" class="btn btn-sm" target="_blank">?</a>
+                                        </h5>
                                         <div class="form-group">
                                             <label>ClientId</label>
                                             <input class="form-control" type="text" ng-model="$ctrl.OAuthLogins.QQClientId.value" />
@@ -306,7 +329,9 @@
                             <div class="col-3">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="card-title">Reddit</h5>
+                                        <h5 class="card-title">Reddit
+                                            <a href="https://www.reddit.com/login?dest=https%3A%2F%2Fwww.reddit.com%2Fprefs%2Fapps" class="btn btn-sm" target="_blank">?</a>
+                                        </h5>
                                         <div class="form-group">
                                             <label>ClientId</label>
                                             <input class="form-control" type="text" ng-model="$ctrl.OAuthLogins.RedditClientId.value" />
@@ -323,7 +348,9 @@
                             <div class="col-3">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="card-title">Salesforce</h5>
+                                        <h5 class="card-title">Salesforce
+                                            <a href="https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_understanding_web_server_oauth_flow.htm" class="btn btn-sm" target="_blank">?</a>
+                                        </h5>
                                         <div class="form-group">
                                             <label>ClientId</label>
                                             <input class="form-control" type="text" ng-model="$ctrl.OAuthLogins.SalesforceClientId.value" />
@@ -342,7 +369,9 @@
                             <div class="col-3">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="card-title">Twitter</h5>
+                                        <h5 class="card-title">Twitter
+                                            <a href="https://docs.microsoft.com/zh-cn/aspnet/core/security/authentication/social/twitter-logins?view=aspnetcore-2.1&tabs=aspnetcore2x" class="btn btn-sm" target="_blank">?</a>
+                                        </h5>
                                         <div class="form-group">
                                             <label>ClientId</label>
                                             <input class="form-control" type="text" ng-model="$ctrl.OAuthLogins.TwitterClientId.value" />
@@ -359,7 +388,10 @@
                             <div class="col-3">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="card-title">Visual Studio Online</h5>
+                                        <h5 class="card-title">
+                                            Visual Studio Online
+                                            <a href="https://visualstudio.microsoft.com/zh-hans/vso/" class="btn btn-sm" target="_blank">?</a>
+                                        </h5>
                                         <div class="form-group">
                                             <label>ClientId</label>
                                             <input class="form-control" type="text" ng-model="$ctrl.OAuthLogins.VisualStudioOnlineClientId.value" />
@@ -376,7 +408,10 @@
                             <div class="col-3">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="card-title">Weibo</h5>
+                                        <h5 class="card-title">
+                                            Weibo
+                                            <a href="http://open.weibo.com/wiki/Oauth?display=0&retcode=6102" class="btn btn-sm" target="_blank">?</a>
+                                        </h5>
                                         <div class="form-group">
                                             <label>ClientId</label>
                                             <input class="form-control" type="text" ng-model="$ctrl.OAuthLogins.WeiboClientId.value" />
@@ -393,7 +428,10 @@
                             <div class="col-3">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="card-title">Weixin</h5>
+                                        <h5 class="card-title">
+                                            Weixin
+                                            <a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140842" class="btn btn-sm" target="_blank">?</a>
+                                        </h5>
                                         <div class="form-group">
                                             <label>ClientId</label>
                                             <input class="form-control" type="text" ng-model="$ctrl.OAuthLogins.WeixinClientId.value" />

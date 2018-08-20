@@ -55,3 +55,19 @@ gulp.task("identityserver.build", identityserver(
     sequence,
     jeditor
 ));
+
+
+// start APP
+var start = require('./wwwroot/_apps/identityserver4.microservice.start/gulpfile.config.js');
+
+gulp.task("start.build", start(
+    gulp,
+    concat,
+    templateCache,
+    useref,
+    bom,
+    uglify,
+    clean,
+    sequence,
+    jeditor
+));

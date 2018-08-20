@@ -1,6 +1,6 @@
 ﻿<div class="container-fluid">
     <loading ng-show="$ctrl.loading_getVersions"></loading>
-    <h1>SDK GEN - {{$ctrl.versions[0].name}}</h1>
+    <h1>SDK 生成 - {{$ctrl.versions[0].name}}</h1>
     <p class="alert alert-primary">{{$ctrl.versions[0].description}}</p>
         <div class="row">
             <div class="col">
@@ -67,7 +67,7 @@
                                     <td></td>
                                     <td>
                                         <ul>
-                                            <li ng-repeat="x in $ctrl.histories" ng-if="x.language=='jQuery'">
+                                            <li ng-repeat="x in $ctrl.histories" ng-if="x.language=='angular2'">
                                                 <p class="font-weight-bold mb-0">
                                                     <span class="text-secondary font-weight-normal">{{x.releaseDate}}</span>
                                                     {{x.rowKey.split('@')[0]}}@<font class="text-primary">{{x.version}}</font>
@@ -78,7 +78,7 @@
                                     </td>
                                     <td>
                                         <ul>
-                                            <li ng-repeat="x in $ctrl.histories" ng-if="x.language=='angular2'">
+                                            <li ng-repeat="x in $ctrl.histories" ng-if="x.language=='jQuery'">
                                                 <p class="font-weight-bold mb-0">
                                                     <span class="text-secondary font-weight-normal">{{x.releaseDate}}</span>
                                                     {{x.rowKey.split('@')[0]}}@<font class="text-primary">{{x.version}}</font>
@@ -246,7 +246,7 @@
                                                         <input class="form-check-input" type="checkbox" id="syncDocsEnabled"
                                                                ng-checked="$ctrl.githubOptions.syncDocs" ng-model="$ctrl.githubOptions.syncDocs">
                                                         <label class="form-check-label" for="syncDocsEnabled">
-                                                            生成产品文档
+                                                            生成产品文档 <a href="https://readthedocs.org/" target="_blank" class="btn btn-sm">?</a>
                                                         </label>
                                                     </div>
                                                 </div>

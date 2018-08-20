@@ -40,6 +40,8 @@
                             $scope.tabIndex = 1;
                             $scope.tab2Index = tbIndex;
                         }, 1);
+
+                        vm.getNPMOptions(tbIndex);
                     }
 
 
@@ -153,7 +155,16 @@
                             $scope.tab2Index = 3;
                             return;
                         }
-                        releasePackage2(aid, language, vm.commonOptions.swaggerUrl);
+
+                        swal({
+                            title: "是否确认发布?",
+                            buttons: true,
+                        })
+                            .then(willPublish => {
+                                if (willPublish) {
+                                    releasePackage2(aid, language, vm.commonOptions.swaggerUrl);
+                                }
+                            });
                     }
                     vm.releasePackage = releasePackage;
                     /**
@@ -263,20 +274,29 @@
                      * */
                     vm.loading_syncGithub = false;
                     function syncGithub() {
-                        if (vm.loading_syncGithub == true) { return; }
 
-                        vm.loading_syncGithub = true;
+                        swal({
+                            title: "是否确认发布?",
+                            buttons: true,
+                        })
+                            .then(willPublish => {
+                                if (willPublish) {
+                                    if (vm.loading_syncGithub == true) { return; }
 
-                        openapis.IdentityServer4MicroServiceClient.CodeGenSyncGithub(
-                            vm.id).then(x => {
-                                $timeout(function () {
-                                    vm.loading_syncGithub = false;
-                                }, 1);
-                                if (x.code == 200) {
-                                    alert('提交同步任务成功');
-                                }
-                                else {
-                                    toastr.error(x.message);
+                                    vm.loading_syncGithub = true;
+
+                                    openapis.IdentityServer4MicroServiceClient.CodeGenSyncGithub(
+                                        vm.id).then(x => {
+                                            $timeout(function () {
+                                                vm.loading_syncGithub = false;
+                                            }, 1);
+                                            if (x.code == 200) {
+                                                alert('提交同步任务成功');
+                                            }
+                                            else {
+                                                toastr.error(x.message);
+                                            }
+                                        });
                                 }
                             });
                     }

@@ -28,15 +28,6 @@
 
     <nav class="mdui-drawer" id="leftDrawer">
         <ul class="mdui-list" mdui-collapse="{accordion: true}" style="max-width: 360px;">
-            <li class="mdui-list-item mdui-ripple" onclick="openApp('')">
-                <i class="mdui-list-item-icon mdui-icon material-icons">home</i>
-                <div class="mdui-list-item-content">首页</div>
-            </li>
-
-            <li class="mdui-list-item mdui-ripple" onclick="openApp('identityserver4.microservice.ui/index.html')">
-                <i class="mdui-list-item-icon mdui-icon material-icons">device_hub</i>
-                <div class="mdui-list-item-content">开放平台</div>
-            </li>
         </ul>
     </nav>
 
@@ -45,9 +36,19 @@
         <script type="text/javascript">var appStore = '/_apps/';</script>
     </environment>
     <environment exclude="Development">
-        <script type="text/javascript">var appStore = '/apps/';</script>
+        <script type="text/javascript">var appStore = '/node_modules/';</script>
     </environment>
     <script src="/dist/vendor.min.js" asp-append-version="true"></script>
+    <script type="text/javascript">
+        window.apps = @Html.Raw(ViewData["apps"]);
+        for (var v in apps)
+        {
+            $('#leftDrawer').append('<li class="mdui-list-item mdui-ripple" onclick="openApp(\'' + v + '\')">' +
+                '<i class="mdui-list-item-icon mdui-icon material-icons">' + apps[v].Icon+'</i>' +
+                '<div class="mdui-list-item-content">' + apps[v].Name + '</div>' +
+                '</li>');
+        }
+    </script>
     <script src="/dist/app.min.js" asp-append-version="true"></script>@RenderSection("Scripts", required: false)
 </body>
 </html>
