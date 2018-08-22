@@ -1,18 +1,5 @@
 # IdentityServer4.MicroService.UI
 
-
-
-[![npm](https://img.shields.io/npm/v/identityserver4.microservice.ui.svg)](https://www.npmjs.com/package/identityserver4.microservice.ui)
-
-
-## Quick start
-
-- Run IdentityServer4.Microservice (get the server url https://localhost:44309)
-- Run IdentityServer4.MicroService.UI (server will be https://localhost:44386)
-
-
-截图
-
 ![0](0.png)
 
 ![1](1.png)
