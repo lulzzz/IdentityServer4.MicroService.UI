@@ -3,12 +3,19 @@
     "Name": "应用管理",
     "Icon": "home",
     "DefaultApp": true,
+    "Version": "1.0.4",
     "Description": "平台的应用管理工具，用于创建、发布、更新或删除应用。"
   },
   "identityserver4.microservice.ui": {
     "Name": "开放平台",
     "Icon": "device_hub",
-    "DefaultApp": true,
+    "Version": "1.0.25",
     "Description": "身份授权中心、微服务管理控制台。"
+  },
+  "bootstrap-colorpicker": {
+    "Name": "123456",
+    "Icon": "airplay",
+    "Description": "123456789",
+    "Version": "3.0.3"
   }
 }

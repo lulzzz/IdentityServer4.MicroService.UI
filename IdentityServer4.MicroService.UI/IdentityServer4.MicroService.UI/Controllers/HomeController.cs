@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Text;
 using System;
+using Microsoft.Extensions.Configuration;
 
 namespace IdentityServer4.MicroService.UI.Controllers
 {
@@ -18,30 +19,29 @@ namespace IdentityServer4.MicroService.UI.Controllers
     {
         private readonly IHostingEnvironment _hostingEnvironment;
 
-        public HomeController(IHostingEnvironment hostingEnvironment)
+        private readonly IConfiguration _config;
+
+        public HomeController(IHostingEnvironment hostingEnvironment,
+            IConfiguration config)
         {
             _hostingEnvironment = hostingEnvironment;
+
+            _config = config;
         }
 
         public override void OnActionExecuted(ActionExecutedContext context)
         {
             base.OnActionExecuted(context);
 
-            ViewData["apps"] = GetAppJsonString();
+            ViewData["apps"] = GetFileString("apps.json");
         }
 
-        string GetAppJsonString()
+        string GetFileString(string fileName)
         {
-            var webRootPath = _hostingEnvironment.WebRootPath;
-
-            var apps = string.Empty;
-
-            using (var sr = new StreamReader(webRootPath + "/apps.json"))
+            using (var sr = new StreamReader(_hostingEnvironment.WebRootPath + "/" + fileName))
             {
-                apps = sr.ReadToEnd();
+                return sr.ReadToEnd();
             }
-
-            return apps;
         }
 
         public IActionResult Index()
@@ -97,26 +97,40 @@ namespace IdentityServer4.MicroService.UI.Controllers
         [HttpPost]
         public JsonResult RegisterApp(string packageName,string menuName,string appIcon,string appDesc)
         {
-            var webRootPath = _hostingEnvironment.WebRootPath;
+            var cb = CommandBuilder();
 
-            var apps = GetAppJsonString();
+            cb.AppendLine($"npm i {packageName} --save");
 
-            var appJson = JsonConvert.DeserializeObject<JObject>(apps);
+            var result = ExeCommand(cb.ToString());
 
-            var newApp = JObject.FromObject(new { Name = menuName, Icon = appIcon, Description = appDesc });
+            var packageJsonStr = GetFileString("package.json");
 
-            appJson.Add(packageName, newApp);
-            
-            using (var sw = new StreamWriter(webRootPath + "/apps.json", false, Encoding.UTF8))
+            var packageJson = JsonConvert.DeserializeObject<JObject>(packageJsonStr);
+
+            if (packageJson["dependencies"][packageName] != null)
             {
-                sw.Write(appJson.ToString());
+                var packageVersion = packageJson["dependencies"][packageName].Value<string>();
+
+                packageVersion = packageVersion.Replace("~", "").Replace("^", "");
+
+                var apps = GetFileString("apps.json");
+
+                var appJson = JsonConvert.DeserializeObject<JObject>(apps);
+
+                var newApp = JObject.FromObject(new {
+                    Name = menuName,
+                    Icon = appIcon,
+                    Description = appDesc,
+                    Version = packageVersion
+                });
+
+                appJson.Add(packageName, newApp);
+
+                using (var sw = new StreamWriter(_hostingEnvironment.WebRootPath + "/apps.json", false, Encoding.UTF8))
+                {
+                    sw.Write(appJson.ToString());
+                }
             }
-
-            var sb = new StringBuilder();
-            sb.AppendLine("cd "+webRootPath);
-            sb.AppendLine("npm i " + packageName);
-
-            var result = ExeCommand(sb.ToString());
 
             return new JsonResult(new { code = 200, msg = result });
         }
@@ -124,9 +138,13 @@ namespace IdentityServer4.MicroService.UI.Controllers
         [HttpPost]
         public JsonResult RemoveApp(string packageName)
         {
-            var webRootPath = _hostingEnvironment.WebRootPath;
+            var cb = CommandBuilder();
 
-            var apps = GetAppJsonString();
+            cb.AppendLine($"npm uninstall {packageName}");
+
+            ExeCommand(cb.ToString());
+
+            var apps = GetFileString("apps.json");
 
             var appJson = JsonConvert.DeserializeObject<JObject>(apps);
 
@@ -136,13 +154,108 @@ namespace IdentityServer4.MicroService.UI.Controllers
             {
                 appJson.Remove(packageName);
 
-                using (var sw = new StreamWriter(webRootPath + "/apps.json", false, Encoding.UTF8))
+                using (var sw = new StreamWriter(_hostingEnvironment.WebRootPath + "/apps.json", false, Encoding.UTF8))
                 {
                     sw.Write(appJson.ToString());
                 }
             }
 
             return new JsonResult(new { code = 200 });
+        }
+
+        [HttpPost]
+        public JsonResult UpdateApp(string packageName)
+        {
+            var cb = CommandBuilder();
+
+            cb.AppendLine($"npm uninstall {packageName}");
+
+            cb.AppendLine($"npm install {packageName} --save");
+
+            var result = ExeCommand(cb.ToString());
+
+            var packageJsonStr = GetFileString("package.json");
+
+            var packageJson = JsonConvert.DeserializeObject<JObject>(packageJsonStr);
+
+            if (packageJson["dependencies"][packageName] != null)
+            {
+                var packageVersion = packageJson["dependencies"][packageName].Value<string>();
+
+                packageVersion = packageVersion.Replace("~", "").Replace("^", "");
+
+                var apps = GetFileString("apps.json");
+
+                var appJson = JsonConvert.DeserializeObject<JObject>(apps);
+
+                appJson[packageName]["Version"] = packageVersion;
+
+                using (var sw = new StreamWriter(_hostingEnvironment.WebRootPath + "/apps.json", false, Encoding.UTF8))
+                {
+                    sw.Write(appJson.ToString());
+                }
+            }
+
+            return new JsonResult(new { code = 200, msg = result });
+        }
+
+        [HttpGet]
+        [ResponseCache(Duration = 10, VaryByQueryKeys = new string[1] { "packageName" })]
+        public JsonResult AppVersions(string packageName)
+        {
+            var cb = CommandBuilder();
+
+            cb.AppendLine($"npm view {packageName} versions");
+
+            var result = ExeCommand(cb.ToString());
+
+            result = result.Substring(result.LastIndexOf('['));
+
+            result = result.Substring(0, result.LastIndexOf(']') + 1);
+
+            result = result.Replace("[", "").Replace("]", "");
+
+            var versions = result.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+
+            for (var i = 0; i < versions.Length; i++)
+            {
+                versions[i] = versions[i].Replace("'", "").Trim();
+            }
+
+            Array.Reverse(versions);
+
+            return new JsonResult(new { code = 200, msg = versions });
+        }
+
+        [HttpGet]
+        public JsonResult AppSearch(string packageName)
+        {
+            var result = string.Empty;
+
+            using (var hc = new HttpClient())
+            {
+                var response = hc.GetAsync("https://www.npmjs.com/search/suggestions?q=" + packageName).Result;
+
+                result = response.Content.ReadAsStringAsync().Result;
+            }
+
+            return new JsonResult(new { code = 200, msg = result });
+        }
+
+        StringBuilder CommandBuilder()
+        {
+            var sb = new StringBuilder();
+
+            var AzureNpmPath = _config["AzureNpmPath"];
+
+            if (!string.IsNullOrWhiteSpace(AzureNpmPath))
+            {
+                sb.AppendLine(@"set path=%path%" + AzureNpmPath);
+            }
+
+            sb.AppendLine("cd " + _hostingEnvironment.WebRootPath);
+
+            return sb;
         }
 
         public string ExeCommand(string commandText)

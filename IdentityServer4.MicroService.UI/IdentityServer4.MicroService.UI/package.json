@@ -18,5 +18,8 @@
     "gulp-uglify-es": "^1.0.4",
     "gulp-useref": "^3.1.5",
     "merge-stream": "^1.0.1"
+  },
+  "dependencies": {
+    "identityserver4.microservice.ui": "^1.0.25"
   }
 }
