@@ -19,7 +19,8 @@ app.min.css (ºÏ²¢vendor.css¡¢app.css)
 var gulp = require("gulp"),
     concat = require("gulp-concat"),
     cssmin = require("gulp-cssmin"),
-    uglify = require("gulp-uglify-es").default,
+    uglify = require("gulp-uglify"),
+    babel = require("gulp-babel"),
     merge = require("merge-stream"),
     clean = require('gulp-clean'),
     sequence = require('gulp-sequence'),
@@ -30,7 +31,7 @@ var gulp = require("gulp"),
 
 
 // ¿ò¼ÜAPP
-var app = require('./wwwroot/_apps/base/gulpfile.config.js');
+var app = require('./wwwroot/_apps/base/gulpfile.js');
 gulp.task("app.build", app(
     gulp,
     concat,
@@ -38,11 +39,12 @@ gulp.task("app.build", app(
     uglify,
     clean,
     sequence,
-    cssmin
+    cssmin,
+    babel
 ));
 
 // identityserver APP
-var identityserver = require('./wwwroot/_apps/identityserver4.microservice.ui/gulpfile.config.js');
+var identityserver = require('./wwwroot/_apps/identityserver4.microservice.ui/gulpfile.js');
 
 gulp.task("identityserver.build", identityserver(
     gulp,
@@ -53,12 +55,13 @@ gulp.task("identityserver.build", identityserver(
     uglify,
     clean,
     sequence,
-    jeditor
+    jeditor,
+    babel
 ));
 
 
 // start APP
-var start = require('./wwwroot/_apps/identityserver4.microservice.start/gulpfile.config.js');
+var start = require('./wwwroot/_apps/identityserver4.microservice.start/gulpfile.js');
 
 gulp.task("start.build", start(
     gulp,
@@ -69,5 +72,6 @@ gulp.task("start.build", start(
     uglify,
     clean,
     sequence,
-    jeditor
+    jeditor,
+    babel
 ));

@@ -33,6 +33,13 @@ if (window.oidc) {
             oidc.events.addUserUnloaded(e => {
                 alert("user unloaded");
             });
+
+            var dev = queryString('dev');
+
+            if (dev)
+            {
+                appIframe.attr('src', dev + '?user=' + JSON.stringify(user));
+            }
         }
 
     }).catch(err => {
@@ -96,3 +103,10 @@ iFrameResize({
         }
     }
 }, '#appIframe');
+
+function queryString(name) {
+    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results == null ? "" : decodeURIComponent(results[1]);
+}

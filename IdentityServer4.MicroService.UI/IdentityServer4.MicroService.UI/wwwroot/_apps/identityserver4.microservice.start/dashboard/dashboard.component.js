@@ -13,6 +13,7 @@
                 vm.apps = [];
                 vm.icons = mduiicons;
                 $scope.tabIndex = 1;
+                $scope.inputAppIcon = 'extension';
                 activate();
 
                 function activate()
@@ -48,6 +49,8 @@
                         $timeout(function () {
                             appItem.OnRemoveApp = false;
                         }, 1);
+
+                        parent.location.reload();
                     });
                 } 
                 vm.removeApp = removeApp;
@@ -68,6 +71,8 @@
                         $timeout(function () {
                             $scope.OnRegisterApp = false;
                         }, 1);
+
+                        parent.location.reload();
                     });
                 }
 
@@ -130,6 +135,19 @@
                         vm.appSearch();
                     }
                 });
+
+                function AutoFillAppForm(inputPackageName)
+                {
+                    $scope.searchResult.forEach(x =>
+                    {
+                        if (x.name == inputPackageName) {
+                            $scope.inputAppName = x.name;
+                            $scope.inputAppDescription = x.description;
+                        }
+                    });
+                }
+                vm.AutoFillAppForm = AutoFillAppForm;
+
 
                 vm.openApp = function (packageName) {
                     parent.openApp(packageName);

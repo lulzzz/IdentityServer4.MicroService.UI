@@ -1,4 +1,4 @@
-﻿module.exports = function (gulp, concat, bom, uglify, clean, sequence, cssmin)
+﻿module.exports = function (gulp, concat, bom, uglify, clean, sequence, cssmin,babel)
 {
     // 任务key
     var taskKey = '__app';
@@ -48,13 +48,18 @@
 
     // 合并项目所有js文件
     gulp.task(`${taskKey}.app.js`, () => gulp.src([
-        "!" + devPath + "/gulpfile.config.js",
+        "!" + devPath + "/gulpfile.js",
         "!" + devPath + "/oidc.init.js",
         "!" + devPath + "/node_modules/**/*",
         devPath + "/**/*.js",
     ])
         .pipe(concat('app.min.js'))
-        .pipe(uglify())
+        .pipe(babel({
+            presets: ['@babel/env']
+        }))
+        .pipe(uglify({
+            compress: { drop_console: true }
+        }))
         .pipe(gulp.dest(releasePath + "/dist")));
 
     // 合并项目所有css文件

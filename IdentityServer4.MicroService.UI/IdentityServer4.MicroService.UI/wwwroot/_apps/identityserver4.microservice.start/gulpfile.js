@@ -1,6 +1,5 @@
-﻿module.exports = function (gulp, concat, templateCache, useref, bom, uglify, clean, sequence, jeditor)
-{
-    var directoryName = 'identityserver4.microservice.ui';
+﻿module.exports = function (gulp, concat, templateCache, useref, bom, uglify, clean, sequence, jeditor,babel) {
+    var directoryName = 'identityserver4.microservice.start';
 
     // 任务key
     var taskKey = '__' + directoryName;
@@ -15,7 +14,7 @@
     gulp.task(`${taskKey}.clean.before`, () => gulp.src([releasePath]).pipe(clean({ force: true })));
 
     // 删除合并后不需要的templates.js文件
-    gulp.task(`${taskKey}.clean.after`, () => gulp.src([releasePath +'/dist/templates.js']).pipe(clean({ force: true })));
+    gulp.task(`${taskKey}.clean.after`, () => gulp.src([releasePath + '/dist/templates.js']).pipe(clean({ force: true })));
 
     // 复制fonts资源文件
     gulp.task(`${taskKey}.fonts`, () => gulp.src([
@@ -69,7 +68,12 @@
         releasePath + "/dist/templates.js",
     ])
         .pipe(concat("app.min.js"))
-        .pipe(uglify())
+        .pipe(babel({
+            presets: ['@babel/env']
+        }))
+        .pipe(uglify({
+            compress: { drop_console: true }
+        }))
         .pipe(bom())
         .pipe(gulp.dest(releasePath + '/dist')));
 

@@ -11,11 +11,5 @@
     "Icon": "device_hub",
     "Version": "1.0.25",
     "Description": "身份授权中心、微服务管理控制台。"
-  },
-  "bootstrap-colorpicker": {
-    "Name": "123456",
-    "Icon": "airplay",
-    "Description": "123456789",
-    "Version": "3.0.3"
   }
 }
