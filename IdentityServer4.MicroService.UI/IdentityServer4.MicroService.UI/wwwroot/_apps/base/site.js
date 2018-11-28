@@ -95,8 +95,9 @@ iFrameResize({
                 appLoadingBarToggle('hide');
                 iframe.iFrameResizer.sendMessage(
                     {
-                        eventType: 'appLoaded_callback',
+                        eventType: 'app_loaded_callback',
                         user: window.user,
+                        sdkBasepath: oidc.settings._authority,
                         windowOuterHeight: window.outerHeight
                     });
                 break;
