@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\_apps\**" />
+    <Content Remove="wwwroot\_apps\**" />
+    <EmbeddedResource Remove="wwwroot\_apps\**" />
+    <None Remove="wwwroot\_apps\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="wwwroot\node_modules\identityserver4.microservice.start\dist\app.min.css" />
     <Content Include="wwwroot\node_modules\identityserver4.microservice.start\dist\vendor.min.css" />
     <Content Include="wwwroot\node_modules\identityserver4.microservice.start\fonts\roboto\LICENSE.txt" />
@@ -26,6 +33,14 @@
     <Content Include="wwwroot\node_modules\identityserver4.microservice.start\icons\material-icons\MaterialIcons-Regular.woff" />
     <Content Include="wwwroot\node_modules\identityserver4.microservice.start\index.html" />
     <Content Include="wwwroot\node_modules\identityserver4.microservice.start\package.json" />
+    <Content Include="wwwroot\_apps\base\package-lock.json" />
+    <Content Include="wwwroot\_apps\base\package.json" />
+    <Content Include="wwwroot\_apps\base\site.css" />
+    <Content Include="wwwroot\_apps\identityserver4.microservice.start\app.css" />
+    <Content Include="wwwroot\_apps\identityserver4.microservice.start\dashboard\dashboard.template.html" />
+    <Content Include="wwwroot\_apps\identityserver4.microservice.start\index.html" />
+    <Content Include="wwwroot\_apps\identityserver4.microservice.start\package-lock.json" />
+    <Content Include="wwwroot\_apps\identityserver4.microservice.start\package.json" />
   </ItemGroup>
 
 
@@ -55,6 +70,14 @@
     <None Include="wwwroot\node_modules\identityserver4.microservice.start\fonts\roboto\Roboto-ThinItalic.woff2" />
     <None Include="wwwroot\node_modules\identityserver4.microservice.start\icons\material-icons\MaterialIcons-Regular.ijmap" />
     <None Include="wwwroot\node_modules\identityserver4.microservice.start\icons\material-icons\MaterialIcons-Regular.woff2" />
+    <None Include="wwwroot\_apps\base\gulpfile.js" />
+    <None Include="wwwroot\_apps\base\oidc.init.js" />
+    <None Include="wwwroot\_apps\base\site.js" />
+    <None Include="wwwroot\_apps\identityserver4.microservice.start\app.js" />
+    <None Include="wwwroot\_apps\identityserver4.microservice.start\dashboard\dashboard.component.js" />
+    <None Include="wwwroot\_apps\identityserver4.microservice.start\gulpfile.js" />
+    <None Include="wwwroot\_apps\identityserver4.microservice.start\icons.js" />
+    <None Include="wwwroot\_apps\identityserver4.microservice.start\shared-directives\loading.directive.js" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties wwwroot_4package_1json__JSONSchema="" /></VisualStudio></ProjectExtensions>
