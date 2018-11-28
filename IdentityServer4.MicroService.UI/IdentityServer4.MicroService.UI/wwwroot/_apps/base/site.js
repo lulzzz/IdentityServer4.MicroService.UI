@@ -91,7 +91,7 @@ iFrameResize({
     {
         switch (event.message)
         {
-            case 'appLoaded':
+            case 'app_loaded':
                 appLoadingBarToggle('hide');
                 iframe.iFrameResizer.sendMessage(
                     {

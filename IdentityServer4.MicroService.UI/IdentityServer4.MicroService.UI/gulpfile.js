@@ -43,23 +43,6 @@ gulp.task("app.build", app(
     babel
 ));
 
-// identityserver APP
-var identityserver = require('./wwwroot/_apps/identityserver4.microservice.ui/gulpfile.js');
-
-gulp.task("identityserver.build", identityserver(
-    gulp,
-    concat,
-    templateCache,
-    useref,
-    bom,
-    uglify,
-    clean,
-    sequence,
-    jeditor,
-    babel
-));
-
-
 // start APP
 var start = require('./wwwroot/_apps/identityserver4.microservice.start/gulpfile.js');
 

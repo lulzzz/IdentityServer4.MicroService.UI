@@ -4,12 +4,5 @@
   "description": "",
   "author": "seven1986",
   "license": "ISC",
-  "dependencies": {
-    "aaaa-furusawa": "^1.0.1",
-    "ccccccccc": "0.0.1",
-    "identityserver4.microservice.cli": "^1.0.0",
-    "identityserver4.microservice.start": "^1.0.4",
-    "identityserver4.microservice.ui": "^1.0.25",
-    "jquery-ui": "^1.12.1"
-  }
+  "dependencies": {}
 }
