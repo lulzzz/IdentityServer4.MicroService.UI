@@ -9,19 +9,28 @@
   <ItemGroup>
     <Compile Remove="wwwroot\node_modules\**" />
     <Compile Remove="wwwroot\_apps\base\node_modules\**" />
+    <Compile Remove="wwwroot\_apps\demo\**" />
+    <Compile Remove="wwwroot\_apps\identityserver4.microservice.start\**" />
+    <Compile Remove="wwwroot\_apps\identityserver4.microservice.ui\**" />
     <Content Remove="wwwroot\node_modules\**" />
     <Content Remove="wwwroot\_apps\base\node_modules\**" />
+    <Content Remove="wwwroot\_apps\demo\**" />
+    <Content Remove="wwwroot\_apps\identityserver4.microservice.start\**" />
+    <Content Remove="wwwroot\_apps\identityserver4.microservice.ui\**" />
     <EmbeddedResource Remove="wwwroot\node_modules\**" />
     <EmbeddedResource Remove="wwwroot\_apps\base\node_modules\**" />
+    <EmbeddedResource Remove="wwwroot\_apps\demo\**" />
+    <EmbeddedResource Remove="wwwroot\_apps\identityserver4.microservice.start\**" />
+    <EmbeddedResource Remove="wwwroot\_apps\identityserver4.microservice.ui\**" />
     <None Remove="wwwroot\node_modules\**" />
     <None Remove="wwwroot\_apps\base\node_modules\**" />
+    <None Remove="wwwroot\_apps\demo\**" />
+    <None Remove="wwwroot\_apps\identityserver4.microservice.start\**" />
+    <None Remove="wwwroot\_apps\identityserver4.microservice.ui\**" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Remove="wwwroot\%2a%2a" />
-    <Content Remove="wwwroot\_apps\identityserver4.microservice.start\shared-directives\loading.directive.js" />
-    <Content Remove="wwwroot\_apps\identityserver4.microservice.ui\apiresource-sdkgen\apiresource-sdkgen.component.js" />
-    <Content Remove="wwwroot\_apps\identityserver4.microservice.start\dashboard\dashboard.component.js" />
   </ItemGroup>
 
   <ItemGroup>
@@ -93,45 +102,11 @@
     <Content Include="wwwroot\silent_callback.html" />
     <Content Include="wwwroot\start.html" />
     <Content Include="wwwroot\_apps\base\gulpfile.js" />
-    <Content Include="wwwroot\_apps\identityserver4.microservice.start\app.css" />
-    <Content Include="wwwroot\_apps\identityserver4.microservice.start\app.js" />
-    <Content Include="wwwroot\_apps\identityserver4.microservice.start\dashboard\dashboard.template.html" />
-    <Content Include="wwwroot\_apps\identityserver4.microservice.start\gulpfile.js" />
-    <Content Include="wwwroot\_apps\identityserver4.microservice.start\icons.js" />
-    <Content Include="wwwroot\_apps\identityserver4.microservice.start\index.html" />
     <Content Include="wwwroot\_apps\base\oidc.init.js" />
     <Content Include="wwwroot\_apps\base\package-lock.json" />
     <Content Include="wwwroot\_apps\base\package.json" />
     <Content Include="wwwroot\_apps\base\site.css" />
     <Content Include="wwwroot\_apps\base\site.js" />
-    <Content Include="wwwroot\_apps\demo\app.css" />
-    <Content Include="wwwroot\_apps\demo\app.js" />
-    <Content Include="wwwroot\_apps\demo\gulpfile.config.js" />
-    <Content Include="wwwroot\_apps\demo\index.html" />
-    <Content Include="wwwroot\_apps\demo\package.json" />
-    <Content Include="wwwroot\_apps\demo\README.md" />
-    <Content Include="wwwroot\_apps\identityserver4.microservice.ui\apiresource-detail\apiresource-detail.template.html" />
-    <Content Include="wwwroot\_apps\identityserver4.microservice.ui\apiresource-gateway\apiresource-gateway.template.html" />
-    <Content Include="wwwroot\_apps\identityserver4.microservice.ui\apiresource-sdkgen\apiresource-sdkgen.template.html" />
-    <Content Include="wwwroot\_apps\identityserver4.microservice.ui\apiresources\apiresources.template.html" />
-    <Content Include="wwwroot\_apps\identityserver4.microservice.ui\app.css" />
-    <Content Include="wwwroot\_apps\identityserver4.microservice.ui\app.js" />
-    <Content Include="wwwroot\_apps\identityserver4.microservice.ui\client-detail\client-detail.template.html" />
-    <Content Include="wwwroot\_apps\identityserver4.microservice.ui\clients\clients.template.html" />
-    <Content Include="wwwroot\_apps\identityserver4.microservice.ui\dashboard\dashboard.template.html" />
-    <Content Include="wwwroot\_apps\identityserver4.microservice.ui\gulpfile.js" />
-    <Content Include="wwwroot\_apps\identityserver4.microservice.ui\identityresource-detail\identityresource-detail.template.html" />
-    <Content Include="wwwroot\_apps\identityserver4.microservice.ui\identityresources\identityresources.template.html" />
-    <Content Include="wwwroot\_apps\identityserver4.microservice.ui\images\null.png" />
-    <Content Include="wwwroot\_apps\identityserver4.microservice.ui\index.html" />
-    <Content Include="wwwroot\_apps\identityserver4.microservice.ui\package.json" />
-    <Content Include="wwwroot\_apps\identityserver4.microservice.ui\README.md" />
-    <Content Include="wwwroot\_apps\identityserver4.microservice.ui\shared-directives\pager.directive.html" />
-    <Content Include="wwwroot\_apps\identityserver4.microservice.ui\tenant-detail\tenant-detail.template.html" />
-    <Content Include="wwwroot\_apps\identityserver4.microservice.ui\tenants\tenants.template.html" />
-    <Content Include="wwwroot\_apps\identityserver4.microservice.ui\user-detail\user-detail.template.html" />
-    <Content Include="wwwroot\_apps\identityserver4.microservice.ui\users\users.template.html" />
-    <Content Include="wwwroot\_apps\identityserver4.microservice.start\package.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -159,25 +134,6 @@
     <Content Include="wwwroot\node_modules\identityserver4.microservice.ui\fonts\roboto\Roboto-ThinItalic.woff2" />
     <Content Include="wwwroot\node_modules\identityserver4.microservice.ui\icons\material-icons\MaterialIcons-Regular.ijmap" />
     <Content Include="wwwroot\node_modules\identityserver4.microservice.ui\icons\material-icons\MaterialIcons-Regular.woff2" />
-    <None Include="wwwroot\_apps\demo\phone-detail\phone-detail.component.js" />
-    <None Include="wwwroot\_apps\demo\phone-list\phone-list.component.js" />
-    <None Include="wwwroot\_apps\identityserver4.microservice.start\shared-directives\loading.directive.js" />
-    <None Include="wwwroot\_apps\identityserver4.microservice.ui\apiresource-detail\apiresource-detail.component.js" />
-    <None Include="wwwroot\_apps\identityserver4.microservice.ui\apiresource-gateway\apiresource-gateway.component.js" />
-    <None Include="wwwroot\_apps\identityserver4.microservice.ui\apiresource-sdkgen\apiresource-sdkgen.component.js" />
-    <None Include="wwwroot\_apps\identityserver4.microservice.ui\apiresources\apiresources.component.js" />
-    <None Include="wwwroot\_apps\identityserver4.microservice.ui\client-detail\client-detail.component.js" />
-    <None Include="wwwroot\_apps\identityserver4.microservice.ui\clients\clients.component.js" />
-    <None Include="wwwroot\_apps\identityserver4.microservice.ui\dashboard\dashboard.component.js" />
-    <None Include="wwwroot\_apps\identityserver4.microservice.ui\identityresource-detail\identityresource-detail.component.js" />
-    <None Include="wwwroot\_apps\identityserver4.microservice.ui\identityresources\identityresources.component.js" />
-    <None Include="wwwroot\_apps\identityserver4.microservice.ui\shared-directives\loading.directive.js" />
-    <None Include="wwwroot\_apps\identityserver4.microservice.ui\shared-directives\pager.directive.js" />
-    <None Include="wwwroot\_apps\identityserver4.microservice.ui\tenant-detail\tenant-detail.component.js" />
-    <None Include="wwwroot\_apps\identityserver4.microservice.ui\tenants\tenants.component.js" />
-    <None Include="wwwroot\_apps\identityserver4.microservice.ui\user-detail\user-detail.component.js" />
-    <None Include="wwwroot\_apps\identityserver4.microservice.ui\users\users.component.js" />
-    <None Include="wwwroot\_apps\identityserver4.microservice.start\dashboard\dashboard.component.js" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties wwwroot_4package_1json__JSONSchema="" /></VisualStudio></ProjectExtensions>
