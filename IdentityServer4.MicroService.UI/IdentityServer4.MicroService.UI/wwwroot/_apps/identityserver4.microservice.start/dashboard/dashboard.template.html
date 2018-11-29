@@ -108,11 +108,13 @@
                                         </div>
                                     </li>
                                     <li>
-                                        <h5>3，本地发开&调试</h5>
+                                        <h5>3，本地发开&嵌入平台调试</h5>
                                         <div class="alert alert-secondary">
                                             cd helloworld <code> //进入helloworld文件夹</code><br />
                                             npm install <code> //安装应用所需的npm包</code><br />
-                                            {{devUrl}}?dev=<code>{您的应用url}</code>
+                                            npm run start <code> //启动应用，默认网址http://127.0.0.1:8080</code><br />
+                                            嵌入平台调试：打开<a href="{{devUrl}}?dev=http://127.0.0.1:8080" target="_parent">{{devUrl}}?dev=http://127.0.0.1:8080</a>
+                                            <code>{http://127.0.01:8080是您的应用url}</code>
                                         </div>
                                     </li>
                                     <li>
