@@ -1,7 +1,8 @@
 ﻿var _authority = localStorage.getItem("oidc_authority");
 var _client_id = localStorage.getItem("oidc_client_id");
+var _scopes = localStorage.getItem("oidc_scope");
 
-if ((_authority == null || _client_id == null) && location.pathname !='/start.html')
+if ((_authority == null || _client_id == null || _scopes == null) && location.pathname != '/start.html')
 {
     location.href = '/start.html';
 }
@@ -17,7 +18,7 @@ else {
         redirect_uri: siteurl + '/callback.html',
         post_logout_redirect_uri: siteurl + '/logout.html',
         response_type: 'id_token token',
-        scope: 'openid profile ids4.ms.all',
+        scope: _scopes,
         silent_redirect_uri: siteurl + '/silent_callback.html',
         automaticSilentRenew: true,
         //silentRequestTimeout:10000,
