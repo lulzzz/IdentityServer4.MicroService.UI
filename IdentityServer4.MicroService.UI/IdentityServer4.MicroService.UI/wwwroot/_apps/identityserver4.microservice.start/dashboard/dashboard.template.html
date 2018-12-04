@@ -102,31 +102,40 @@
                                         </div>
                                     </li>
                                     <li>
-                                        <h5>2，创建应用</h5>
+                                        <h5>2，创建应用&初始化</h5>
                                         <div class="alert alert-secondary">
-                                            ids4ms newapp helloworld <code> //使用脚手架创建1个应用，helloworld名字可以改为自定义名称</code>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <h5>3，本地发开&嵌入平台调试</h5>
-                                        <div class="alert alert-secondary">
+                                            ids4ms newapp helloworld <code> //helloworld名字可自定义</code><br />
                                             cd helloworld <code> //进入helloworld文件夹</code><br />
                                             npm install <code> //安装应用所需的npm包</code><br />
-                                            npm run start <code> //启动应用，默认网址http://127.0.0.1:8080</code><br />
-                                            嵌入平台调试：打开<a href="{{devUrl}}?dev=http://127.0.0.1:8080" target="_parent">{{devUrl}}?dev=http://127.0.0.1:8080</a>
-                                            <code>{http://127.0.01:8080是您的应用url}</code>
                                         </div>
                                     </li>
                                     <li>
-                                        <h5>4，打包应用</h5>
+                                        <h5>3，启动应用</h5>
                                         <div class="alert alert-secondary">
-                                            gulp build <code> //打包应用，打包后的目录为build文件夹</code>
+                                            双击运行 start.bat <code> //或 npm run start</code><br />
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <h5>4，嵌入到平台</h5>
+                                        <div class="alert alert-secondary">
+                                            访问 <a href="{{devUrl}}?dev=http://127.0.0.1:8080/src" target="_parent">{{devUrl}}?dev=http://127.0.0.1:8080/src</a><br />
+                                            <code>// {http://127.0.01:8080是您的应用url}</code>
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <h5>5，打包应用</h5>
+                                        <div class="alert alert-secondary">
+                                            双击运行 build.bat <code> //或 npm run build</code>
                                         </div>
                                     </li>
                                     <li>
-                                        <h5>5，发布应用</h5>
+                                        <h5>6，发布应用</h5>
                                         <div class="alert alert-secondary">
-                                            cd build  <code> //进入build文件夹</code><br />
+                                            <code>
+                                                //进入build文件夹，并打开package.json文件，依次设置name、version、description
+                                            </code><br />
                                             npm publish <code> //发布包到npm平台</code>
                                         </div>
                                     </li>

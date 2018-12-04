@@ -203,28 +203,37 @@ namespace IdentityServer4.MicroService.UI.Controllers
         [ResponseCache(Duration = 10, VaryByQueryKeys = new string[1] { "packageName" })]
         public JsonResult AppVersions(string packageName)
         {
-            var cb = CommandBuilder();
+            var result = string.Empty;
 
-            cb.AppendLine($"npm view {packageName} versions");
-
-            var result = ExeCommand(cb.ToString());
-
-            result = result.Substring(result.LastIndexOf('['));
-
-            result = result.Substring(0, result.LastIndexOf(']') + 1);
-
-            result = result.Replace("[", "").Replace("]", "");
-
-            var versions = result.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
-
-            for (var i = 0; i < versions.Length; i++)
+            try
             {
-                versions[i] = versions[i].Replace("'", "").Trim();
+               var cb = CommandBuilder();
+
+                cb.AppendLine($"npm view {packageName} versions");
+
+                result = ExeCommand(cb.ToString());
+
+                result = result.Substring(result.LastIndexOf('['));
+
+                result = result.Substring(0, result.LastIndexOf(']') + 1);
+
+                result = result.Replace("[", "").Replace("]", "");
+
+                var versions = result.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+
+                for (var i = 0; i < versions.Length; i++)
+                {
+                    versions[i] = versions[i].Replace("'", "").Trim();
+                }
+
+                Array.Reverse(versions);
+
+                return new JsonResult(new { code = 200, msg = versions });
             }
-
-            Array.Reverse(versions);
-
-            return new JsonResult(new { code = 200, msg = versions });
+            catch (Exception ex)
+            {
+                return new JsonResult(new { code = 500, msg = result + ex.Message });
+            }
         }
 
         [HttpGet]
