@@ -1,18 +1,21 @@
 ﻿// Write your JavaScript code.
 if (window.oidc) {
+
     oidc.getUser().then(user => {
-        if (user == null) {
+        window.user = user;
+
+        if (user == null)
+        {
             location.href = '/login.html';
         }
         else {
-            window.user = user;
-            window.startSignoutMainWindow = () =>
-            {
-                oidc.signoutRedirect().then(resp =>
-                {
-                    console.log("signed out", resp);
-                }).catch(err => console.error(err));
-            };
+
+            var tokenInfo = jwt_decode(user.access_token);
+
+            document.title = tokenInfo.client_tenant.name + ' - ' + document.title;
+
+            $('.mdui-typo-headline').text(tokenInfo.client_tenant.name);
+
             oidc.events.addAccessTokenExpiring(() => {
                 alert("token expiring");
                 // 加入UI提示
@@ -43,8 +46,18 @@ if (window.oidc) {
         }
 
     }).catch(err => {
-        location.href = '/login.html';
+        console.error(err);
+        //location.href = '/login.html';
     });
+}
+
+
+function startSignoutMainWindow()
+{
+    oidc.signoutRedirect().then(resp =>
+    {
+        console.log("signed out", resp);
+    }).catch(err => console.error(err));
 }
 
 var leftdrawer = new mdui.Drawer('#leftDrawer');
@@ -97,8 +110,8 @@ iFrameResize({
                     {
                         eventType: 'app_loaded_callback',
                         user: window.user,
-                        sdkBasepath: oidc.settings._authority,
-                        windowOuterHeight: window.outerHeight
+                        //sdkBasepath: oidc.settings._authority,
+                        //windowOuterHeight: window.outerHeight
                     });
                 break;
         }

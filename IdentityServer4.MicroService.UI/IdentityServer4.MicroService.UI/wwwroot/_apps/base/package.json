@@ -5,9 +5,10 @@
   "description": "base",
   "author": "wangzhen",
   "dependencies": {
+    "iframe-resizer": "^3.6.0",
     "jquery": "^3.3.1",
+    "jwt-decode": "^2.2.0",
     "mdui": "^0.4.1",
-    "oidc-client": "^1.4.1",
-    "iframe-resizer": "^3.6.0"
+    "oidc-client": "^1.6.0"
   }
 }

@@ -22,6 +22,7 @@
         devPath + "/node_modules/mdui/dist/js/mdui.min.js",
         devPath + "/node_modules/iframe-resizer/js/iframeResizer.min.js",
         devPath + "/node_modules/oidc-client/dist/oidc-client.min.js",
+        devPath + "/node_modules/jwt-decode/build/jwt-decode.min.js",
         devPath + "/oidc.init.js",
     ])
         .pipe(concat('vendor.min.js'))
